@@ -8,15 +8,15 @@ on:
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
-
+    name: Build and deploy
+    runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+    
+    - name: Setup MSBuild path
+      uses: microsoft/setup-msbuild@v1.0.1
       with:
-        dotnet-version: 4.8.x
+        vs-version: "[16.4,16.9)"
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
