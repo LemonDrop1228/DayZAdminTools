@@ -1,0 +1,196 @@
+﻿<views:BaseView x:Class="DayZTediratorToolz.Views.AdminPanel.AdminPanelView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:views="clr-namespace:DayZTediratorToolz.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:tz="http://schemas.abtsoftware.co.uk/transitionz"  
+             tz:Transitionz.Opacity="{tz:OpacityParams From=0, To=1, Duration=200, TransitionOn=Loaded}"
+             tz:Transitionz.Translate="{tz:TranslateParams From='10,0', To='0,0', Duration=200, TransitionOn=Loaded}"
+             mc:Ignorable="d"
+             d:DesignHeight="575" d:DesignWidth="850" Background="{x:Null}" Loaded="AdminPanelView_OnLoaded">
+    <materialDesign:Card Background="#FF3A4755" Padding="3">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.075*"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            
+            <TextBlock TextAlignment="Left" VerticalAlignment="Top" Margin="10 0"
+                       Text="{DynamicResource AdminMsgTitle}" 
+                       FontSize="32" FontWeight="DemiBold"/>
+            
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="150"/>
+                        <RowDefinition />
+                        <RowDefinition Height="0.2*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <GroupBox
+                        materialDesign:ThemeAssist.Theme="Dark"
+                        Header="Card Group Box"
+                        Style="{DynamicResource MaterialDesignCardGroupBox}"
+                        Margin="16">
+                        <GroupBox.HeaderTemplate>
+                            <DataTemplate>
+                                <StackPanel
+                                    Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Kind="Server"
+                                        Height="28"
+                                        Width="28"
+                                        VerticalAlignment="Center" />
+                                    <TextBlock
+                                        Margin="8,0,0,0"
+                                        VerticalAlignment="Center"
+                                        FontWeight="DemiBold" FontSize="22"
+                                        Text="Server Info" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </GroupBox.HeaderTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="0.2*"/>
+                                <ColumnDefinition Width="0.3*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <StackPanel Orientation="Horizontal" Grid.Column="0">
+                                <TextBox Margin="-1" MinWidth="200"
+                                    materialDesign:HintAssist.Hint="SERVER IP"
+                                    materialDesign:TextFieldAssist.TextBoxViewMargin="2"
+                                    materialDesign:HintAssist.FloatingScale="0.75"
+                                    materialDesign:HintAssist.Foreground="Azure"
+                                    Text="{Binding Path=IpDisplayValue}"
+                                    Style="{StaticResource MaterialDesignFilledTextBox}"
+                                    FontSize="16" IsReadOnly="True"/>
+                                <TextBox Margin="-1" 
+                                         materialDesign:HintAssist.Hint="SERVER PORT"
+                                         materialDesign:TextFieldAssist.TextBoxViewMargin="2"
+                                         materialDesign:HintAssist.FloatingScale="0.75"
+                                         materialDesign:HintAssist.Foreground="Azure"
+                                         Text="{Binding Path=PortDisplayValue}"
+                                         Style="{StaticResource MaterialDesignFilledTextBox}"
+                                         FontSize="16" IsReadOnly="True"/>
+                                <Button
+                                    Style="{StaticResource MaterialDesignFloatingActionMiniButton}" VerticalAlignment="Top"
+                                    HorizontalAlignment="Left" Margin="-15 0 0 0" Height="26" Width="26" Click="CopyIpPortClicked"
+                                    ToolTip="Copy IP:PORT TO THE CLIPBOARD">
+                                    <materialDesign:PackIcon
+                                        Kind="ClipboardOutline"
+                                        Height="16"
+                                        Width="16" />
+                                </Button>
+                            </StackPanel>
+                            
+                            <TextBox Margin="-1" Grid.Column="2"
+                                     materialDesign:HintAssist.Hint="SERVER PING"
+                                     materialDesign:TextFieldAssist.TextBoxViewMargin="2"
+                                     materialDesign:HintAssist.FloatingScale="0.75"
+                                     materialDesign:HintAssist.Foreground="Azure"
+                                     Text="{Binding Path=GameInfo.Ping}"
+                                     Style="{StaticResource MaterialDesignFilledTextBox}"
+                                     FontSize="16" IsReadOnly="True"/>
+                        </Grid>
+                    </GroupBox>
+                    
+                    <GroupBox Grid.Row="1"
+                        materialDesign:ThemeAssist.Theme="Dark"
+                        Header="Card Group Box"
+                        Style="{DynamicResource MaterialDesignCardGroupBox}"
+                        Margin="16">
+                        <GroupBox.HeaderTemplate>
+                            <DataTemplate>
+                                <StackPanel
+                                    Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Kind="ControllerClassic"
+                                        Height="28"
+                                        Width="28"
+                                        VerticalAlignment="Center" />
+                                    <TextBlock
+                                        Margin="8,0,0,0"
+                                        VerticalAlignment="Center"
+                                        FontWeight="DemiBold" FontSize="22"
+                                        Text="Game Info" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </GroupBox.HeaderTemplate>
+                        
+                        <StackPanel Orientation="Vertical">
+                            <TextBox Margin="2" Grid.Column="2"
+                                     materialDesign:HintAssist.Hint="NAME"
+                                     materialDesign:TextFieldAssist.TextBoxViewMargin="2"
+                                     materialDesign:HintAssist.FloatingScale="0.75"
+                                     materialDesign:HintAssist.Foreground="Azure"
+                                     Text="{Binding Path=GameInfo.ServerName}"
+                                     Style="{StaticResource MaterialDesignFilledTextBox}"
+                                     FontSize="16" IsReadOnly="True"/>
+                            <TextBox Margin="2" Grid.Column="2"
+                                     materialDesign:HintAssist.Hint="MAP"
+                                     materialDesign:TextFieldAssist.TextBoxViewMargin="2"
+                                     materialDesign:HintAssist.FloatingScale="0.75"
+                                     materialDesign:HintAssist.Foreground="Azure"
+                                     Text="{Binding Path=GameInfo.MapName}"
+                                     Style="{StaticResource MaterialDesignFilledTextBox}"
+                                     FontSize="16" IsReadOnly="True"/>
+                            <TextBox Margin="2" Grid.Column="2"
+                                     materialDesign:HintAssist.Hint="PLAYER COUNT"
+                                     materialDesign:TextFieldAssist.TextBoxViewMargin="2"
+                                     materialDesign:HintAssist.FloatingScale="0.75"
+                                     materialDesign:HintAssist.Foreground="Azure"
+                                     Text="{Binding Path=GameInfo.PlayerRatio}"
+                                     Style="{StaticResource MaterialDesignFilledTextBox}"
+                                     FontSize="16" IsReadOnly="True"/>
+                            <TextBox Margin="2" Grid.Column="2"
+                                     materialDesign:HintAssist.Hint="GAME VERSION"
+                                     materialDesign:TextFieldAssist.TextBoxViewMargin="2"
+                                     materialDesign:HintAssist.FloatingScale="0.75"
+                                     materialDesign:HintAssist.Foreground="Azure"
+                                     Text="{Binding Path=GameInfo.Version}"
+                                     Style="{StaticResource MaterialDesignFilledTextBox}"
+                                     FontSize="16" IsReadOnly="True"/>
+                            <TextBox Margin="2" Grid.Column="2"
+                                     materialDesign:HintAssist.Hint="KEYWORDS"
+                                     materialDesign:TextFieldAssist.TextBoxViewMargin="2"
+                                     materialDesign:HintAssist.FloatingScale="0.75"
+                                     materialDesign:HintAssist.Foreground="Azure"
+                                     Text="{Binding Path=GameInfo.Keywords}"
+                                     Style="{StaticResource MaterialDesignFilledTextBox}"
+                                     FontSize="16" IsReadOnly="True"/>
+                        </StackPanel>
+                    </GroupBox>
+                    
+                    <Button Grid.Row="1" Margin="-14 -14 0 0"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                        HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                        ToolTip="Refresh Server Info" Click="RefreshServerInfo">
+                        <materialDesign:PackIcon
+                            Kind="RefreshCircle"
+                            Height="32"
+                            Width="32" />
+                    </Button>
+                    
+                    <Button Grid.Row="2" Margin="32" Click="LaunchGame">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon 
+                                Kind="Launch" Margin="0 0 5 0"
+                                Height="24" Width="24"/>
+                            <TextBlock Text="Launch DayZ to this server" TextAlignment="Center" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </Grid>
+        </Grid>
+        
+        
+    </materialDesign:Card>
+</views:BaseView>

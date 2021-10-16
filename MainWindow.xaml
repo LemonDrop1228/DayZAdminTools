@@ -1,0 +1,201 @@
+﻿<Window x:Class="DayZTediratorToolz.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:st="http://schemas.spicytaco.io/"
+        xmlns:notifications="clr-namespace:Notification.Wpf.Controls;assembly=Notification.Wpf"
+        xmlns:local="clr-namespace:DayZTediratorToolz"
+        mc:Ignorable="d"
+        Title="Tedirator v2" Height="1060" Width="1900" MinHeight="540" MinWidth="960" 
+        WindowStartupLocation="CenterScreen" 
+        WindowStyle="None" AllowsTransparency="True" 
+        Icon="Images/ted_logo.png" Background="#FF424242" Foreground="Gainsboro" Loaded="MainWindow_OnLoaded">
+        
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0" ResizeBorderThickness="10"/>
+    </WindowChrome.WindowChrome>
+    
+    <Border Padding="5">
+        <Grid>
+            <Image x:Name="BGImage" Source="Images/app_bg.png" Grid.Row="0" Grid.RowSpan="2" Stretch="UniformToFill" Opacity="0.35" />
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.1*" MinHeight="60" MaxHeight="60"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <materialDesign:Card x:Name="TitleCard" Padding="3" Margin="7" Background="#FF2E5A85" MouseLeftButtonDown="TitleCard_OnMouseLeftButtonDown">
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Image x:Name="IconImage" Source="Images/ted_logo.png" HorizontalAlignment="Left" MouseLeftButtonDown="IconImage_OnMouseLeftButtonDown"/>
+
+                        <Label Grid.Column="1" Padding="0" FontSize="18"
+                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                   VerticalAlignment="Center" VerticalContentAlignment="Center"
+                                   Content="{DynamicResource AppTitle}" Foreground="#DDFFFFFF"/>
+
+                        <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 3">
+                            <Button x:Name="SettingsButton" 
+                                    Margin="6 0" 
+                                    Click="SettingsButton_OnClick"
+                                    Content="{materialDesign:PackIcon SettingsOutline}"/>
+                            <Button x:Name="MinimizeButton" 
+                                    Margin="6 0" 
+                                    Click="MinimizeButton_OnClick"
+                                    Style="{StaticResource MaterialDesignRaisedLightButton}"
+                                    Content="{materialDesign:PackIcon WindowMinimize}"/>
+                            <Button x:Name="MaximizeButton" 
+                                    Margin="6 0" 
+                                    Click="MaximizeButton_OnClick"
+                                    Style="{StaticResource MaterialDesignRaisedLightButton}"
+                                    Content="{materialDesign:PackIcon WindowMaximize}"/>
+                            <Button x:Name="CloseButton" 
+                                    Margin="6 0" 
+                                    Click="CloseButton_OnClick" 
+                                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                    Content="{materialDesign:PackIcon WindowClose}"/>
+                        </StackPanel>
+                    </Grid>
+                </materialDesign:Card>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MinWidth="250" MaxWidth="250"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <materialDesign:Card Margin="7" Background="#FF3A4755">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition MinHeight="100" MaxHeight="100"/>
+                            </Grid.RowDefinitions>
+                            
+                            <st:StackPanel Orientation="Vertical" Margin="0 5" Fill="Fill">
+                                <Button HorizontalContentAlignment="Stretch" Margin="5" Padding="1 3"
+                                    Style="{StaticResource MaterialDesignFlatButton}" Click="NavClickedAdminButton">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                        <materialDesign:PackIcon Kind="DesktopTower" Height="24" Width="24"/>
+                                        <TextBlock Text="{DynamicResource NavTextAdminPanelButton}" VerticalAlignment="Center" FontSize="16"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button HorizontalContentAlignment="Stretch" Margin="5" Padding="1 3"
+                                        Style="{StaticResource MaterialDesignFlatButton}" Click="NavClickedTypesEditorButton">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                        <materialDesign:PackIcon Kind="FoodApple" Height="24" Width="24"/>
+                                        <TextBlock Text="{DynamicResource NavTextTypesConfigButton}" VerticalAlignment="Center" FontSize="16"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button HorizontalContentAlignment="Stretch" Margin="5" Padding="1 3"
+                                        Style="{StaticResource MaterialDesignFlatButton}">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                        <materialDesign:PackIcon Kind="AttachMoney" Height="24" Width="24"/>
+                                        <TextBlock Text="{DynamicResource NavTextTraderGeneratorButton}" VerticalAlignment="Center" FontSize="16"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button HorizontalContentAlignment="Stretch" Margin="5" Padding="1 3"
+                                        Style="{StaticResource MaterialDesignFlatButton}">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                        <materialDesign:PackIcon Kind="Cogs" Height="24" Width="24"/>
+                                        <TextBlock Text="{DynamicResource NavTextSpawnablesGeneratorButton}" VerticalAlignment="Center" FontSize="16"/>
+                                    </StackPanel>
+                                </Button>
+                                
+                                    <Button HorizontalContentAlignment="Stretch" Margin="5" Padding="1 3"
+                                            Style="{StaticResource MaterialDesignFlatButton}">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                            <materialDesign:PackIcon Kind="Injection" Height="24" Width="24"/>
+                                            <TextBlock Text="{DynamicResource NavTextAdvGrpsModToolsButton}" VerticalAlignment="Center" FontSize="16"/>
+                                        </StackPanel>
+                                    </Button>
+                                
+                                    <Button HorizontalContentAlignment="Stretch" Width="Auto" Margin="5" Padding="1 3"
+                                            Style="{StaticResource MaterialDesignFlatButton}">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                            <materialDesign:PackIcon Kind="Injection" Height="24" Width="24"/>
+                                            <TextBlock Text="{DynamicResource NavTextCJ187ModToolsButton}" VerticalAlignment="Center" FontSize="16"/>
+                                        </StackPanel>
+                                    </Button>
+                                
+                                    <Button HorizontalContentAlignment="Stretch" Margin="5" Padding="1 3"
+                                            Style="{StaticResource MaterialDesignFlatButton}">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                            <materialDesign:PackIcon Kind="Injection" Height="24" Width="24"/>
+                                            <TextBlock Text="{DynamicResource NavTextPVEZModToolsButton}" VerticalAlignment="Center" FontSize="16"/>
+                                        </StackPanel>
+                                    </Button>
+                                
+                                    <Button HorizontalContentAlignment="Stretch" Margin="5" Padding="1 3"
+                                            Style="{StaticResource MaterialDesignFlatButton}">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                                                <materialDesign:PackIcon Kind="Injection" Height="24" Width="24"/>
+                                                <TextBlock HorizontalAlignment="Stretch"
+                                                    Text="{DynamicResource NavTextDabsModToolsButton}" 
+                                                    VerticalAlignment="Center" FontSize="16"/>
+                                            </StackPanel>
+                                    </Button>
+                                
+                                
+                            </st:StackPanel>
+                            
+                            
+                            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                                <Button  
+                                    Height="32"
+                                    Width="32" Margin="5 25"
+                                        Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                                        ToolTip="Tedirator Project">
+                                    <materialDesign:PackIcon
+                                        Kind="Github"
+                                        Height="20"
+                                        Width="20" />
+                                </Button>
+                                <Button 
+                                    Height="32"
+                                    Width="32"  Margin="5 25"
+                                          Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                                          ToolTip="Join the Discord">
+                                    <materialDesign:PackIcon
+                                        Kind="Discord"
+                                        Height="16"
+                                        Width="16" />
+                                </Button>
+                                <Button  
+                                    Height="32"
+                                    Width="32" Margin="5 25"
+                                          Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                                          ToolTip="Support this project">
+                                    <materialDesign:PackIcon
+                                        Kind="Patreon"
+                                        Height="16"
+                                        Width="16" />
+                                </Button>
+                                <Button 
+                                    Height="32"
+                                    Width="32" 
+                                    Margin="5 25"
+                                    Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                                    ToolTip="Buy me a coffee">
+                                    <materialDesign:PackIcon
+                                        Kind="Coffee"
+                                        Height="16"
+                                        Width="16" />
+                                </Button>
+                            </StackPanel>
+                            
+                        </Grid>
+                    </materialDesign:Card>
+                    
+                    <materialDesign:Card x:Name="HostCard" Grid.Column="1" Content="{Binding Path=ActiveView}" Margin="7" Background="{x:Null}" Padding="1"/>
+                </Grid>
+            </Grid>
+            
+        </Grid>
+    </Border>
+    
+</Window>

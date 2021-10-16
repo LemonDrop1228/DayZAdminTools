@@ -1,0 +1,41 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    
+    
+    <system:String x:Key="AppTitle">Tedirator Toolz</system:String>
+    
+    <!-- Navigation Buttons -->
+    <system:String x:Key="NavTextAdminPanelButton">Admin Panel</system:String>
+    <system:String x:Key="NavTextTypesConfigButton">Types Editor</system:String>
+    <system:String x:Key="NavTextTraderGeneratorButton">Trader Generator</system:String>
+    <system:String x:Key="NavTextTraderPlusGeneratorButton">TraderPlus Generator</system:String>
+    <system:String x:Key="NavTextSpawnablesGeneratorButton">Spawnables Generator</system:String>
+    <system:String x:Key="NavTextAdvGrpsModToolsButton">Adv Groups ModTools</system:String>
+    <system:String x:Key="NavTextCJ187ModToolsButton">CJ187 ModTools</system:String>
+    <system:String x:Key="NavTextPVEZModToolsButton">PVEZ ModTools</system:String>
+    <system:String x:Key="NavTextDabsModToolsButton">DABs ModTools</system:String>
+    <system:String x:Key="NavTextGithubButton">Tedirator Project</system:String>
+    
+    <!-- HomeView Message -->    
+    <system:String x:Key="HomeMsgTitle">DayZ Tedirator Toolz</system:String>
+    
+    <system:String x:Key="HomeMsgHeader1">Description</system:String>
+    <system:String x:Key="HomeMsgBody1">This app was made out of frustration born from administrating a DayZ Server with 50+ mods. The app was originally planned as a simple tool for myself and the other server admins, but I quickly realized how much the community would benefit from such a tool. Thus Tedirator Toolz was born. The app should serve as a toolbox for starting, maintaining, and growing your servers DayZ experience. </system:String>
+    
+    <system:String x:Key="HomeMsgHeader2">Road Map</system:String>
+    <system:String x:Key="HomeMsgBody2">Road Map Body</system:String>
+    
+    <system:String x:Key="HomeMsgHeader3">Change Log</system:String>
+    <system:String x:Key="HomeMsgBody3">Change Log Body</system:String>
+    
+    <system:String x:Key="HomeMsgHeader4">Contact Info</system:String>
+    <system:String x:Key="HomeMsgBody4">Contact Info Body</system:String>
+    
+    <!-- AdminView Strings -->
+    <system:String x:Key="AdminMsgTitle">Admin Panel</system:String>
+    
+    <!-- TypesEditorView Strings -->
+    <system:String x:Key="TypesEditorTitle">Types Editor</system:String>
+
+</ResourceDictionary>
