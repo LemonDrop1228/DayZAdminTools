@@ -1,8 +1,10 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using DayZTediratorToolz.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Configuration;
+using System.IO;
 using System.Windows.Documents;
 using DayZTediratorToolz.Views;
 using DayZTediratorToolz.Views.AdminPanel;
@@ -17,6 +19,7 @@ namespace DayZTediratorToolz
     {
 
         private readonly IHost host;
+        private const string configPath = "AppConfiguration.json";
 
         public App()
         {
@@ -26,7 +29,20 @@ namespace DayZTediratorToolz
             host = new HostBuilder()
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddSingleton<IAppSettingsManager>(provider => new AppSettingsManager(ConfigurationManager.AppSettings));
+                    var appConfigData = string.Empty;
+                    try
+                    {
+                        appConfigData = File.ReadAllText(configPath);
+                    }
+                    catch (Exception e)
+                    {
+                        throw;
+                    }
+                    
+                    services.AddSingleton<IAppSettingsManager>(provider =>
+                    {
+                        return new AppSettingsManager(appConfigData);
+                    });
                     services.AddSingleton<IServerInspectionService>(provider => new ServerInspectionService());
                     services.AddSingleton<IControllerService>(provider => new ControllerService());
                     services.AddSingleton<ITypesConvertorService>(provider => new TypesConvertorService());

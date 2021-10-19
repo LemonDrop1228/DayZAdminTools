@@ -6,6 +6,9 @@
              xmlns:views="clr-namespace:DayZTediratorToolz.Views"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:tz="http://schemas.abtsoftware.co.uk/transitionz"  
+             xmlns:st="http://schemas.spicytaco.io/"
+             xmlns:customControls="clr-namespace:DayZTediratorToolz.Helpers.CustomControls"
+             xmlns:local="clr-namespace:DayZTediratorToolz.Views.AdminPanel"
              tz:Transitionz.Opacity="{tz:OpacityParams From=0, To=1, Duration=200, TransitionOn=Loaded}"
              tz:Transitionz.Translate="{tz:TranslateParams From='10,0', To='0,0', Duration=200, TransitionOn=Loaded}"
              mc:Ignorable="d"
@@ -131,7 +134,7 @@
                                      materialDesign:TextFieldAssist.TextBoxViewMargin="2"
                                      materialDesign:HintAssist.FloatingScale="0.75"
                                      materialDesign:HintAssist.Foreground="Azure"
-                                     Text="{Binding Path=GameInfo.ServerName}"
+                                     Text="{Binding Path=GameInfo.Name}"
                                      Style="{StaticResource MaterialDesignFilledTextBox}"
                                      FontSize="16" IsReadOnly="True"/>
                             <TextBox Margin="2" Grid.Column="2"
@@ -139,7 +142,7 @@
                                      materialDesign:TextFieldAssist.TextBoxViewMargin="2"
                                      materialDesign:HintAssist.FloatingScale="0.75"
                                      materialDesign:HintAssist.Foreground="Azure"
-                                     Text="{Binding Path=GameInfo.MapName}"
+                                     Text="{Binding Path=GameInfo.Map}"
                                      Style="{StaticResource MaterialDesignFilledTextBox}"
                                      FontSize="16" IsReadOnly="True"/>
                             <TextBox Margin="2" Grid.Column="2"
@@ -147,7 +150,7 @@
                                      materialDesign:TextFieldAssist.TextBoxViewMargin="2"
                                      materialDesign:HintAssist.FloatingScale="0.75"
                                      materialDesign:HintAssist.Foreground="Azure"
-                                     Text="{Binding Path=GameInfo.PlayerRatio}"
+                                     Text="{Binding Path=PlayerRatio}"
                                      Style="{StaticResource MaterialDesignFilledTextBox}"
                                      FontSize="16" IsReadOnly="True"/>
                             <TextBox Margin="2" Grid.Column="2"
@@ -159,13 +162,34 @@
                                      Style="{StaticResource MaterialDesignFilledTextBox}"
                                      FontSize="16" IsReadOnly="True"/>
                             <TextBox Margin="2" Grid.Column="2"
-                                     materialDesign:HintAssist.Hint="KEYWORDS"
+                                     materialDesign:HintAssist.Hint="TIME"
                                      materialDesign:TextFieldAssist.TextBoxViewMargin="2"
                                      materialDesign:HintAssist.FloatingScale="0.75"
                                      materialDesign:HintAssist.Foreground="Azure"
-                                     Text="{Binding Path=GameInfo.Keywords}"
+                                     Text="{Binding Path=GameInfo.Time}"
                                      Style="{StaticResource MaterialDesignFilledTextBox}"
                                      FontSize="16" IsReadOnly="True"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <customControls:ReadOnlyCheckBox IsChecked="{Binding GameInfo.BattlEye}" 
+                                                                 ToolTip="Is BattlEye Enabled?"
+                                                                 Style="{StaticResource MaterialDesignCheckBox}">
+                                    <Grid>
+                                        <materialDesign:PackIcon Kind="Shield" Width="34" Height="34" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                        <materialDesign:PackIcon Kind="Eye" Width="21" Height="21" Foreground="Goldenrod" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                </customControls:ReadOnlyCheckBox>
+                                <Label Content="BattlEye" VerticalAlignment="Center"/>
+                                <Label Content="|" Margin="15 3" FontSize="21"/>
+                                <customControls:ReadOnlyCheckBox IsChecked="{Binding GameInfo.FirstPersonOnly}"
+                                                                 ToolTip="Is First Person Only?"
+                                                                 Style="{StaticResource MaterialDesignCheckBox}">
+                                    <Grid>
+                                        <materialDesign:PackIcon Kind="Videocam" Width="34" Height="34" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                        <materialDesign:PackIcon Kind="Walking" Width="21" Height="21" Foreground="ForestGreen" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                </customControls:ReadOnlyCheckBox>
+                                <Label Content="First Person Only" VerticalAlignment="Center"/>
+                            </StackPanel>
                         </StackPanel>
                     </GroupBox>
                     
@@ -188,6 +212,70 @@
                         </StackPanel>
                     </Button>
                 </Grid>
+                
+                <GroupBox Grid.Column="1"
+                    materialDesign:ThemeAssist.Theme="Dark"
+                    Background="{StaticResource MaterialDesignDarkBackground}"
+                    Header="Card Group Box"
+                    Style="{DynamicResource MaterialDesignCardGroupBox}"
+                    Margin="16">
+                    <GroupBox.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel
+                                Orientation="Horizontal">
+                                <materialDesign:PackIcon
+                                    Kind="Package"
+                                    Height="28"
+                                    Width="28"
+                                    VerticalAlignment="Center" />
+                                <TextBlock
+                                    Margin="8,0,0,0"
+                                    VerticalAlignment="Center"
+                                    FontWeight="DemiBold" FontSize="22"
+                                    Text="Mod List"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </GroupBox.HeaderTemplate>
+                        <Grid>
+                            <materialDesign:Card Margin="11 11 11 18" materialDesign:ThemeAssist.Theme="Dark" Padding="5 5 0 5">
+
+                                <ScrollViewer Padding="5">
+                                    <ItemsControl
+                                        ItemsSource="{Binding GameInfo.Mods}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Button
+                                                    Style="{StaticResource MaterialDesignFlatButton}" 
+                                                    Content="{Binding Name}" 
+                                                    HorizontalContentAlignment="Left"
+                                                    FontSize="16" FontWeight="Medium"
+                                                    Command="{Binding Path=NavToMod,
+																		   RelativeSource={RelativeSource 
+																		   AncestorType={x:Type local:AdminPanelView}}}" 
+                                                    CommandParameter="{Binding DataContext, 
+																RelativeSource={RelativeSource Self}}"/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Left"
+                                                            VerticalAlignment="Top" Margin="3" />
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                    </ItemsControl>
+                                </ScrollViewer>
+
+                            </materialDesign:Card>
+                            
+                            <materialDesign:Card Background="{DynamicResource PrimaryHueMidBrush}" Width="75" Height="25" UniformCornerRadius="12" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                                <TextBlock FontSize="14" FontWeight="Medium" Foreground="{StaticResource MaterialDesignLightForeground}" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Run Text="Count: "/>
+                                    <Run Text="{Binding ModCount}"/>
+                                </TextBlock>
+                            </materialDesign:Card>
+                        </Grid>
+                </GroupBox>
             </Grid>
         </Grid>
         

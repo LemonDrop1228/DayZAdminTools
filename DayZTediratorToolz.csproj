@@ -46,6 +46,7 @@
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -71,8 +72,11 @@
     <Compile Include="Converters\TypeToolBooleanConverter.cs" />
     <Compile Include="Converters\ValueIndexConverter.cs" />
     <Compile Include="Helpers\Commands.cs" />
+    <Compile Include="Helpers\CustomControls\ReadOnlyCheckBox.cs" />
     <Compile Include="Helpers\DayZTediratorConstants.cs" />
     <Compile Include="Helpers\DayZTediratorToolzHelperExtensions.cs" />
+    <Compile Include="Models\AppConfigurationModel.cs" />
+    <Compile Include="Models\DzsaLauncherApiResults.cs" />
     <Compile Include="Models\TypeCollectionModel.cs" />
     <Compile Include="Services\AppSettingsService\IAppSettingsManager.cs" />
     <Compile Include="Services\ControllerService\IControllerService.cs" />
@@ -129,6 +133,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AppConfiguration.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="EEGG\TBEEG.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -154,6 +161,9 @@
       <Version>6.5.1</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="HtmlAgilityPack">
+      <Version>1.11.37</Version>
     </PackageReference>
     <PackageReference Include="MaterialDesignColors">
       <Version>2.0.1</Version>
@@ -259,9 +269,6 @@
     </PackageReference>
     <PackageReference Include="SpicyTaco.AutoGrid">
       <Version>1.2.29</Version>
-    </PackageReference>
-    <PackageReference Include="SteamQueryNet">
-      <Version>1.0.6</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Licensing">
       <Version>19.2.0.62</Version>

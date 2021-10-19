@@ -1,0 +1,9 @@
+﻿{
+  "AppConfiguration": {
+    "ServerIP": "23.111.157.142",
+    "ServerPort": "2302",
+    "QueryUri": "https://dayzsalauncher.com/api/v1/launcher/servers/dayz",
+    "GameExecutablePath": "P:/SteamLibrary/steamapps/common/DayZ",
+    "ModPagePath": "https://steamcommunity.com/sharedfiles/filedetails/?id="
+  }
+}

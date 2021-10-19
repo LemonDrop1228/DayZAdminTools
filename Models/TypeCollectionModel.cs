@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using PropertyChanged;
@@ -106,9 +107,9 @@ namespace DayZTediratorToolz.Models
         [AddINotifyPropertyChangedInterface]
         public class Type
         {
-            [JsonIgnore] public string UID { get; set; } = Guid.NewGuid().ToString().Split('-')[0];
+            [JsonIgnore, Display(Order=99)] public string UID { get; set; } = Guid.NewGuid().ToString().Split('-')[0];
             
-            [JsonProperty("@name")]
+            [JsonProperty("@name"), Display(Order=0)]
             public string Name { get; set; }
 
             [JsonProperty("nominal")]

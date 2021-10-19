@@ -224,7 +224,7 @@ namespace DayZTediratorToolz.Views.Types
                                                                                      .GroupBy(c => c.Name)
                                                                                      .Select(grp => grp.FirstOrDefault()).ToList()));
                     
-                    CatList = new ObservableCollection<TypeCollectionModel.Category>(DistinctByExtension.DistinctBy(filteredCats, t => t.Name));
+                    CatList = new ObservableCollection<TypeCollectionModel.Category>(DistinctByExtension.DistinctBy(filteredCats, t => t.Name).Select(c => new TypeCollectionModel.Category{Name = c.Name}));
 
                     CurrentTypeSlice = _typeCollection[0];
                 }
@@ -263,6 +263,9 @@ namespace DayZTediratorToolz.Views.Types
 
             if (e.Column.MappingName.In("UsagesCountMsg", "TiersCountMsg"))
                 e.Cancel = true;
+
+            if (e.Column.MappingName == "UID")
+                e.Column.MaximumWidth = 1;
         }
 
         private void TypesGrid_OnSelectionChanged(object sender, GridSelectionChangedEventArgs e)

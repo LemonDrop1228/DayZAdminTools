@@ -29,6 +29,8 @@ namespace DayZTediratorToolz.Helpers
             return comparisonArray.Contains((T)value);
         }
 
+        public static bool NullOrEmpty(this string value) => string.IsNullOrEmpty(value);
+
         #endregion
 
         #region LinqExtensions
