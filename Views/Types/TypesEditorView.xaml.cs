@@ -7,6 +7,7 @@ using System.Xml;
 using DayZTediratorToolz.Helpers;
 using DayZTediratorToolz.Models;
 using DayZTediratorToolz.Services;
+using DayZTediratorToolz.Services.ToolConfigService;
 using MoreLinq;
 using MoreLinq.Extensions;
 using Newtonsoft.Json;
@@ -23,6 +24,7 @@ namespace DayZTediratorToolz.Views.Types
         private readonly ITypesConvertorService _typesConvertorService;
         private readonly IGeneralHelperService _generalHelperService;
         private readonly INotificationService _notificationService;
+        private readonly IToolConfigService _toolConfigService;
         private DayZTediratorConstants.TypesViewTools _activeTool;
         private string _subEditorTitle;
         private string _typesPath;
@@ -33,6 +35,8 @@ namespace DayZTediratorToolz.Views.Types
         private bool _isProcessingTypes;
         private bool _isExportingTypes;
         private string _searchText;
+
+        public TypesCfg TypesConfig { get; set; }
 
 
         public string SubEditorTitle
@@ -72,6 +76,20 @@ namespace DayZTediratorToolz.Views.Types
             get => _catList;
             set => _catList = value;
         }
+
+        public bool IsDataPaged
+        {
+            get
+            {
+                if (TypeCollection == null)
+                    return false;
+
+                return TypeCollection.Count() > 1;
+            }
+        }
+        
+        public int IsDataPagedGridRowSpan => IsDataPaged ? 1 : 2;
+        public bool IsDataLoaded => TypeCollection != null;
 
         public bool TypeIsSelected {get => CurrentTypeObj != null;}
         public bool TypeEditorSelected { get => ActiveTool == DayZTediratorConstants.TypesViewTools.Editor;}
@@ -148,14 +166,19 @@ namespace DayZTediratorToolz.Views.Types
         }
 
 
+        // Constructor
         public TypesEditorView(ITypesConvertorService typesConvertorService, 
             IGeneralHelperService generalHelperService,
-            INotificationService notificationService)
+            INotificationService notificationService,
+            IToolConfigService toolConfigService)
         {
             _typesConvertorService = typesConvertorService;
             _generalHelperService = generalHelperService;
             _notificationService = notificationService;
+            _toolConfigService = toolConfigService;
             ActiveTool = DayZTediratorConstants.TypesViewTools.Editor;
+
+            TypesConfig = _toolConfigService.GetConfigObj(DayZTediratorConstants.Tools.Types) as TypesCfg;
             InitializeComponent();
             DataContext = this;
             
@@ -209,12 +232,13 @@ namespace DayZTediratorToolz.Views.Types
 
                 if (TypeCollection != null)
                 {
+                    TypesConfig.RecentTypesHistory.UpdateHistory(localTypesPath);
                     _notificationService.SetNotificationContent($"Types Loaded",
                             $"Successfully loaded types file from: {localTypesPath}")
                         .NotifySuccess();
                     
                     _notificationService.SetNotificationContent($"Types Loaded",
-                            $"Loaded {TypeCollection.Count()} types.")
+                            $"Loaded {TypeCollection.DeepCount()} types.")
                         .NotifyInfo();
 
                     List<TypeCollectionModel.Category> filteredCats = new List<TypeCollectionModel.Category>();
@@ -356,7 +380,7 @@ namespace DayZTediratorToolz.Views.Types
                             $"Successfully exported types file to: {TypesPath}")
                         .NotifySuccess();
                 _notificationService.SetNotificationContent($"Types Exported",
-                            $"Exported a total of {TypeCollection.Count()} types.")
+                            $"Exported a total of {TypeCollection.DeepCount()} types.")
                         .NotifyInfo();
             }
             
@@ -388,6 +412,11 @@ namespace DayZTediratorToolz.Views.Types
             {
                 addButton.ContextMenu.IsOpen = true;
             }
+        }
+
+        public override void CloseView()
+        {
+            _toolConfigService.SaveConfigData();
         }
     }
 }

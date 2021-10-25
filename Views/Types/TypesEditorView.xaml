@@ -34,15 +34,37 @@
 			
 			<Grid Grid.Row="1">
 				<Grid.RowDefinitions>
-					<RowDefinition Height="0.075*"/>
+					<RowDefinition Height="0.075*" MinHeight="60"/>
 					<RowDefinition />
 				</Grid.RowDefinitions>
 				
 				<st:StackPanel Orientation="Horizontal" Margin="8 0" MarginBetweenChildren="5">
+					<materialDesign:PopupBox
+						materialDesign:ThemeAssist.Theme="Dark"
+						Style="{DynamicResource	 MaterialDesignMultiFloatingActionPopupBox}"
+						PlacementMode="BottomAndAlignCentres"
+						ToolTipService.Placement="Right"
+						ToolTip="Recent Types Files">
+						<StackPanel>
+							<Button
+								ToolTip="One with custom opacity"
+								Opacity="0.5">
+								<TextBlock Text="{Binding RecentTypesHistoryObj.First}"/>
+							</Button>
+							<Button
+								ToolTip="Two">
+								<TextBlock Text="{Binding RecentTypesHistoryObj.Second}"/>
+							</Button>
+							<Button
+								ToolTip="Three">
+								<TextBlock Text="{Binding RecentTypesHistoryObj.Third}"/>
+							</Button>
+						</StackPanel>
+					</materialDesign:PopupBox>
 					<TextBox IsReadOnly="True" Focusable="False" Margin="7 2" st:StackPanel.Fill="Fill" 
-							 Text="{Binding Path=TypesPath}"
-							 materialDesign:HintAssist.Hint="Types XML File Path..." FontSize="16"
-						Style="{StaticResource MaterialDesignFilledTextBox}"/>
+					         Text="{Binding Path=TypesPath}"
+					         materialDesign:HintAssist.Hint="Types XML File Path..." FontSize="16"
+					         Style="{StaticResource MaterialDesignFilledTextBox}"/>
 					<Button x:Name="FolderBrowserButton"
 							materialDesign:ShadowAssist.ShadowDepth="Depth3"
 							VerticalAlignment="Stretch" Click="OpenFileDialogButtonClicked"
@@ -52,13 +74,13 @@
 							materialDesign:ButtonProgressAssist.IsIndeterminate="True"
 							Content="{materialDesign:PackIcon FolderOpen, Size=24}"/>
 					<Button x:Name="ExportTypesButton"
-							materialDesign:ShadowAssist.ShadowDepth="Depth3"
-							VerticalAlignment="Stretch" Click="SaveFileDialogButtonClicked"
-							Style="{StaticResource MaterialDesignFloatingActionLightButton}"  
-							materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding IsExportingTypes}"
-							materialDesign:ButtonProgressAssist.Value="-1"
-							materialDesign:ButtonProgressAssist.IsIndeterminate="True"
-							Content="{materialDesign:PackIcon FileExport, Size=24}"/>
+					        materialDesign:ShadowAssist.ShadowDepth="Depth3"
+					        VerticalAlignment="Stretch" Click="SaveFileDialogButtonClicked"
+					        Style="{StaticResource MaterialDesignFloatingActionLightButton}"  
+					        materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding IsExportingTypes}"
+					        materialDesign:ButtonProgressAssist.Value="-1"
+					        materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+					        Content="{materialDesign:PackIcon FileExport, Size=24}"/>
 				</st:StackPanel>
 				
 				<Grid Grid.Row="1">
@@ -95,16 +117,23 @@
 						</GroupBox.HeaderTemplate>
 						<materialDesign:Card Background="#2F3846" Padding="3">
 							<Grid>
+								<!-- Grid Zone -->
 								<Grid.RowDefinitions>
+									<RowDefinition Height="0.125*" MinHeight="55"/>
 									<RowDefinition />
-									<RowDefinition Height="0.075*"/>
+									<RowDefinition Height="0.075*" MinHeight="45"/>
 								</Grid.RowDefinitions>
-								<Syncfusion:SfDataGrid Grid.Row="0"
+								
+								<st:StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+									
+								</st:StackPanel>
+								
+								<Syncfusion:SfDataGrid 
+									Grid.Row="1" Grid.RowSpan="{Binding IsDataPagedGridRowSpan}"
 									SelectionChanged="TypesGrid_OnSelectionChanged"
 									BorderThickness="0"
 									x:Name="typesGrid"
 									Margin="3"
-
 									AllowFiltering="True"
 									AllowResizingColumns="True"
 									ItemsSource="{Binding Path=CurrentTypeSlice}"
@@ -115,6 +144,7 @@
 									AllowEditing="False"
 									ScrollMode="Async"
 									SelectionMode="Extended"
+									Visibility="{Binding IsDataLoaded, Converter={StaticResource BooleanToVisibilityConverter}}"
 									AllowDeleting="False"
 									AddNewRowPosition="None"
 									AllowGrouping="True"
@@ -126,7 +156,11 @@
 									</Syncfusion:SfDataGrid.Columns>
 
 								</Syncfusion:SfDataGrid>
-								<ItemsControl Grid.Row="1" ItemsSource="{Binding TypeCollection}" AlternationCount="{Binding TypeCollection.Count}">
+								<ItemsControl 
+									Visibility="{Binding IsDataPaged, Converter={StaticResource BooleanToVisibilityConverter}}"
+									Grid.Row="2" 
+									ItemsSource="{Binding TypeCollection}" 
+									AlternationCount="{Binding TypeCollection.Count}">
 									<ItemsControl.ItemTemplate>
 										<DataTemplate>
 											<Button Margin="11 2" 

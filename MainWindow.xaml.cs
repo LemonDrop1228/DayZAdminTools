@@ -53,6 +53,7 @@ namespace DayZTediratorToolz
         protected override void OnClosed(EventArgs e)
         {
             _serverInspectionService.ShutDownInspectionService();
+            _controller.CloseViews();
             base.OnClosed(e);
         }
 
@@ -104,6 +105,11 @@ namespace DayZTediratorToolz
         private void SettingsButton_OnClick(object sender, RoutedEventArgs e)
         {
             
+        }
+
+        private void NavClickedHomeButton(object sender, RoutedEventArgs e)
+        {
+            ChangeView(DayZTediratorConstants.Views.Home);
         }
     }
 }

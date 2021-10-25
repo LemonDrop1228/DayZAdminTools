@@ -9,6 +9,12 @@
             TypesEditor
         }
 
+        public enum Tools
+        {
+            Admin,
+            Types
+        }
+
         public enum PathTypes
         {
             TypesXml
@@ -25,6 +31,14 @@
             Editor,
             Batch,
             Import
+        }
+
+        public enum ServiceStates
+        {
+            Unknown,
+            Standby,
+            Busy,
+            Failed
         }
     }
 }

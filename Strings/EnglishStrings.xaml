@@ -6,6 +6,7 @@
     <system:String x:Key="AppTitle">Tedirator Toolz</system:String>
     
     <!-- Navigation Buttons -->
+    <system:String x:Key="NavTextHomePanelButton">Home Panel</system:String>
     <system:String x:Key="NavTextAdminPanelButton">Admin Panel</system:String>
     <system:String x:Key="NavTextTypesConfigButton">Types Editor</system:String>
     <system:String x:Key="NavTextTraderGeneratorButton">Trader Generator</system:String>

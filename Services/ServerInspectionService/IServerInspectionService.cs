@@ -7,6 +7,7 @@ using System.Net.Mime;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Media.Animation;
 using DayZTediratorToolz.Helpers;
 using DayZTediratorToolz.Models;
 using PropertyChanged;
@@ -16,16 +17,42 @@ namespace DayZTediratorToolz.Services
     public interface IServerInspectionService
     {
         void Initialize(IAppSettingsManager settingsManager, INotificationService _notificationService);
-        Task<DzsaLauncherApiResults.ServerInfo> GetGameInfo();
+        Task GetGameInfo();
         void ShutDownInspectionService();
+        bool CanCheck { get; }
+        bool IsBusy { get; set; }
+        event EventHandler ServiceStateChanged;
+        Task UpdatePing(DzsaLauncherApiResults.ServerInfo gameInfo);
+        event EventHandler ServerInformationChanged;
     }
     
     [AddINotifyPropertyChangedInterface]
     public class ServerInspectionService : IServerInspectionService
     {
+        public event EventHandler ServerInformationChanged;
+        public event EventHandler ServiceStateChanged;
+        
         private INotificationService notificationService;
+        private DayZTediratorConstants.ServiceStates _serviceState;
         Models.DzsaLauncherApiResults.ServerInfo GameServerInfo { get; set; }
         DzsaLauncherApiResults.ServerInfo GameInfo { get; set; }
+        private DateTimeOffset lastCheckTimeOffset { get; set; }
+
+        private DayZTediratorConstants.ServiceStates State
+        {
+            get => _serviceState;
+            set
+            {
+                if (_serviceState != value)
+                {
+                    _serviceState = value;
+                    SendStateChangeEvent(_serviceState);
+                }
+            }
+        }
+
+        public bool CanCheck { get => CanCheckServerInfo(); }
+        public bool IsBusy { get; set; }
 
 
         private (string QueryUri, string IP, string Port) ServerConnectionInfo { get; set; }
@@ -34,95 +61,114 @@ namespace DayZTediratorToolz.Services
         {
             notificationService = _notificationService;
             ServerConnectionInfo = (settingsManager.GetQueryUri(), settingsManager.GetServerIp(), settingsManager.GetServerPort());
+            State = DayZTediratorConstants.ServiceStates.Standby;
+        }
+        
+        public void ShutDownInspectionService()
+        {
             
         }
 
-        public async Task<DzsaLauncherApiResults.ServerInfo> GetGameInfo()
+        public async Task GetGameInfo()
         {
+            State = DayZTediratorConstants.ServiceStates.Busy;
             try
             {
                 var jsonResultStr = string.Empty;
-                
+
                 using (var wc = new WebClient())
                 {
                     jsonResultStr = await wc.DownloadStringTaskAsync(new Uri(ServerConnectionInfo.QueryUri));
                 }
 
-                var serverPing = 0;
-                
-                using (var p = new Ping())
-                {
-                    var reply = await p.SendPingAsync(ServerConnectionInfo.IP);
-                    if (reply.Status == IPStatus.Success)
-                        serverPing = Convert.ToInt32(reply.RoundtripTime);
-                }
-                
-                
                 if (jsonResultStr.NullOrEmpty())
                     throw new Exception();
 
                 DzsaLauncherApiResults apiResults = new DzsaLauncherApiResults();
-                
+
                 apiResults.Initialize(jsonResultStr.Replace("result", "serverInfo"));
 
-                GameInfo = apiResults.RootObj.ServerInfo.
-                    Where(s => (s.Endpoint.Ip, s.GamePort.ToString()) == (ServerConnectionInfo.IP, ServerConnectionInfo.Port)).
-                    Select(s => Models.DzsaLauncherApiResults.ServerInfo.CreateInstance(serverInfo: s)).
-                    FirstOrDefault();
+                GameInfo = apiResults.RootObj.ServerInfo
+                    .Where(s => (s.Endpoint.Ip, s.GamePort.ToString()) ==
+                                (ServerConnectionInfo.IP, ServerConnectionInfo.Port)).Select(s =>
+                        Models.DzsaLauncherApiResults.ServerInfo.CreateInstance(serverInfo: s)).FirstOrDefault();
 
-                GameInfo.Ping = serverPing;
+                GameInfo.Ping = await GetServerPing();
 
                 apiResults.RootObj.ServerInfo.Clear();
                 apiResults = null;
-
-                #region SteamQueryNet server info logic --- Doesn't work currently
-
-                /*GameServerQuery.Connect(ServerConnectionInfo.IP, Convert.ToUInt16(ServerConnectionInfo.Port));
-                GamePlayers = await GameServerQuery.GetPlayersAsync();
-                GameServerInfo = await GameServerQuery.GetServerInfoAsync();
-                GameInfo = new GameInfoBlob()
-                {
-                    IPAddr = ServerConnectionInfo.IP,
-                    Port = ServerConnectionInfo.Port,
-                    ServerName = GameServerInfo.Name,
-                    MapName = GameServerInfo.Map,
-                    PlayerRatio = $"{GameServerInfo.Players}/{GameServerInfo.MaxPlayers}",
-                    Version = GameServerInfo.Version,
-                    Keywords = GameServerInfo.Keywords,
-                    Ping = GameServerInfo.Ping.ToString()
-                };*/
-
-                #endregion
             }
             catch (Exception e)
             {
-                notificationService.SetNotificationContent("Server offline","Unable to collect server information.");
+                notificationService.SetNotificationContent("Server offline", "Unable to collect server information.");
                 notificationService.NotifyFailure();
-                return GameInfo;
+                State = DayZTediratorConstants.ServiceStates.Failed;
             }
-            
-            return GameInfo;
+            finally
+            {
+                lastCheckTimeOffset = DateTimeOffset.Now;
+                if (State != DayZTediratorConstants.ServiceStates.Standby)
+                {
+                    SendChangeEvent();
+                    State = DayZTediratorConstants.ServiceStates.Standby;
+                }
+            }
         }
-        
 
-        public void ShutDownInspectionService()
+        private void SendChangeEvent()
         {
-            /*var gameServerQuery = (GameServerQuery as ServerQuery);
-            if(gameServerQuery.IsConnected)
-                gameServerQuery.Dispose();*/
+            if (ServerInformationChanged != null)
+                ServerInformationChanged(this,new GameInfoEventArgs(){GameInfoBlob = GameInfo});
         }
 
+        private void SendStateChangeEvent(DayZTediratorConstants.ServiceStates state)
+        {
+            if (ServiceStateChanged != null)
+                ServiceStateChanged(this, new ServiceStateArgs() { ServiceState = state });
+        }
+
+        public async Task UpdatePing(DzsaLauncherApiResults.ServerInfo gameInfo)
+        {
+            IsBusy = true;
+            gameInfo.Ping = await GetServerPing(true);
+        }
+
+        private async Task<int> GetServerPing(bool markNotBusy = false)
+        {
+            var serverPing = 0;
+                
+            using (var p = new Ping())
+            {
+                var reply = await p.SendPingAsync(ServerConnectionInfo.IP);
+                if (reply.Status == IPStatus.Success)
+                    serverPing = Convert.ToInt32(reply.RoundtripTime);
+            }
+
+            if (markNotBusy)
+                IsBusy = false;
+            
+            SendChangeEvent();
+            return serverPing;
+        }
+
+        private bool CanCheckServerInfo()
+        {
+            if (lastCheckTimeOffset == DateTimeOffset.MinValue)
+                return true;
+
+            var checkTimeOffset = (lastCheckTimeOffset - DateTimeOffset.Now);
+            var canCheckServerInfo = (((checkTimeOffset.Minutes * 60) + (checkTimeOffset.Seconds)) * -1) > 60;
+            return canCheckServerInfo;
+        }
     }
 
-    public record GameInfoBlob
+    public class GameInfoEventArgs : EventArgs
     {
-        public string ServerName { get; set; }
-        public string IPAddr { get; set; }
-        public string Port { get; set; }
-        public string PlayerRatio { get; set; }
-        public string MapName { get; set; }
-        public string Version { get; set; }
-        public string Keywords { get; set; }
-        public string Ping { get; set; }
+        public DzsaLauncherApiResults.ServerInfo GameInfoBlob { get; set; }
+    }
+
+    public class ServiceStateArgs : EventArgs
+    {
+        public DayZTediratorConstants.ServiceStates ServiceState { get; set; }
     }
 }

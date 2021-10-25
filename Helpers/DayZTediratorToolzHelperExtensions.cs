@@ -19,6 +19,16 @@ namespace DayZTediratorToolz.Helpers
                         collection.Add(item);
                 }
             }
+
+            public static int DeepCount(this IEnumerable<IEnumerable<object>> collection)
+            {
+                var count = 0;
+                foreach (var IenumCol in collection)
+                {
+                    count += IenumCol.Count();
+                }
+                return count;
+            }
             
         #endregion
 

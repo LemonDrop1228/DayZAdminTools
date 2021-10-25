@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using System.Configuration;
 using System.IO;
 using System.Windows.Documents;
+using DayZTediratorToolz.Services.ToolConfigService;
 using DayZTediratorToolz.Views;
 using DayZTediratorToolz.Views.AdminPanel;
 using DayZTediratorToolz.Views.Types;
@@ -48,6 +49,7 @@ namespace DayZTediratorToolz
                     services.AddSingleton<ITypesConvertorService>(provider => new TypesConvertorService());
                     services.AddSingleton<IGeneralHelperService>(provider => new GeneralHelperService());
                     services.AddSingleton<INotificationService>(provider => new NotificationService());
+                    services.AddSingleton<IToolConfigService>(provider => new ToolConfigService());
                     
                     services.AddSingleton<HomeView>();
                     services.AddSingleton<AdminPanelView>();

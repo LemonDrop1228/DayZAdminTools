@@ -196,6 +196,11 @@
                     <Button Grid.Row="1" Margin="-14 -14 0 0"
                         Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
                         HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                        materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding IsBusy}"
+                        materialDesign:ButtonProgressAssist.Value="-1"
+                        materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+                        Focusable="{Binding CanRefresh}"
+                        IsHitTestVisible="{Binding CanRefresh}"
                         ToolTip="Refresh Server Info" Click="RefreshServerInfo">
                         <materialDesign:PackIcon
                             Kind="RefreshCircle"
@@ -237,6 +242,14 @@
                         </DataTemplate>
                     </GroupBox.HeaderTemplate>
                         <Grid>
+                            
+                            <materialDesign:Card Background="{DynamicResource PrimaryHueMidBrush}" Width="75" Height="25" UniformCornerRadius="12" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 75 0 0">
+                                <TextBlock FontSize="14" FontWeight="Medium" Foreground="{StaticResource MaterialDesignLightForeground}" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Run Text="Count: "/>
+                                    <Run Text="{Binding ModCount}"/>
+                                </TextBlock>
+                            </materialDesign:Card>
+                            
                             <materialDesign:Card Margin="11 11 11 18" materialDesign:ThemeAssist.Theme="Dark" Padding="5 5 0 5">
 
                                 <ScrollViewer Padding="5">
@@ -266,13 +279,6 @@
                                     </ItemsControl>
                                 </ScrollViewer>
 
-                            </materialDesign:Card>
-                            
-                            <materialDesign:Card Background="{DynamicResource PrimaryHueMidBrush}" Width="75" Height="25" UniformCornerRadius="12" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                                <TextBlock FontSize="14" FontWeight="Medium" Foreground="{StaticResource MaterialDesignLightForeground}" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                    <Run Text="Count: "/>
-                                    <Run Text="{Binding ModCount}"/>
-                                </TextBlock>
                             </materialDesign:Card>
                         </Grid>
                 </GroupBox>

@@ -12,6 +12,7 @@ namespace DayZTediratorToolz.Services
         void InitializeViews(params IBaseView[] views);
         void SetView(DayZTediratorConstants.Views admin);
         bool CheckView(DayZTediratorConstants.Views viewId);
+        void CloseViews();
     }
     
     [AddINotifyPropertyChangedInterface]
@@ -41,6 +42,14 @@ namespace DayZTediratorToolz.Services
         public bool CheckView(DayZTediratorConstants.Views viewId)
         {
             return CurrentViewID == viewId;
+        }
+
+        public void CloseViews()
+        {
+            foreach (var view in ViewCollection)
+            {
+                view.CloseView();
+            }
         }
     }
 
