@@ -111,5 +111,10 @@ namespace DayZTediratorToolz
         {
             ChangeView(DayZTediratorConstants.Views.Home);
         }
+
+        private void NavClickedTestButton(object sender, RoutedEventArgs e)
+        {
+            ChangeView(DayZTediratorConstants.Views.TestView);
+        }
     }
 }

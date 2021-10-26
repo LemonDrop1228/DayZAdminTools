@@ -24,9 +24,9 @@ namespace DayZTediratorToolz
 
         public App()
         {
-            
+
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NTA0ODQwQDMxMzkyZTMyMmUzMGVyRWxHSFFkYWFmeDVRNzFwZmhSblliNFpBc1NDblZlRVJvWXJPWmxNMEU9");
-            
+
             host = new HostBuilder()
                 .ConfigureServices((hostContext, services) =>
                 {
@@ -39,7 +39,7 @@ namespace DayZTediratorToolz
                     {
                         throw;
                     }
-                    
+
                     services.AddSingleton<IAppSettingsManager>(provider =>
                     {
                         return new AppSettingsManager(appConfigData);
@@ -50,17 +50,18 @@ namespace DayZTediratorToolz
                     services.AddSingleton<IGeneralHelperService>(provider => new GeneralHelperService());
                     services.AddSingleton<INotificationService>(provider => new NotificationService());
                     services.AddSingleton<IToolConfigService>(provider => new ToolConfigService());
-                    
+
                     services.AddSingleton<HomeView>();
                     services.AddSingleton<AdminPanelView>();
                     services.AddSingleton<TypesEditorView>();
                     services.AddSingleton<MainWindow>();
+
                 }).Build();
         }
-        
+
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            
+
             var mainWindow = host.Services.GetService<MainWindow>();
             host.Services.GetService<IControllerService>().InitializeViews(
                 host.Services.GetService<HomeView>(),
@@ -71,10 +72,10 @@ namespace DayZTediratorToolz
             mainWindow.Closed += (s,e) => {
                 ShutItDown();
             };
-            
+
             mainWindow.Show();
         }
-        
+
         private void ShutItDown()
         {
             using (host)

@@ -6,7 +6,8 @@
         {
             Home,
             Admin,
-            TypesEditor
+            TypesEditor,
+            TestView
         }
 
         public enum Tools
