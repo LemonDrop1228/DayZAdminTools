@@ -21,10 +21,10 @@ namespace DayZTediratorToolz
 
         System.Media.SoundPlayer soundPlayer { get; set; } = new System.Media.SoundPlayer();
         public IBaseView ActiveView { get => _controller.CurrentView;}
-        
-        
-        public MainWindow(IAppSettingsManager appSettingsManager, 
-            IServerInspectionService serverInspectionService, 
+
+
+        public MainWindow(IAppSettingsManager appSettingsManager,
+            IServerInspectionService serverInspectionService,
             IControllerService controller,
             INotificationService notificationService)
         {
@@ -86,7 +86,7 @@ namespace DayZTediratorToolz
         {
             ChangeView(DayZTediratorConstants.Views.Admin);
         }
-        
+
         private void NavClickedTypesEditorButton(object sender, RoutedEventArgs e)
         {
             ChangeView(DayZTediratorConstants.Views.TypesEditor);
@@ -99,22 +99,17 @@ namespace DayZTediratorToolz
                 _controller.SetView(viewID);
                 HostCard.GetBindingExpression(Card.ContentProperty).UpdateTarget();
             }
-                
+
         }
 
         private void SettingsButton_OnClick(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         private void NavClickedHomeButton(object sender, RoutedEventArgs e)
         {
             ChangeView(DayZTediratorConstants.Views.Home);
-        }
-
-        private void NavClickedTestButton(object sender, RoutedEventArgs e)
-        {
-            ChangeView(DayZTediratorConstants.Views.TestView);
         }
 
         private void NavClickedEffectAreaEditorButton(object sender, RoutedEventArgs e)

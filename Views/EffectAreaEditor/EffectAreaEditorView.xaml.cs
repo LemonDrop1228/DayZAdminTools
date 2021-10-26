@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace DayZTediratorToolz.Views
+namespace DayZTediratorToolz.Views.EffectAreaEditor
 {
     public partial class EffectAreaEditorView : BaseView
     {

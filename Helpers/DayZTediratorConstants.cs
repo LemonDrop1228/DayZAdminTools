@@ -7,8 +7,7 @@
             Home,
             Admin,
             TypesEditor,
-            EffectAreaEditor,
-            TestView
+            EffectAreaEditor
         }
 
         public enum Tools

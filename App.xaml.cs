@@ -9,6 +9,7 @@ using System.Windows.Documents;
 using DayZTediratorToolz.Services.ToolConfigService;
 using DayZTediratorToolz.Views;
 using DayZTediratorToolz.Views.AdminPanel;
+using DayZTediratorToolz.Views.EffectAreaEditor;
 using DayZTediratorToolz.Views.Types;
 
 namespace DayZTediratorToolz

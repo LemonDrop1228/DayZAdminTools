@@ -99,9 +99,6 @@
     <Compile Include="Views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SpawnablesView\SpawnablesView.xaml.cs">
-      <DependentUpon>SpawnablesView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Types\TypesEditorView.xaml.cs">
       <DependentUpon>TypesEditorView.xaml</DependentUpon>
     </Compile>
@@ -123,15 +120,8 @@
     </Page>
     <Page Include="Styles\TedStyles.xaml" />
     <Page Include="Views\AdminPanel\AdminPanelView.xaml" />
-    <Page Include="Views\EffectAreaEditor\EffectAreaEditorView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Page Include="Views\EffectAreaEditor\EffectAreaEditorView.xaml" />
     <Page Include="Views\HomeView.xaml" />
-    <Page Include="Views\SpawnablesView\SpawnablesView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Types\TypesEditorView.xaml" />
   </ItemGroup>
   <ItemGroup>
