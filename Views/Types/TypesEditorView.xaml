@@ -27,17 +27,17 @@
 				<RowDefinition Height="0.075*" MinHeight="50"/>
 				<RowDefinition />
 			</Grid.RowDefinitions>
-			
+
 			<TextBlock TextAlignment="Left" VerticalAlignment="Top" Margin="10 0"
-					   Text="{DynamicResource TypesEditorTitle}" 
+					   Text="{DynamicResource TypesEditorTitle}"
 					   FontSize="32" FontWeight="DemiBold"/>
-			
+
 			<Grid Grid.Row="1">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="0.075*" MinHeight="60"/>
 					<RowDefinition />
 				</Grid.RowDefinitions>
-				
+
 				<st:StackPanel Orientation="Horizontal" Margin="8 0" MarginBetweenChildren="5">
 					<materialDesign:PopupBox
 						materialDesign:ThemeAssist.Theme="Dark"
@@ -61,14 +61,14 @@
 							</Button>
 						</StackPanel>
 					</materialDesign:PopupBox>
-					<TextBox IsReadOnly="True" Focusable="False" Margin="7 2" st:StackPanel.Fill="Fill" 
+					<TextBox IsReadOnly="True" Focusable="False" Margin="7 2" st:StackPanel.Fill="Fill"
 					         Text="{Binding Path=TypesPath}"
 					         materialDesign:HintAssist.Hint="Types XML File Path..." FontSize="16"
 					         Style="{StaticResource MaterialDesignFilledTextBox}"/>
 					<Button x:Name="FolderBrowserButton"
 							materialDesign:ShadowAssist.ShadowDepth="Depth3"
 							VerticalAlignment="Stretch" Click="OpenFileDialogButtonClicked"
-							Style="{StaticResource MaterialDesignFloatingActionLightButton}"  
+							Style="{StaticResource MaterialDesignFloatingActionLightButton}"
 							materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding IsProcessingTypes}"
 							materialDesign:ButtonProgressAssist.Value="-1"
 							materialDesign:ButtonProgressAssist.IsIndeterminate="True"
@@ -76,19 +76,19 @@
 					<Button x:Name="ExportTypesButton"
 					        materialDesign:ShadowAssist.ShadowDepth="Depth3"
 					        VerticalAlignment="Stretch" Click="SaveFileDialogButtonClicked"
-					        Style="{StaticResource MaterialDesignFloatingActionLightButton}"  
+					        Style="{StaticResource MaterialDesignFloatingActionLightButton}"
 					        materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding IsExportingTypes}"
 					        materialDesign:ButtonProgressAssist.Value="-1"
 					        materialDesign:ButtonProgressAssist.IsIndeterminate="True"
 					        Content="{materialDesign:PackIcon FileExport, Size=24}"/>
 				</st:StackPanel>
-				
+
 				<Grid Grid.Row="1">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="1.45*"/>
 						<ColumnDefinition />
 					</Grid.ColumnDefinitions>
-					
+
 					<GroupBox
 						Background="{DynamicResource MaterialDesignDarkBackground}"
 						materialDesign:ThemeAssist.Theme="Dark"
@@ -123,12 +123,12 @@
 									<RowDefinition />
 									<RowDefinition Height="0.075*" MinHeight="45"/>
 								</Grid.RowDefinitions>
-								
+
 								<st:StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
-									
+
 								</st:StackPanel>
-								
-								<Syncfusion:SfDataGrid 
+
+								<Syncfusion:SfDataGrid
 									Grid.Row="1" Grid.RowSpan="{Binding IsDataPagedGridRowSpan}"
 									SelectionChanged="TypesGrid_OnSelectionChanged"
 									BorderThickness="0"
@@ -156,17 +156,17 @@
 									</Syncfusion:SfDataGrid.Columns>
 
 								</Syncfusion:SfDataGrid>
-								<ItemsControl 
+								<ItemsControl
 									Visibility="{Binding IsDataPaged, Converter={StaticResource BooleanToVisibilityConverter}}"
-									Grid.Row="2" 
-									ItemsSource="{Binding TypeCollection}" 
+									Grid.Row="2"
+									ItemsSource="{Binding TypeCollection}"
 									AlternationCount="{Binding TypeCollection.Count}">
 									<ItemsControl.ItemTemplate>
 										<DataTemplate>
-											<Button Margin="11 2" 
+											<Button Margin="11 2"
 											        Command="{Binding Path=SelectSlice,
-															   RelativeSource={RelativeSource 
-															   AncestorType={x:Type local:TypesEditorView}}}" 
+															   RelativeSource={RelativeSource
+															   AncestorType={x:Type local:TypesEditorView}}}"
 											        CommandParameter="{Binding DataContext, RelativeSource={RelativeSource Self}}">
 												<Button.Content>
 													<MultiBinding Converter="{StaticResource ValueIndexConverter}">
@@ -177,7 +177,7 @@
 											</Button>
 										</DataTemplate>
 									</ItemsControl.ItemTemplate>
-									
+
 									<ItemsControl.ItemsPanel>
 										<ItemsPanelTemplate>
 											<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="3"/>
@@ -187,9 +187,9 @@
 							</Grid>
 							</materialDesign:Card>
 					</GroupBox>
-					
-					
-						
+
+
+
 						<materialDesign:Card Grid.Column="1"
 						                     Background="{DynamicResource MaterialDesignDarkBackground}"
 						                     Margin="16"
@@ -200,8 +200,8 @@
                             		<RowDefinition Height="Auto"/>
                             		<RowDefinition />
                             	</Grid.RowDefinitions>
-								
-								
+
+
 								<materialDesign:ColorZone Margin="0"
 								                          materialDesign:ShadowAssist.ShadowEdges="All"
 								                          materialDesign:ShadowAssist.Darken="True"
@@ -212,7 +212,7 @@
 										Orientation="Horizontal">
 										<StackPanel HorizontalAlignment="Left"
 										            Orientation="Horizontal">
-											<RadioButton 
+											<RadioButton
 												FontWeight="Medium" FontSize="18" FontFamily="Roboto"
 												Cursor="Hand"
 												x:Name="RButtonTypeEditors"
@@ -233,14 +233,14 @@
 												x:Name="RButtonImport"
 												Style="{StaticResource MaterialDesignTabRadioButton}"
 												Click="TypeImportClicked"
-												Content="IMPORT TYPES" 
+												Content="IMPORT TYPES"
 											/>
 										</StackPanel>
 									</StackPanel>
 								</materialDesign:ColorZone>
-								
-								<materialDesign:Card Grid.Row="1" 
-								                     Background="#2F3846" 
+
+								<materialDesign:Card Grid.Row="1"
+								                     Background="#2F3846"
 								                     Margin="7" Padding="3">
 									<Grid>
 										<Border Visibility="{Binding TypeEditorSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -253,15 +253,15 @@
 												<TextBox Grid.ColumnSpan="4"
 														   Margin="3 5 0 0"
 														   FontSize="18" FontWeight="DemiBold"
-														   VerticalAlignment="Top" 
+														   VerticalAlignment="Top"
 														   HorizontalAlignment="Left"
 														   materialDesign:TransitionAssist.DisableTransitions="True"
 														   Text="{Binding CurrentTypeObj.Name}"/>
 
-												<StackPanel 
+												<StackPanel
 													Orientation="Horizontal" HorizontalAlignment="Right"
 													Margin="0 6 3 0">
-													
+
 													<Menu
 														Background="{DynamicResource PrimaryHueMidBrush}"
 														Margin="6 0"
@@ -270,26 +270,26 @@
 														Height="26"
 														VerticalAlignment="Top"
 														IsMainMenu="False">
-														<MenuItem Header="{Binding CurrentTypeObj.Category.Name}" 
+														<MenuItem Header="{Binding CurrentTypeObj.Category.Name}"
 														          Cursor="Hand"
 														          Foreground="{StaticResource MaterialDesignLightForeground}"
 														          ToolTip="Click to edit"
 														          VerticalAlignment="Center"
 														          VerticalContentAlignment="Center"
-														          ItemsSource="{Binding CatList}"> 
+														          ItemsSource="{Binding CatList}">
 															<MenuItem.ItemContainerStyle>
 																<Style>
 																	<Setter Property="MenuItem.Header" Value="{Binding Name}"/>
 																	<Setter Property="MenuItem.Command" Value="{Binding Path=SetCategory,
-																	        RelativeSource={RelativeSource 
+																	        RelativeSource={RelativeSource
 																	        AncestorType={x:Type local:TypesEditorView}}}"/>
-																	<Setter Property="MenuItem.CommandParameter" Value="{Binding DataContext, 
+																	<Setter Property="MenuItem.CommandParameter" Value="{Binding DataContext,
 																	        RelativeSource={RelativeSource Self}}"/>
 																</Style>
 															</MenuItem.ItemContainerStyle>
 														</MenuItem>
 													</Menu>
-													
+
 													<Button
 														Click="DeleteTypeClicked"
 														Margin="3 0"
@@ -303,7 +303,7 @@
 															Width="20" />
 													</Button>
 												</StackPanel>
-												
+
 												<ScrollViewer
 													Grid.Row="1"
 													Padding="15">
@@ -313,7 +313,7 @@
 															<ColumnDefinition />
 															<ColumnDefinition />
 														</Grid.ColumnDefinitions>
-														
+
 														<st:StackPanel MarginBetweenChildren="7">
 															<TextBox
 																MinWidth="125"
@@ -391,7 +391,7 @@
 																materialDesign:HintAssist.HelperTextFontSize="14"
 																Style="{StaticResource MaterialDesignFloatingHintTextBox}"
 																Text="{Binding CurrentTypeObj.Cost}"/>
-															
+
 														</st:StackPanel>
 														<st:StackPanel Grid.Column="1" MarginBetweenChildren="7">
 															<CheckBox
@@ -487,26 +487,26 @@
 														</st:StackPanel>
 													</Grid>
 												</ScrollViewer>
-												
-												
+
+
 											</Grid>
 										</Border>
 										<Border Visibility="{Binding TypeBatchToolsSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
-											
+
 										</Border>
 										<Border Visibility="{Binding TypeImporterSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
-											
+
 										</Border>
 									</Grid>
 								</materialDesign:Card>
-								
+
 							</Grid>
 						</materialDesign:Card>
 				</Grid>
 			</Grid>
 		</Grid>
 	</materialDesign:Card>
-		
+
 					<materialDesign:DialogHost
 					x:Name="dHost"
 					Style="{StaticResource MaterialDesignEmbeddedDialogHost}"
@@ -528,7 +528,7 @@
 									<Run Text=" Editor"/>
 								</TextBlock>
 
-								<Button Grid.Row="1" 
+								<Button Grid.Row="1"
 										Style="{StaticResource MaterialDesignRaisedAccentButton}"
 										Click="AddActiveEditorArrayItemClicked">
 									<StackPanel Orientation="Horizontal">
@@ -536,43 +536,43 @@
 												Kind="Create"/>
 										<TextBlock Text="Add"/>
 									</StackPanel>
-									
+
 								</Button>
-								
+
 								<ItemsControl Grid.Row="2"
-											  
-									HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" 
+
+									HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalContentAlignment="Top"
 									ItemsSource="{Binding SubCollection}">
 									<ItemsControl.ItemTemplate>
 										<DataTemplate>
 											<st:StackPanel Orientation="Vertical">
-												
+
 												<materialDesign:Card Margin="5">
 													<st:StackPanel Orientation="Vertical">
-														<TextBox Margin="3 0 3 8" FontSize="16" 
+														<TextBox Margin="3 0 3 8" FontSize="16"
 																 Text="{Binding Name}" st:StackPanel.Fill="Fill"/>
 														<Button Height="24" materialDesign:ButtonAssist.CornerRadius="0 0 6 6"
 																Content="{materialDesign:PackIcon TrashCan, Size=18}"
 																Command="{Binding Path=DeleteItem,
-																		   RelativeSource={RelativeSource 
-																		   AncestorType={x:Type local:TypesEditorView}}}" 
-																CommandParameter="{Binding DataContext, 
+																		   RelativeSource={RelativeSource
+																		   AncestorType={x:Type local:TypesEditorView}}}"
+																CommandParameter="{Binding DataContext,
 																RelativeSource={RelativeSource Self}}"/>
 													</st:StackPanel>
 												</materialDesign:Card>
-												
+
 											</st:StackPanel>
 										</DataTemplate>
 									</ItemsControl.ItemTemplate>
 								</ItemsControl>
-								
-								
-								
+
+
+
 								<StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Bottom">
 									<Button Content="Ok" Margin="3 0" Click="ApplySubTypeChangesClicked"/>
 									<Button Content="Cancel" Margin="3 0" Click="CancelSubTypeChangesClicked"/>
 								</StackPanel>
-								
+
 							</Grid>
 						</Border>
 					</materialDesign:DialogHost.DialogContent>
