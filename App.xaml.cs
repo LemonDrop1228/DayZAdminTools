@@ -52,6 +52,7 @@ namespace DayZTediratorToolz
                     services.AddSingleton<IToolConfigService>(provider => new ToolConfigService());
 
                     services.AddSingleton<HomeView>();
+                    services.AddSingleton<EffectAreaEditorView>();
                     services.AddSingleton<AdminPanelView>();
                     services.AddSingleton<TypesEditorView>();
                     services.AddSingleton<MainWindow>();
@@ -66,7 +67,8 @@ namespace DayZTediratorToolz
             host.Services.GetService<IControllerService>().InitializeViews(
                 host.Services.GetService<HomeView>(),
                 host.Services.GetService<AdminPanelView>(),
-                host.Services.GetService<TypesEditorView>()
+                host.Services.GetService<TypesEditorView>(),
+                host.Services.GetService<EffectAreaEditorView>()
             );
 
             mainWindow.Closed += (s,e) => {

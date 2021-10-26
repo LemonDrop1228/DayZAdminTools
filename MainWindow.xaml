@@ -130,6 +130,13 @@
                                                     <TextBlock Text="{DynamicResource NavTextSpawnablesGeneratorButton}" VerticalAlignment="Center" FontSize="16"/>
                                                 </StackPanel>
                                             </Button>
+                                            <Button HorizontalContentAlignment="Stretch" Margin="5" Padding="1 3"
+                                                    Style="{StaticResource MaterialDesignFlatButton}" Click="NavClickedEffectAreaEditorButton">
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                                    <materialDesign:PackIcon Kind="Biohazard" Height="24" Width="24"/>
+                                                    <TextBlock Text="{DynamicResource NavTextEffectAreaButton}" VerticalAlignment="Center" FontSize="16"/>
+                                                </StackPanel>
+                                            </Button>
                                         </StackPanel>
                                     </ScrollViewer>
                                 </Expander>

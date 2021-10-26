@@ -116,5 +116,10 @@ namespace DayZTediratorToolz
         {
             ChangeView(DayZTediratorConstants.Views.TestView);
         }
+
+        private void NavClickedEffectAreaEditorButton(object sender, RoutedEventArgs e)
+        {
+            ChangeView(DayZTediratorConstants.Views.EffectAreaEditor);
+        }
     }
 }

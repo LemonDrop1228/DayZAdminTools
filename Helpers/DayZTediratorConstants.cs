@@ -7,6 +7,7 @@
             Home,
             Admin,
             TypesEditor,
+            EffectAreaEditor,
             TestView
         }
 

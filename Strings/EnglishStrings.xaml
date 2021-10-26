@@ -13,6 +13,7 @@
     <system:String x:Key="NavTextTraderGeneratorButton">Trader Generator</system:String>
     <system:String x:Key="NavTextTraderPlusGeneratorButton">TraderPlus Generator</system:String>
     <system:String x:Key="NavTextSpawnablesGeneratorButton">Spawnables Generator</system:String>
+    <system:String x:Key="NavTextEffectAreaButton">Effect Area Editor</system:String>
     <system:String x:Key="NavTextAdvGrpsModToolsButton">Adv Groups ModTools</system:String>
     <system:String x:Key="NavTextCJ187ModToolsButton">CJ187 ModTools</system:String>
     <system:String x:Key="NavTextPVEZModToolsButton">PVEZ ModTools</system:String>
