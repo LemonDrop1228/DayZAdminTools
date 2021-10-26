@@ -8,7 +8,7 @@ using PropertyChanged;
 
 namespace DayZTediratorToolz.Models
 {
-    public class ITypeSubCollection
+    public interface ITypeSubCollection
     {
         string Name { get; set; }
     }
