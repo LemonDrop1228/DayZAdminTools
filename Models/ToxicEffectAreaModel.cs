@@ -40,18 +40,22 @@ namespace DayZTediratorToolz.Models
                 {
                     MissingMemberHandling = MissingMemberHandling.Ignore
                 });
-
-                foreach (var sPos in RootObject.ToxicEffectConfig.SafePositions)
-                {
-                    if (sPos.Length < 2)
-                        break;
-
-                    RootObject.ToxicEffectConfig.SafePositionCollection.Add(new SafePosMapCoordinate(sPos[0], sPos[1]));
-                }
+                InitSafePositionCollection();
             }
             catch (Exception e)
             {
                 throw new Exception("There was an error attempting to initialize the ToxicEffectConfig Data.");
+            }
+        }
+
+        public void InitSafePositionCollection()
+        {
+            foreach (var sPos in RootObject.ToxicEffectConfig.SafePositions)
+            {
+                if (sPos.Length < 2)
+                    break;
+
+                RootObject.ToxicEffectConfig.SafePositionCollection.Add(new SafePosMapCoordinate(sPos[0], sPos[1]));
             }
         }
 

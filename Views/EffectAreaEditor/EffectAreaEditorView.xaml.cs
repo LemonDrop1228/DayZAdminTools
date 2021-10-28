@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using LoremNET;
 using PropertyChanged;
 using static DayZTediratorToolz.Models.ToxicEffectAreaModel;
+using DayZTediratorToolz.Helpers;
 
 namespace DayZTediratorToolz.Views.EffectAreaEditor
 {
@@ -20,9 +21,9 @@ namespace DayZTediratorToolz.Views.EffectAreaEditor
         {
             get => ToxicEffectAreaObj.Areas;
         }
-        public ObservableCollection<int[]> SafePosCollection
+        public ObservableCollection<SafePosMapCoordinate> SafePosCollection
         {
-            get => ToxicEffectAreaObj.SafePositions;
+            get => ToxicEffectAreaObj.SafePositionCollection;
         }
 
         public EffectAreaEditorView()
@@ -44,12 +45,13 @@ namespace DayZTediratorToolz.Views.EffectAreaEditor
             ToxicEffectAreaObj = new ToxicEffectConfig()
             {
                 Areas = new ObservableCollection<Area>(GenerateAreasForTesting()),
-                SafePositions = new ObservableCollection<int[]>()
+                SafePositions = new List<int[]>()
                 {
                     new int[] {1,2},
                     new int[] {1,2}
                 }
             };
+            //ToxicEffectAreaObj.
         }
 
         private List<Area> GenerateAreasForTesting()
