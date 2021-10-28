@@ -73,6 +73,7 @@
     <Compile Include="Converters\ValueIndexConverter.cs" />
     <Compile Include="Helpers\Commands.cs" />
     <Compile Include="Helpers\CustomClasses\CircularFIFO.cs" />
+    <Compile Include="Helpers\CustomClasses\SafePosMapCoordinate.cs" />
     <Compile Include="Helpers\CustomClasses\ViewBucket.cs" />
     <Compile Include="Helpers\CustomControls\FileInput.xaml.cs">
       <DependentUpon>FileInput.xaml</DependentUpon>

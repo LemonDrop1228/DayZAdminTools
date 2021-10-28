@@ -7,7 +7,7 @@
             Home,
             Admin,
             TypesEditor,
-            EffectAreaEditor
+            EffectAreaEditor,
             MapTool
         }
 

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xaml;
+using DayZTediratorToolz.Helpers;
 
 namespace DayZTediratorToolz.Models
 {
@@ -39,6 +40,14 @@ namespace DayZTediratorToolz.Models
                 {
                     MissingMemberHandling = MissingMemberHandling.Ignore
                 });
+
+                foreach (var sPos in RootObject.ToxicEffectConfig.SafePositions)
+                {
+                    if (sPos.Length < 2)
+                        break;
+
+                    RootObject.ToxicEffectConfig.SafePositionCollection.Add(new SafePosMapCoordinate(sPos[0], sPos[1]));
+                }
             }
             catch (Exception e)
             {
@@ -135,7 +144,9 @@ namespace DayZTediratorToolz.Models
             public ObservableCollection<Area> Areas { get; set; }
 
             [JsonProperty("SafePositions")]
-            public ObservableCollection<int[]> SafePositions { get; set; }
+            public List<int[]> SafePositions { get; set; }
+
+            public ObservableCollection<SafePosMapCoordinate> SafePositionCollection { get; set; }
         }
 
         [AddINotifyPropertyChangedInterface]
