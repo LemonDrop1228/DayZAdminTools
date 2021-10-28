@@ -41,7 +41,7 @@
     <!-- TypesEditorView Strings -->
     <system:String x:Key="TypesEditorTitle">Types Editor</system:String>
 
-    <!-- EffectAreaEditor Strings -->
-    <system:String x:Key="EffectAreaView">Effect Area Editor</system:String>
+    <!-- ToxicAreaEditor Strings -->
+    <system:String x:Key="ToxicZoneView">Toxic Zone Editor</system:String>
 
 </ResourceDictionary>

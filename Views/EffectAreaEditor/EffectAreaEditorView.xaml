@@ -3,7 +3,6 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-			 xmlns:local="clr-namespace:DayZTediratorToolz.Views.Types"
 			 xmlns:views="clr-namespace:DayZTediratorToolz.Views"
 			 xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
 			 xmlns:tz="http://schemas.abtsoftware.co.uk/transitionz"  xmlns:st="http://schemas.spicytaco.io/"
@@ -21,7 +20,7 @@
             </Grid.RowDefinitions>
 
             <TextBlock TextAlignment="Left" VerticalAlignment="Top" Margin="10 0"
-                       Text="{DynamicResource EffectAreaView}"
+                       Text="{DynamicResource ToxicZoneView}"
                        FontSize="32" FontWeight="DemiBold" />
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
@@ -57,7 +56,7 @@
                                         <TextBlock
                                             VerticalAlignment="Center"
                                             Margin="3 0 0 0"
-                                            Text="Effect Areas"/>
+                                            Text="Toxic Areas"/>
                                     </StackPanel>
                                 </RadioButton>
                                 <RadioButton
@@ -88,7 +87,8 @@
                                 <ListBox ItemsSource="{Binding AreasCollection}"
                                          HorizontalAlignment="Stretch"
                                          VerticalAlignment="Stretch"
-                                         Cursor="Hand">
+                                         Cursor="Hand"
+                                         Visibility="Hidden">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <st:StackPanel Orientation="Vertical">
@@ -97,6 +97,22 @@
                                                         <TextBlock Text="{Binding AreaName}" FontSize="12" />
                                                         <TextBlock Text="{Binding Type}" FontSize="12" />
                                                     </st:StackPanel>
+                                                </materialDesign:Card>
+                                            </st:StackPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ListBox>
+                                <ListBox ItemsSource="{Binding SafePosCollection}"
+                                                 HorizontalAlignment="Stretch"
+                                                 VerticalAlignment="Stretch"
+                                                 Cursor="Hand">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <st:StackPanel Orientation="Vertical">
+                                                <materialDesign:Card Background="LimeGreen" Margin="12" Padding="12">
+                                                    <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="7">
+                                                    <TextBlock Text="{Binding ToString}" FontSize="12" />
+                                                </st:StackPanel>
                                                 </materialDesign:Card>
                                             </st:StackPanel>
                                         </DataTemplate>

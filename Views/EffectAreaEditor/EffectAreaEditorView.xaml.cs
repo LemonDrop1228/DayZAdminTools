@@ -14,14 +14,26 @@ namespace DayZTediratorToolz.Views.EffectAreaEditor
     public partial class EffectAreaEditorView : BaseView
     {
         public ToxicEffectConfig ToxicEffectAreaObj { get; set; }
+        public override ViewMenuData ViewMenuData { get; set; }
 
         public ObservableCollection<Area> AreasCollection
         {
             get => ToxicEffectAreaObj.Areas;
         }
+        public ObservableCollection<int[]> SafePosCollection
+        {
+            get => ToxicEffectAreaObj.SafePositions;
+        }
 
         public EffectAreaEditorView()
         {
+            ViewMenuData = new()
+            {
+                ViewIcon = MaterialDesignThemes.Wpf.PackIconKind.Biohazard,
+                ViewIndex = 3,
+                ViewLabel = "Toxic Zone Editor",
+                ViewType = Helpers.DayZTediratorConstants.ViewTypes.VanillaTool
+            };
             SetupTestData();
             InitializeComponent();
             this.DataContext = this;
