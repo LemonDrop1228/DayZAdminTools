@@ -33,7 +33,7 @@
                           Background="{DynamicResource MaterialDesignDarkBackground}"
 						  materialDesign:ThemeAssist.Theme="Dark"
 						  Header="Card Group Box"
-						  Style="{DynamicResource MaterialDesignCardGroupBox}">>
+						  Style="{DynamicResource MaterialDesignCardGroupBox}">
                     <GroupBox.HeaderTemplate>
                         <DataTemplate>
                             <StackPanel
@@ -83,10 +83,34 @@
                             </StackPanel>
                         </DataTemplate>
                     </GroupBox.HeaderTemplate>
+                    <materialDesign:Card Background="#2F3846" Padding="3"> <!-- Card for Effected Area-->
+                        <Grid>
+                            <ItemsControl ItemsSource="{Binding ToxicEffectAreaObj.Areas}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical">
+                                            <materialDesign:Card Background="LimeGreen">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding AreaName}"/>
+                                                    <TextBlock Text="{Binding Type}"/>
+                                                </StackPanel>
+                                            </materialDesign:Card>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                            <ItemsControl Visibility="Hidden">
+
+                            </ItemsControl>
+                        </Grid>
+                    </materialDesign:Card>
                 </GroupBox>
 
-                <GroupBox Grid.Column="1"
-                          Visibility="Hidden">
+                <GroupBox Grid.Column="1" Visibility="Hidden">
+                    
+                    <materialDesign:Card Background="#2f3846" Padding="3"> <!-- Card for Safe Area Map-->
+                        
+                    </materialDesign:Card>
                 </GroupBox>
                 <Border Grid.Column="1">
                     <Grid>
@@ -99,7 +123,7 @@
                                   Background="{DynamicResource MaterialDesignDarkBackground}"
 						          materialDesign:ThemeAssist.Theme="Dark"
 						          Header="Card Group Box"
-						          Style="{DynamicResource MaterialDesignCardGroupBox}">>
+						          Style="{DynamicResource MaterialDesignCardGroupBox}">
                             <GroupBox.HeaderTemplate>
                                 <DataTemplate>
                                     <StackPanel Margin="0 12"
@@ -120,6 +144,9 @@
                                     </StackPanel>
                                 </DataTemplate>
                             </GroupBox.HeaderTemplate>
+                            <materialDesign:Card Background="#2F3846" Padding="3"> <!--Card for Advanced Config-->
+                                
+                            </materialDesign:Card>
                         </GroupBox>
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -151,7 +178,7 @@
                                         </StackPanel>
                                     </DataTemplate>
                                 </GroupBox.HeaderTemplate>
-                                <materialDesign:Card Background="#2F3846" Padding="3">
+                                <materialDesign:Card Background="#2F3846" Padding="3"> <!-- Card for Config -->
                                     <ScrollViewer>
                                         <st:StackPanel Orientation="Vertical"
                                                        MarginBetweenChildren="10">
@@ -248,27 +275,30 @@
                                       Background="{DynamicResource MaterialDesignDarkBackground}"
 						              materialDesign:ThemeAssist.Theme="Dark"
 						              Header="Card Group Box"
-						              Style="{DynamicResource MaterialDesignCardGroupBox}">>
+						              Style="{DynamicResource MaterialDesignCardGroupBox}">
                                 <GroupBox.HeaderTemplate>
                                     <DataTemplate>
                                         <StackPanel Margin="0 12"
-                                                    Orientation="Horizontal"
-                                                    HorizontalAlignment="Left"
-                                                    VerticalAlignment="Center">
+                                                        Orientation="Horizontal"
+                                                        HorizontalAlignment="Left"
+                                                        VerticalAlignment="Center">
                                             <materialDesign:PackIcon
-                                                Padding="16 3"
-                                                Kind="MapOutline"
-                                                VerticalAlignment="Center"
-                                                Margin="0 0 3 0"
-                                                Height="21" Width="21"/>
+                                                    Padding="16 3"
+                                                    Kind="MapOutline"
+                                                    VerticalAlignment="Center"
+                                                    Margin="0 0 3 0"
+                                                    Height="21" Width="21"/>
                                             <TextBlock
-                                                Margin="8 0 0 0"
-                                                VerticalAlignment="Center"
-                                                FontSize="18" FontWeight="Medium"
-                                                Text="Chernarus Map" />
+                                                    Margin="8 0 0 0"
+                                                    VerticalAlignment="Center"
+                                                    FontSize="18" FontWeight="Medium"
+                                                    Text="Chernarus Map" />
                                         </StackPanel>
                                     </DataTemplate>
                                 </GroupBox.HeaderTemplate>
+                                <materialDesign:Card Background="#2F3846" Padding="3">
+                                    
+                                </materialDesign:Card>
                             </GroupBox>
                         </Grid>
                     </Grid>
