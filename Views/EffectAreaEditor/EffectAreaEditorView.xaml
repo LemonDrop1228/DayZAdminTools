@@ -92,7 +92,7 @@
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <st:StackPanel Orientation="Vertical">
-                                                <materialDesign:Card Background="LimeGreen" Margin="12" Padding="12">
+                                            <materialDesign:Card Background="{DynamicResource MaterialDesignDarkBackground}" Margin="12" Padding="12">
                                                     <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="7">
                                                         <TextBlock Text="{Binding AreaName}" FontSize="12" />
                                                         <TextBlock Text="{Binding Type}" FontSize="12" />
@@ -109,11 +109,14 @@
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <st:StackPanel Orientation="Vertical">
-                                                <materialDesign:Card Background="LimeGreen" Margin="12" Padding="12">
-                                                    <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="7">
-                                                    <TextBlock Text="{Binding ToString}" FontSize="12" />
-                                                </st:StackPanel>
-                                                </materialDesign:Card>
+                                            <materialDesign:Card Background="{DynamicResource MaterialDesignDarkBackground}" Margin="12" Padding="12">
+                                                <TextBlock FontSize="20" >
+                                                        <Run Text="X / Y :                     "/>
+                                                        <Run Text="{Binding Xcoord}"/>
+                                                        <Run Text="/"/>
+                                                        <Run Text="{Binding Ycoord}"/>
+                                                    </TextBlock>
+                                            </materialDesign:Card>
                                             </st:StackPanel>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>

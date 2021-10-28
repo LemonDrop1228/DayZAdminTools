@@ -50,6 +50,7 @@ namespace DayZTediratorToolz.Models
 
         public void InitSafePositionCollection()
         {
+            RootObject.ToxicEffectConfig.SafePositionCollection = new();
             foreach (var sPos in RootObject.ToxicEffectConfig.SafePositions)
             {
                 if (sPos.Length < 2)
