@@ -1,13 +1,265 @@
 ﻿<views:BaseView x:Class="DayZTediratorToolz.Views.EffectAreaEditor.EffectAreaEditorView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:DayZTediratorToolz.Views.EffectAreaEditor"
-             xmlns:views="clr-namespace:DayZTediratorToolz.Views"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:local="clr-namespace:DayZTediratorToolz.Views.Types"
+			 xmlns:views="clr-namespace:DayZTediratorToolz.Views"
+			 xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+			 xmlns:tz="http://schemas.abtsoftware.co.uk/transitionz"  xmlns:st="http://schemas.spicytaco.io/"
+			 xmlns:fg="http://filterdatagrid.control.com/2021"
+			 xmlns:Syncfusion="http://schemas.syncfusion.com/wpf"
+			 xmlns:converters="clr-namespace:DayZTediratorToolz.Converters"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
+    <materialDesign:Card Background="#FF3A4755" Padding="3">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.075*" />
+                <RowDefinition Height="0.125*" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
 
-    </Grid>
+            <TextBlock TextAlignment="Left" VerticalAlignment="Top" Margin="10 0"
+                       Text="{DynamicResource EffectAreaView}"
+                       FontSize="32" FontWeight="DemiBold" />
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.4*"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <GroupBox Margin="7"
+                          Background="{DynamicResource MaterialDesignDarkBackground}"
+						  materialDesign:ThemeAssist.Theme="Dark"
+						  Header="Card Group Box"
+						  Style="{DynamicResource MaterialDesignCardGroupBox}">>
+                    <GroupBox.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Left"
+                                Margin="0 12">
+
+                                <RadioButton
+                                    FontWeight="Medium" FontSize="18"
+                                    Cursor="Hand"
+                                    x:Name="RButtonEffectedArea"
+                                    Padding="16 3"
+                                    Style="{StaticResource MaterialDesignTabRadioButton}">
+                                    <StackPanel
+                                        Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Kind="Biohazard"
+                                            VerticalAlignment="Center"
+                                            Margin="0 0 3 0"
+                                            Height="21" Width="21"/>
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            Margin="3 0 0 0"
+                                            Text="Effect Areas"/>
+                                    </StackPanel>
+                                </RadioButton>
+                                <RadioButton
+                                    FontWeight="Medium" FontSize="18"
+                                    Cursor="Hand"
+                                    x:Name="RButtonSafeArea"
+                                    Padding="16 3"
+                                    IsChecked="True"
+                                    Style="{StaticResource MaterialDesignTabRadioButton}">
+                                    <StackPanel
+                                        Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Kind="HospitalBox"
+                                            VerticalAlignment="Center"
+                                            Margin="0 0 3 0"
+                                            Height="21" Width="21"/>
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            Margin="3 0 0 0"
+                                            Text="Safe Areas"/>
+                                    </StackPanel>
+                                </RadioButton>
+                            </StackPanel>
+                        </DataTemplate>
+                    </GroupBox.HeaderTemplate>
+                </GroupBox>
+
+                <GroupBox Grid.Column="1"
+                          Visibility="Hidden">
+                </GroupBox>
+                <Border Grid.Column="1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="0.45*"/>
+                        </Grid.RowDefinitions>
+                        <GroupBox Grid.Row="1"
+                                  Margin="7"
+                                  Background="{DynamicResource MaterialDesignDarkBackground}"
+						          materialDesign:ThemeAssist.Theme="Dark"
+						          Header="Card Group Box"
+						          Style="{DynamicResource MaterialDesignCardGroupBox}">>
+                            <GroupBox.HeaderTemplate>
+                                <DataTemplate>
+                                    <StackPanel Margin="0 12"
+                                                Orientation="Horizontal"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center">
+                                        <materialDesign:PackIcon
+                                            Padding="16 3"
+                                            Kind="Cog"
+                                            VerticalAlignment="Center"
+                                            Margin="0 0 3 0"
+                                            Height="21" Width="21"/>
+                                        <TextBlock
+                                                Margin="8 0 0 0"
+                                                VerticalAlignment="Center"
+                                                FontSize="18" FontWeight="Medium"
+                                                Text="Advanced Configuration" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GroupBox.HeaderTemplate>
+                        </GroupBox>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <GroupBox Margin="7"
+                                      Background="{DynamicResource MaterialDesignDarkBackground}"
+						              materialDesign:ThemeAssist.Theme="Dark"
+						              Header="Card Group Box"
+						              Style="{DynamicResource MaterialDesignCardGroupBox}">
+                                <GroupBox.HeaderTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="0 12"
+                                                    Orientation="Horizontal"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center">
+                                            <materialDesign:PackIcon
+                                                Padding="16 3"
+                                                Kind="CogBox"
+                                                VerticalAlignment="Center"
+                                                Margin="0 0 3 0"
+                                                Height="21" Width="21"/>
+                                            <TextBlock
+                                                Margin="8 0 0 0"
+                                                VerticalAlignment="Center"
+                                                FontSize="18" FontWeight="Medium"
+                                                Text="Configuration" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GroupBox.HeaderTemplate>
+                                <materialDesign:Card Background="#2F3846" Padding="3">
+                                    <ScrollViewer>
+                                        <st:StackPanel Orientation="Vertical"
+                                                       MarginBetweenChildren="10">
+                                            <TextBox
+                                                  materialDesign:HintAssist.Hint="Area Name"
+                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                  VerticalAlignment="Center"
+                                                  FontSize="18"/>
+                                            <TextBox
+                                                  materialDesign:HintAssist.Hint="Type"
+                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                  VerticalAlignment="Center"
+                                                  FontSize="18"/>
+                                            <TextBox
+                                                  materialDesign:HintAssist.Hint="Trigger Type"
+                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                  VerticalAlignment="Center"
+                                                  FontSize="18"/>
+                                            <TextBox
+                                                  materialDesign:HintAssist.Hint="Position"
+                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                  VerticalAlignment="Center"
+                                                  FontSize="18"/>
+                                            <TextBox
+                                                  materialDesign:HintAssist.Hint="Radius"
+                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                  VerticalAlignment="Center"
+                                                  FontSize="18"/>
+                                            <TextBox
+                                                  materialDesign:HintAssist.Hint="Positive Height"
+                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                  VerticalAlignment="Center"
+                                                  FontSize="18"/>
+                                            <TextBox
+                                                  materialDesign:HintAssist.Hint="Negative Height"
+                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                  VerticalAlignment="Center"
+                                                  FontSize="18"/>
+                                            <TextBox
+                                                  materialDesign:HintAssist.Hint="Inner Ring Count"
+                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                  VerticalAlignment="Center"
+                                                  FontSize="18"/>
+                                            <TextBox
+                                                  materialDesign:HintAssist.Hint="Inner Ring Distance"
+                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                  VerticalAlignment="Center"
+                                                  FontSize="18"/>
+                                            <TextBox
+                                                  materialDesign:HintAssist.Hint="Outer Ring Toggle"
+                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                  VerticalAlignment="Center"
+                                                  FontSize="18"/>
+                                            <TextBox
+                                                  materialDesign:HintAssist.Hint="Outer Partical Distance"
+                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                  VerticalAlignment="Center"
+                                                  FontSize="18"/>
+                                            <TextBox
+                                                  materialDesign:HintAssist.Hint="Outer Offset"
+                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                  VerticalAlignment="Center"
+                                                  FontSize="18"/>
+                                            <TextBox
+                                                  materialDesign:HintAssist.Hint="Vertical Layers"
+                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                  VerticalAlignment="Center"
+                                                  FontSize="18"/>
+                                            <TextBox
+                                                  materialDesign:HintAssist.Hint="Vertical Offset"
+                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                  VerticalAlignment="Center"
+                                                  FontSize="18"/>
+                                        </st:StackPanel>
+                                    </ScrollViewer>
+                                </materialDesign:Card>
+                            </GroupBox>
+                            <GroupBox Grid.Column="1"
+                                      Margin="7"
+                                      Background="{DynamicResource MaterialDesignDarkBackground}"
+						              materialDesign:ThemeAssist.Theme="Dark"
+						              Header="Card Group Box"
+						              Style="{DynamicResource MaterialDesignCardGroupBox}">>
+                                <GroupBox.HeaderTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="0 12"
+                                                    Orientation="Horizontal"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center">
+                                            <materialDesign:PackIcon
+                                                Padding="16 3"
+                                                Kind="MapOutline"
+                                                VerticalAlignment="Center"
+                                                Margin="0 0 3 0"
+                                                Height="21" Width="21"/>
+                                            <TextBlock
+                                                Margin="8 0 0 0"
+                                                VerticalAlignment="Center"
+                                                FontSize="18" FontWeight="Medium"
+                                                Text="Chernarus Map" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GroupBox.HeaderTemplate>
+                            </GroupBox>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </materialDesign:Card>
 </views:BaseView>

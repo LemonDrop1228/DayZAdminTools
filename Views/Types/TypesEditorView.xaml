@@ -511,7 +511,7 @@
 					x:Name="dHost"
 					Style="{StaticResource MaterialDesignEmbeddedDialogHost}"
 					DialogMargin="8"
-					DialogTheme="Dark"
+					DialogTheme="Dark" Height="575" VerticalAlignment="Bottom"
 					>
 					<materialDesign:DialogHost.DialogContent>
 						<Border Padding="3" Width="350" Height="500">

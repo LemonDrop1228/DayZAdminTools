@@ -17,7 +17,7 @@ namespace DayZTediratorToolz.Models
 
         public void UpdateHistory(string typesFilePath)
         {
-            TypeHistory.Add(new RecentTypeHistoryItemModel(){RecentPath = typesFilePath});
+            //TypeHistory.Add(new RecentTypeHistoryItemModel(){RecentPath = typesFilePath});
         }
 
         CircularFIFO<RecentTypeHistoryItemModel> TypeHistory { get; set; }

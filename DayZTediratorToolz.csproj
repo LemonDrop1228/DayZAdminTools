@@ -81,6 +81,7 @@
     <Compile Include="Models\ConfigObjectmodels.cs" />
     <Compile Include="Models\DzsaLauncherApiResults.cs" />
     <Compile Include="Models\RecentTypesHistoryModel.cs" />
+    <Compile Include="Models\ToxicEffectAreaModel.cs" />
     <Compile Include="Models\TypeCollectionModel.cs" />
     <Compile Include="Services\AppSettingsService\IAppSettingsManager.cs" />
     <Compile Include="Services\ControllerService\IControllerService.cs" />
