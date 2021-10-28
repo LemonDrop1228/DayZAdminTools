@@ -159,71 +159,85 @@
                                                   materialDesign:HintAssist.Hint="Area Name"
                                                   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                                   VerticalAlignment="Center"
+                                                  Margin="15 0 15 0"
                                                   FontSize="18"/>
                                             <TextBox
                                                   materialDesign:HintAssist.Hint="Type"
                                                   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                                   VerticalAlignment="Center"
+                                                  Margin="15 0 15 0"
                                                   FontSize="18"/>
                                             <TextBox
                                                   materialDesign:HintAssist.Hint="Trigger Type"
                                                   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                                   VerticalAlignment="Center"
+                                                  Margin="15 0 15 0"
                                                   FontSize="18"/>
                                             <TextBox
                                                   materialDesign:HintAssist.Hint="Position"
                                                   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                                   VerticalAlignment="Center"
+                                                  Margin="15 0 15 0"
                                                   FontSize="18"/>
                                             <TextBox
                                                   materialDesign:HintAssist.Hint="Radius"
                                                   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                                   VerticalAlignment="Center"
+                                                  Margin="15 0 15 0"
                                                   FontSize="18"/>
                                             <TextBox
                                                   materialDesign:HintAssist.Hint="Positive Height"
                                                   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                                   VerticalAlignment="Center"
+                                                  Margin="15 0 15 0"
                                                   FontSize="18"/>
                                             <TextBox
                                                   materialDesign:HintAssist.Hint="Negative Height"
                                                   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                                   VerticalAlignment="Center"
+                                                  Margin="15 0 15 0"
                                                   FontSize="18"/>
                                             <TextBox
                                                   materialDesign:HintAssist.Hint="Inner Ring Count"
                                                   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                                   VerticalAlignment="Center"
+                                                  Margin="15 0 15 0"
                                                   FontSize="18"/>
                                             <TextBox
                                                   materialDesign:HintAssist.Hint="Inner Ring Distance"
                                                   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                                   VerticalAlignment="Center"
+                                                  Margin="15 0 15 0"
                                                   FontSize="18"/>
                                             <TextBox
                                                   materialDesign:HintAssist.Hint="Outer Ring Toggle"
                                                   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                                   VerticalAlignment="Center"
+                                                  Margin="15 0 15 0"
                                                   FontSize="18"/>
                                             <TextBox
                                                   materialDesign:HintAssist.Hint="Outer Partical Distance"
                                                   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                                   VerticalAlignment="Center"
+                                                  Margin="15 0 15 0"
                                                   FontSize="18"/>
                                             <TextBox
                                                   materialDesign:HintAssist.Hint="Outer Offset"
                                                   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                                   VerticalAlignment="Center"
+                                                  Margin="15 0 15 0"
                                                   FontSize="18"/>
                                             <TextBox
                                                   materialDesign:HintAssist.Hint="Vertical Layers"
                                                   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                                   VerticalAlignment="Center"
+                                                  Margin="15 0 15 0"
                                                   FontSize="18"/>
                                             <TextBox
                                                   materialDesign:HintAssist.Hint="Vertical Offset"
                                                   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                                   VerticalAlignment="Center"
+                                                  Margin="15 0 15 0"
                                                   FontSize="18"/>
                                         </st:StackPanel>
                                     </ScrollViewer>
