@@ -14,16 +14,16 @@ namespace DayZTediratorToolz.Views.EffectAreaEditor
     [AddINotifyPropertyChangedInterface]
     public partial class EffectAreaEditorView : BaseView
     {
-        public ToxicEffectConfig ToxicEffectAreaObj { get; set; }
+        public ToxicEffectAreaModel ToxicEffectAreaObj { get; set; }
         public override ViewMenuData ViewMenuData { get; set; }
 
         public ObservableCollection<Area> AreasCollection
         {
-            get => ToxicEffectAreaObj.Areas;
+            get => ToxicEffectAreaObj?.RootObject?.ToxicEffectConfig?.Areas ?? null;
         }
         public ObservableCollection<SafePosMapCoordinate> SafePosCollection
         {
-            get => ToxicEffectAreaObj.SafePositionCollection;
+            get => ToxicEffectAreaObj?.RootObject?.ToxicEffectConfig?.SafePositionCollection ?? null;
         }
 
         public EffectAreaEditorView()
@@ -42,7 +42,7 @@ namespace DayZTediratorToolz.Views.EffectAreaEditor
 
         private void SetupTestData()
         {
-            ToxicEffectAreaObj = new ToxicEffectConfig()
+            var toxicEffectConfig = new ToxicEffectConfig()
             {
                 Areas = new ObservableCollection<Area>(GenerateAreasForTesting()),
                 SafePositions = new List<int[]>()
@@ -51,7 +51,16 @@ namespace DayZTediratorToolz.Views.EffectAreaEditor
                     new int[] {1,2}
                 }
             };
-            //ToxicEffectAreaObj.
+
+            ToxicEffectAreaObj = new ToxicEffectAreaModel()
+            {
+                RootObject = new Root()
+                {
+                    ToxicEffectConfig = toxicEffectConfig
+                }
+            };
+
+            ToxicEffectAreaObj.InitSafePositionCollection();
         }
 
         private List<Area> GenerateAreasForTesting()
