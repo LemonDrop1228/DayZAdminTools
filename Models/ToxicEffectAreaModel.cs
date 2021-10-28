@@ -2,6 +2,7 @@
 using PropertyChanged;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +20,7 @@ namespace DayZTediratorToolz.Models
         /* ------------------------------------------ */
 
         /*  Replace 'ToxicEffectConfig' with the type generated from the object JSON;
-            an example of this would be RootObject.Types in the TypeCollectionModel class 
+            an example of this would be RootObject.Types in the TypeCollectionModel class
             where 'ToxicEffectConfig' would be replaced with 'Types'.
 
             Once you've replaced 'ToxicEffectConfig' uncomment the following methods:
@@ -55,10 +56,11 @@ namespace DayZTediratorToolz.Models
         // PASTE CLASS CODE GENERATED FROM JSON HERE
 
         // Root myDeserializedClass = JsonSerializer.Deserialize<Root>(myJsonResponse);
+        [AddINotifyPropertyChangedInterface]
         public class Data
         {
             [JsonProperty("Pos")]
-            public List<int> Pos { get; set; }
+            public ObservableCollection<int> Pos { get; set; }
 
             [JsonProperty("Radius")]
             public int Radius { get; set; }
@@ -94,6 +96,7 @@ namespace DayZTediratorToolz.Models
             public string ParticleName { get; set; }
         }
 
+        [AddINotifyPropertyChangedInterface]
         public class PlayerData
         {
             [JsonProperty("AroundPartName")]
@@ -106,6 +109,7 @@ namespace DayZTediratorToolz.Models
             public string PPERequesterType { get; set; }
         }
 
+        [AddINotifyPropertyChangedInterface]
         public class Area
         {
             [JsonProperty("AreaName")]
@@ -124,15 +128,17 @@ namespace DayZTediratorToolz.Models
             public PlayerData PlayerData { get; set; }
         }
 
+        [AddINotifyPropertyChangedInterface]
         public class ToxicEffectConfig
         {
             [JsonProperty("Areas")]
-            public List<Area> Areas { get; set; }
+            public ObservableCollection<Area> Areas { get; set; }
 
             [JsonProperty("SafePositions")]
-            public List<int[]> SafePositions { get; set; }
+            public ObservableCollection<int[]> SafePositions { get; set; }
         }
 
+        [AddINotifyPropertyChangedInterface]
         public class Root
         {
             [JsonProperty("ToxicEffectConfig")]

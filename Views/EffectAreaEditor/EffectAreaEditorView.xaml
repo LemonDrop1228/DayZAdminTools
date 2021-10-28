@@ -11,7 +11,7 @@
 			 xmlns:Syncfusion="http://schemas.syncfusion.com/wpf"
 			 xmlns:converters="clr-namespace:DayZTediratorToolz.Converters"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="750" d:DesignWidth="1200" >
     <materialDesign:Card Background="#FF3A4755" Padding="3">
         <Grid>
             <Grid.RowDefinitions>
@@ -85,31 +85,31 @@
                     </GroupBox.HeaderTemplate>
                     <materialDesign:Card Background="#2F3846" Padding="3"> <!-- Card for Effected Area-->
                         <Grid>
-                            <ItemsControl ItemsSource="{Binding ToxicEffectAreaObj.Areas}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Vertical">
-                                            <materialDesign:Card Background="LimeGreen">
-                                                <StackPanel Orientation="Horizontal">
-                                                    <TextBlock Text="{Binding AreaName}"/>
-                                                    <TextBlock Text="{Binding Type}"/>
-                                                </StackPanel>
-                                            </materialDesign:Card>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                            <ItemsControl Visibility="Hidden">
-
-                            </ItemsControl>
+                                <ListBox ItemsSource="{Binding AreasCollection}"
+                                         HorizontalAlignment="Stretch"
+                                         VerticalAlignment="Stretch"
+                                         Cursor="Hand">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <st:StackPanel Orientation="Vertical">
+                                                <materialDesign:Card Background="LimeGreen" Margin="12" Padding="12">
+                                                    <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="7">
+                                                        <TextBlock Text="{Binding AreaName}" FontSize="12" />
+                                                        <TextBlock Text="{Binding Type}" FontSize="12" />
+                                                    </st:StackPanel>
+                                                </materialDesign:Card>
+                                            </st:StackPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ListBox>
                         </Grid>
                     </materialDesign:Card>
                 </GroupBox>
 
                 <GroupBox Grid.Column="1" Visibility="Hidden">
-                    
+
                     <materialDesign:Card Background="#2f3846" Padding="3"> <!-- Card for Safe Area Map-->
-                        
+
                     </materialDesign:Card>
                 </GroupBox>
                 <Border Grid.Column="1">
@@ -145,7 +145,7 @@
                                 </DataTemplate>
                             </GroupBox.HeaderTemplate>
                             <materialDesign:Card Background="#2F3846" Padding="3"> <!--Card for Advanced Config-->
-                                
+
                             </materialDesign:Card>
                         </GroupBox>
                         <Grid>
@@ -297,7 +297,7 @@
                                     </DataTemplate>
                                 </GroupBox.HeaderTemplate>
                                 <materialDesign:Card Background="#2F3846" Padding="3">
-                                    
+
                                 </materialDesign:Card>
                             </GroupBox>
                         </Grid>
