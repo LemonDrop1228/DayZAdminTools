@@ -100,6 +100,7 @@
     <Compile Include="Views\base\BaseView.cs" />
     <Compile Include="Views\EffectAreaEditor\EffectAreaEditorView.xaml.cs">
       <DependentUpon>EffectAreaEditorView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Dialogs\MapDialogView.xaml.cs">
       <DependentUpon>MapDialogView.xaml</DependentUpon>
     </Compile>
