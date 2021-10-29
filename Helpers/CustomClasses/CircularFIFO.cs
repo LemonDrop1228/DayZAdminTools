@@ -18,15 +18,15 @@ namespace DayZTediratorToolz.Helpers
     /// </summary>
     public int Capacity
     {
-        get { return capacity; }          
+        get { return capacity; }
     }
 
     /// <summary>
     ///  Initialize a new instance of FIFO class that is empty and has the default initial capacity.
     /// </summary>
     public CircularFIFO()
-    {            
-        CircularBuffer = new Queue<T>();
+    {
+        CircularBuffer = new();
     }
 
     /// <summary>
@@ -36,7 +36,7 @@ namespace DayZTediratorToolz.Helpers
     public CircularFIFO(int size)
     {
         capacity = size;
-        CircularBuffer = new Queue<T>(capacity);
+        CircularBuffer = new (capacity);
     }
 
     /// <summary>
@@ -56,7 +56,7 @@ namespace DayZTediratorToolz.Helpers
     /// </summary>
     /// <param name="item"> The array of items to add to the end of the FIFO. </param>
      public void Add(T[] item)
-    { 
+    {
         int enqueuedSize = 0;
         int remainEnqueueSize = this.Capacity - this.Count;
 
@@ -69,7 +69,7 @@ namespace DayZTediratorToolz.Helpers
 
             for (; enqueuedSize < item.Length; enqueuedSize++)
                 CircularBuffer.Enqueue(item[enqueuedSize]);
-        }           
+        }
     }
 
     /// <summary>
@@ -159,7 +159,7 @@ namespace DayZTediratorToolz.Helpers
     public void Reset()
     {
         Dispose();
-        CircularBuffer = new Queue<T>(capacity);
+        CircularBuffer = new(capacity);
     }
 
     #region ICollection<T> Members
@@ -175,14 +175,14 @@ namespace DayZTediratorToolz.Helpers
     }
 
     /// <summary>
-    /// Copies the FIFO elements to an existing one-dimensional array. 
+    /// Copies the FIFO elements to an existing one-dimensional array.
     /// </summary>
     /// <param name="array"> The one-dimensional array that have at list a size of the FIFO </param>
     /// <param name="arrayIndex"></param>
     public void CopyTo(T[] array, int arrayIndex)
     {
         if (array.Length >= CircularBuffer.Count)
-            CircularBuffer.CopyTo(array, 0);           
+            CircularBuffer.CopyTo(array, 0);
     }
 
     public bool IsReadOnly
@@ -192,7 +192,7 @@ namespace DayZTediratorToolz.Helpers
 
     public bool Remove(T item)
     {
-        return false; 
+        return false;
     }
 
     #endregion
@@ -221,7 +221,7 @@ namespace DayZTediratorToolz.Helpers
     /// Releases all the resource used by the FIFO.
     /// </summary>
     public void Dispose()
-    {          
+    {
         CircularBuffer.Clear();
         CircularBuffer = null;
         GC.Collect();

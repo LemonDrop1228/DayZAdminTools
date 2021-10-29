@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Xml;
@@ -8,6 +9,7 @@ using DayZTediratorToolz.Helpers;
 using DayZTediratorToolz.Models;
 using DayZTediratorToolz.Services;
 using DayZTediratorToolz.Services.ToolConfigService;
+using MaterialDesignThemes.Wpf;
 using MoreLinq;
 using MoreLinq.Extensions;
 using Newtonsoft.Json;
@@ -16,7 +18,7 @@ using Syncfusion.Data;
 using Syncfusion.Data.Extensions;
 using Syncfusion.UI.Xaml.Grid;
 
-namespace DayZTediratorToolz.Views.Types
+namespace DayZTediratorToolz.Views
 {
     [AddINotifyPropertyChangedInterface]
     public partial class TypesEditorView : BaseView
@@ -38,6 +40,7 @@ namespace DayZTediratorToolz.Views.Types
 
         public TypesCfg TypesConfig { get; set; }
 
+        public override ViewMenuData ViewMenuData { get; set; }
 
         public string SubEditorTitle
         {
@@ -87,7 +90,7 @@ namespace DayZTediratorToolz.Views.Types
                 return TypeCollection.Count() > 1;
             }
         }
-        
+
         public int IsDataPagedGridRowSpan => IsDataPaged ? 1 : 2;
         public bool IsDataLoaded => TypeCollection != null;
 
@@ -130,7 +133,7 @@ namespace DayZTediratorToolz.Views.Types
             else
                 (SubCollection as ObservableCollection<TypeCollectionModel.Value>).Remove(o as TypeCollectionModel.Value);
         }, o => true);
-        
+
         public ICommand SelectSlice => new RelayCommand(o =>
         {
             ClearGroups();
@@ -138,7 +141,7 @@ namespace DayZTediratorToolz.Views.Types
             CurrentTypeSlice = (o as ObservableCollection<TypeCollectionModel.Type>);
             GenGroups(false);
         }, o => true);
-        
+
         public ICommand SetCategory => new RelayCommand(o =>
         {
             var typeID = CurrentTypeObj.UID;
@@ -149,29 +152,31 @@ namespace DayZTediratorToolz.Views.Types
 
         private void SearchAndSelect(string searchContent)
         {
-            typesGrid.SearchHelper.CanHighlightSearchText = false;
-            typesGrid.SearchHelper.AllowFiltering = false;
+            TypesGrid.SearchHelper.CanHighlightSearchText = false;
+            TypesGrid.SearchHelper.AllowFiltering = false;
 
-            typesGrid.SearchHelper.FindNext(searchContent);
-            var list = typesGrid.SearchHelper.GetSearchRecords();
+            TypesGrid.SearchHelper.FindNext(searchContent);
+            var list = TypesGrid.SearchHelper.GetSearchRecords();
             var recordItem = (list[0].Record as RecordEntry).Data;
-            var resolveToRowIndex = typesGrid.ResolveToRowIndex(recordItem);
-            int recordIndex = typesGrid.ResolveToRecordIndex(resolveToRowIndex);
-            typesGrid.SelectedIndex = recordIndex;
-            typesGrid.SearchHelper.Search("");
-            typesGrid.SearchHelper.ClearSearch();
-            
-            typesGrid.SearchHelper.CanHighlightSearchText = true;
-            typesGrid.SearchHelper.AllowFiltering = true;
+            var resolveToRowIndex = TypesGrid.ResolveToRowIndex(recordItem);
+            int recordIndex = TypesGrid.ResolveToRecordIndex(resolveToRowIndex);
+            TypesGrid.SelectedIndex = recordIndex;
+            TypesGrid.SearchHelper.Search("");
+            TypesGrid.SearchHelper.ClearSearch();
+
+            TypesGrid.SearchHelper.CanHighlightSearchText = true;
+            TypesGrid.SearchHelper.AllowFiltering = true;
         }
 
 
         // Constructor
-        public TypesEditorView(ITypesConvertorService typesConvertorService, 
+        public TypesEditorView(ITypesConvertorService typesConvertorService,
             IGeneralHelperService generalHelperService,
             INotificationService notificationService,
             IToolConfigService toolConfigService)
         {
+            ViewMenuData = new(){ViewIndex = 2, ViewLabel = "Types Editor", ViewIcon = PackIconKind.FoodApple, ViewType = DayZTediratorConstants.ViewTypes.VanillaTool};
+
             _typesConvertorService = typesConvertorService;
             _generalHelperService = generalHelperService;
             _notificationService = notificationService;
@@ -181,33 +186,42 @@ namespace DayZTediratorToolz.Views.Types
             TypesConfig = _toolConfigService.GetConfigObj(DayZTediratorConstants.Tools.Types) as TypesCfg;
             InitializeComponent();
             DataContext = this;
-            
-            typesGrid.GroupColumnDescriptions = new GroupColumnDescriptions();
-            
+            FileInputControl.ConfigureHelperService(_generalHelperService);
+
+            TypesGrid.GroupColumnDescriptions = new GroupColumnDescriptions();
+
         }
 
         private async void OpenFileDialogButtonClicked(object sender, RoutedEventArgs e)
         {
             if (IsProcessingTypes)
                 return;
-            
+
             var localTypesPath = _generalHelperService.GetPathFromUser(DayZTediratorConstants.PathTypes.TypesXml,
                 DayZTediratorConstants.DialogTypes.Open);
-            
+
+            await OpenTypesFile(localTypesPath);
+
+
+            IsProcessingTypes = false;
+        }
+
+        private async Task OpenTypesFile(string localTypesPath)
+        {
             if (System.IO.File.Exists(localTypesPath))
             {
                 IsProcessingTypes = true;
 
                 if (TypeCollection != null)
                 {
-                    typesGrid.ClearFilters();
-                    typesGrid.ClearSelections(false);
+                    TypesGrid.ClearFilters();
+                    TypesGrid.ClearSelections(false);
                     ClearGroups();
                     CurrentTypeSlice = null;
                     TypeCollection = null;
                     _typesConvertorService.ResetTypesCollection();
                 }
-                
+
                 _typesConvertorService
                     .SetInitData(System.IO.File.ReadAllText(localTypesPath));
                 await _typesConvertorService
@@ -217,7 +231,9 @@ namespace DayZTediratorToolz.Views.Types
                 {
                     ClearGroups();
                     TypesPath = localTypesPath;
-                    var typeCollectionBatched = MoreEnumerable.Batch(_typesConvertorService.GetTypes().Type, 1000,t => t.ToObservableCollection()).ToObservableCollection();
+                    var typeCollectionBatched = MoreEnumerable
+                        .Batch(_typesConvertorService.GetTypes().Type, 1000, t => t.ToObservableCollection())
+                        .ToObservableCollection();
                     TypeCollection = typeCollectionBatched;
                     GenGroups();
                 }
@@ -236,52 +252,50 @@ namespace DayZTediratorToolz.Views.Types
                     _notificationService.SetNotificationContent($"Types Loaded",
                             $"Successfully loaded types file from: {localTypesPath}")
                         .NotifySuccess();
-                    
+
                     _notificationService.SetNotificationContent($"Types Loaded",
                             $"Loaded {TypeCollection.DeepCount()} types.")
                         .NotifyInfo();
 
                     List<TypeCollectionModel.Category> filteredCats = new List<TypeCollectionModel.Category>();
                     ForEachExtension.ForEach(TypeCollection, t => filteredCats.AddRange(t
-                                                                                     .Where(t => !string.IsNullOrEmpty(t.Category.Name))
-                                                                                     .Select(t => t.Category)
-                                                                                     .GroupBy(c => c.Name)
-                                                                                     .Select(grp => grp.FirstOrDefault()).ToList()));
-                    
-                    CatList = new ObservableCollection<TypeCollectionModel.Category>(DistinctByExtension.DistinctBy(filteredCats, t => t.Name).Select(c => new TypeCollectionModel.Category{Name = c.Name}));
+                        .Where(t => !string.IsNullOrEmpty(t.Category.Name))
+                        .Select(t => t.Category)
+                        .GroupBy(c => c.Name)
+                        .Select(grp => grp.FirstOrDefault()).ToList()));
+
+                    CatList = new ObservableCollection<TypeCollectionModel.Category>(DistinctByExtension
+                        .DistinctBy(filteredCats, t => t.Name).Select(c => new TypeCollectionModel.Category {Name = c.Name}));
 
                     CurrentTypeSlice = _typeCollection[0];
                 }
             }
-            
-            
-            IsProcessingTypes = false;
         }
 
         private void ClearGroups()
         {
-            typesGrid.GroupColumnDescriptions.Clear();
+            TypesGrid.GroupColumnDescriptions.Clear();
         }
 
         private void GenGroups(bool expand = true)
         {
             ClearGroups();
-            typesGrid.GroupColumnDescriptions.Add(new GroupColumnDescription()
+            TypesGrid.GroupColumnDescriptions.Add(new GroupColumnDescription()
             {
                 ColumnName = "CategoryRef"
             });
             if(expand)
-                typesGrid.ExpandAllGroup();
+                TypesGrid.ExpandAllGroup();
         }
 
         private void TypesGrid_OnAutoGeneratingColumn(object sender, AutoGeneratingColumnArgs e)
         {
             if (e.Column.MappingName == "Category.Name")
                 e.Column.HeaderText = "Category";
-            
+
             if (e.Column.MappingName == "CategoryRef")
                 e.Column.HeaderText = "Category";
-            
+
             if (e.Column.MappingName.Contains("Flags."))
                 e.Column.HeaderText = e.Column.HeaderText.Replace("Flags.", "");
 
@@ -294,7 +308,7 @@ namespace DayZTediratorToolz.Views.Types
 
         private void TypesGrid_OnSelectionChanged(object sender, GridSelectionChangedEventArgs e)
         {
-            if(e.AddedItems.Count == 0 | (e.AddedItems.Count == 1 && typesGrid.SelectedItems.Count > 1))
+            if(e.AddedItems.Count == 0 | (e.AddedItems.Count == 1 && TypesGrid.SelectedItems.Count > 1))
                 CurrentTypeObj = null;
             else
             {
@@ -304,13 +318,13 @@ namespace DayZTediratorToolz.Views.Types
                 else
                     CurrentTypeObj = null;
             }
-                
+
         }
 
         private void DeleteTypeClicked(object sender, RoutedEventArgs e)
         {
-            if (typesGrid.SelectedItems.Count > 1)
-                RemoveTypesByList(typesGrid.SelectedItems.ToList());
+            if (TypesGrid.SelectedItems.Count > 1)
+                RemoveTypesByList(TypesGrid.SelectedItems.ToList());
             else
                 CurrentTypeSlice.Remove(CurrentTypeObj);
         }
@@ -325,21 +339,21 @@ namespace DayZTediratorToolz.Views.Types
 
         private void AddTypeClicked(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         private void ApplySubTypeChangesClicked(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
-        private void CancelSubTypeChangesClicked(object sender, RoutedEventArgs e) => dHost.IsOpen = false;
+        private void CancelSubTypeChangesClicked(object sender, RoutedEventArgs e) => DHost.IsOpen = false;
 
         private void EditUsages(object sender, RoutedEventArgs e)
         {
             SubEditorTitle = "Usages";
             SubCollection = CurrentTypeObj.Usages;
-            dHost.IsOpen = true;
+            DHost.IsOpen = true;
         }
 
 
@@ -347,18 +361,18 @@ namespace DayZTediratorToolz.Views.Types
         {
             SubEditorTitle = "Tiers";
             SubCollection = CurrentTypeObj.Tiers;
-            dHost.IsOpen = true;
+            DHost.IsOpen = true;
         }
 
         private async void SaveFileDialogButtonClicked(object sender, RoutedEventArgs e)
         {
             if (IsExportingTypes || TypeCollection == null)
                 return;
-            
-            
-            TypesPath = _generalHelperService.GetPathFromUser(DayZTediratorConstants.PathTypes.TypesXml, 
+
+
+            TypesPath = _generalHelperService.GetPathFromUser(DayZTediratorConstants.PathTypes.TypesXml,
                 DayZTediratorConstants.DialogTypes.Save);
-            
+
             if (System.IO.File.Exists(TypesPath))
             {
                 IsExportingTypes = true;
@@ -373,9 +387,9 @@ namespace DayZTediratorToolz.Views.Types
                 xmlDoc.InsertBefore(xmldecl, root);
 
                 var formattedXML = xmlDoc.OuterXml.FormatXml();
-                
+
                 System.IO.File.WriteAllText(TypesPath, formattedXML);
-                
+
                 _notificationService.SetNotificationContent($"Types Exported",
                             $"Successfully exported types file to: {TypesPath}")
                         .NotifySuccess();
@@ -383,8 +397,8 @@ namespace DayZTediratorToolz.Views.Types
                             $"Exported a total of {TypeCollection.DeepCount()} types.")
                         .NotifyInfo();
             }
-            
-            
+
+
             IsExportingTypes = false;
         }
 
@@ -392,7 +406,7 @@ namespace DayZTediratorToolz.Views.Types
         {
             if (SubCollection == null)
                 return;
-            
+
             if(SubCollection is ObservableCollection<TypeCollectionModel.Usage>)
                 (SubCollection as ObservableCollection<TypeCollectionModel.Usage>).Add(new TypeCollectionModel.Usage());
             else

@@ -11,7 +11,7 @@ namespace DayZTediratorToolz.Models
     {
         public RecentTypesHistoryModel InitializeEmpty()
         {
-            TypeHistory = new CircularFIFO<RecentTypeHistoryItemModel>(3);
+            TypeHistory = new(3);
             return this;
         }
 
@@ -28,5 +28,5 @@ namespace DayZTediratorToolz.Models
         public string RecentPath { get; set; }
     }
 
-    
+
 }

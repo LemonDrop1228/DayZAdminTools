@@ -6,7 +6,17 @@
         {
             Home,
             Admin,
-            TypesEditor
+            TypesEditor,
+            MapTool
+        }
+
+        public enum ViewTypes
+        {
+            Info,
+            Admin,
+            VanillaTool,
+            ModTool,
+            Dialog
         }
 
         public enum Tools
@@ -23,7 +33,8 @@
         public enum DialogTypes
         {
             Open,
-            Save
+            Save,
+            Export
         }
 
         public enum TypesViewTools

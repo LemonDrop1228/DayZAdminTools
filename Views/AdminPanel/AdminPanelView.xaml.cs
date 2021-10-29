@@ -6,9 +6,10 @@ using System.Windows.Input;
 using DayZTediratorToolz.Helpers;
 using DayZTediratorToolz.Models;
 using DayZTediratorToolz.Services;
+using MaterialDesignThemes.Wpf;
 using PropertyChanged;
 
-namespace DayZTediratorToolz.Views.AdminPanel
+namespace DayZTediratorToolz.Views
 {
     [AddINotifyPropertyChangedInterface]
     public partial class AdminPanelView : BaseView
@@ -18,15 +19,17 @@ namespace DayZTediratorToolz.Views.AdminPanel
         private readonly INotificationService _notificationService;
 
         public DzsaLauncherApiResults.ServerInfo GameInfo { get; set; }
-        
+
         private string collapsedStringValue;
         private bool collapsedBoolValue;
         private string _gameInfoIP;
         private string _gameInfoPort;
         private bool _canRefresh;
 
+        public override ViewMenuData ViewMenuData { get; set; }
+
         public string IpDisplayValue { get => _gameInfoIP ?? fallbackIP; set => _gameInfoIP = value;}
-        
+
         public string PortDisplayValue { get => _gameInfoPort ?? fallbackPORT; set => _gameInfoPort = value;}
 
         public bool CanRefresh { get => _canRefresh; set => _canRefresh = value;}
@@ -38,7 +41,7 @@ namespace DayZTediratorToolz.Views.AdminPanel
         {
             Process.Start($"{_appSettingsManager.GetModPagePath()}{(o as DzsaLauncherApiResults.Mod).SteamWorkshopId}");
         }, o => true);
-        
+
         public string PlayerRatio
         {
             get => $"{GameInfo?.Players}/{GameInfo?.MaxPlayers}" ?? "0/0";
@@ -52,17 +55,19 @@ namespace DayZTediratorToolz.Views.AdminPanel
 
         public AdminPanelView(IAppSettingsManager appSettingsManager, IServerInspectionService serverInspectionService, INotificationService _notificationService)
         {
+            ViewMenuData = new(){ViewIndex = 1, ViewLabel = "Admin Panel", ViewIcon = PackIconKind.Server, ViewType = DayZTediratorConstants.ViewTypes.Admin};
+
             _appSettingsManager = appSettingsManager;
             _serverInspectionService = serverInspectionService;
 
             SubscribeToServiceEvents();
-            
+
             this._notificationService = _notificationService;
             fallbackIP = appSettingsManager.GetServerIp();
             fallbackPORT = appSettingsManager.GetServerPort();
             InitializeComponent();
             DataContext = this;
-            
+
             _serverInspectionService.Initialize(_appSettingsManager, _notificationService);
         }
 

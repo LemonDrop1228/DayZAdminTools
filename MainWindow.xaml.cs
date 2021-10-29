@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -18,19 +20,32 @@ namespace DayZTediratorToolz
         private readonly IControllerService _controller;
         private readonly INotificationService _notificationService;
 
-
         System.Media.SoundPlayer soundPlayer { get; set; } = new System.Media.SoundPlayer();
+
         public IBaseView ActiveView { get => _controller.CurrentView;}
-        
-        
-        public MainWindow(IAppSettingsManager appSettingsManager, 
-            IServerInspectionService serverInspectionService, 
+
+        public IEnumerable<ViewBucket> DefaultViews { get => _controller.GetInfoAdminViews().Select(v => new ViewBucket(v));}
+
+        public IEnumerable<ViewBucket> VanillaToolViews { get => _controller.GetVanillaToolViews().Select(v => new ViewBucket(v));}
+
+        public IEnumerable<ViewBucket> ModToolViews { get => _controller.GetModToolViews().Select(v => new ViewBucket(v));}
+
+        public ICommand ChangeView => new RelayCommand(o =>
+        {
+            _controller.SetView((o as ViewBucket).ViewRef);
+            HostCard.GetBindingExpression(Card.ContentProperty).UpdateTarget();
+        }, o => true);
+
+
+        public MainWindow(IAppSettingsManager appSettingsManager,
+            IServerInspectionService serverInspectionService,
             IControllerService controller,
             INotificationService notificationService)
         {
             _serverInspectionService = serverInspectionService;
             _controller = controller;
             _notificationService = notificationService;
+
             InitializeComponent();
             DataContext = this;
         }
@@ -45,10 +60,7 @@ namespace DayZTediratorToolz
             this.WindowState = this.WindowState == WindowState.Maximized ? WindowState.Normal: WindowState.Maximized;
         }
 
-        private void CloseButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+        private void CloseButton_OnClick(object sender, RoutedEventArgs e) => Close();
 
         protected override void OnClosed(EventArgs e)
         {
@@ -77,39 +89,15 @@ namespace DayZTediratorToolz
             }
         }
 
-        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            // _notificationService.Initialize();
-        }
-
-        private void NavClickedAdminButton(object sender, RoutedEventArgs e)
-        {
-            ChangeView(DayZTediratorConstants.Views.Admin);
-        }
-        
-        private void NavClickedTypesEditorButton(object sender, RoutedEventArgs e)
-        {
-            ChangeView(DayZTediratorConstants.Views.TypesEditor);
-        }
-
-        private void ChangeView(DayZTediratorConstants.Views viewID)
-        {
-            if (!_controller.CheckView(viewID))
-            {
-                _controller.SetView(viewID);
-                HostCard.GetBindingExpression(Card.ContentProperty).UpdateTarget();
-            }
-                
-        }
-
         private void SettingsButton_OnClick(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
-        private void NavClickedHomeButton(object sender, RoutedEventArgs e)
+        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            ChangeView(DayZTediratorConstants.Views.Home);
+            _controller.StartAtHome();
+            HostCard.GetBindingExpression(Card.ContentProperty).UpdateTarget();
         }
     }
 }

@@ -1,7 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using DayZTediratorToolz.Helpers;
 using DayZTediratorToolz.Views;
-using DayZTediratorToolz.Views.AdminPanel;
 using PropertyChanged;
 
 namespace DayZTediratorToolz.Services
@@ -9,48 +10,37 @@ namespace DayZTediratorToolz.Services
     public interface IControllerService
     {
         IBaseView CurrentView { get; }
-        void InitializeViews(params IBaseView[] views);
-        void SetView(DayZTediratorConstants.Views admin);
-        bool CheckView(DayZTediratorConstants.Views viewId);
+        void InitializeViews(IEnumerable<IBaseView> views);
+        void SetView(IBaseView view);
         void CloseViews();
+        IEnumerable<IBaseView> GetInfoAdminViews();
+        IEnumerable<IBaseView> GetVanillaToolViews();
+        IEnumerable<IBaseView> GetModToolViews();
+        void StartAtHome();
     }
-    
+
     [AddINotifyPropertyChangedInterface]
     public class ControllerService : IControllerService
     {
-        DayZTediratorConstants.Views CurrentViewID { get; set; } 
-        public IBaseView CurrentView { get => ViewCollection[(int)CurrentViewID];}
+        public IBaseView CurrentView { get; private set; }
         ObservableCollection<IBaseView> ViewCollection { get; set; }
 
-        public ControllerService()
-        {
-        }
-        
-        public void InitializeViews(params IBaseView[] views)
+        public void InitializeViews(IEnumerable<IBaseView> views)
         {
             ViewCollection = new ObservableCollection<IBaseView>();
-            ViewCollection.AddRange(views);
-            
-            CurrentViewID = DayZTediratorConstants.Views.Home;
+            ViewCollection.AddRange(views.OrderBy(v => v.ViewMenuData.ViewIndex).ToArray());
         }
 
-        public void SetView(DayZTediratorConstants.Views viewID)
-        {
-            CurrentViewID = viewID;
-        }
+        public void SetView(IBaseView view) => CurrentView = view;
 
-        public bool CheckView(DayZTediratorConstants.Views viewId)
-        {
-            return CurrentViewID == viewId;
-        }
+        public void CloseViews() {foreach (var view in ViewCollection) view.CloseView();}
 
-        public void CloseViews()
-        {
-            foreach (var view in ViewCollection)
-            {
-                view.CloseView();
-            }
-        }
+        public IEnumerable<IBaseView> GetInfoAdminViews() => ViewCollection.Where(v => v.ViewMenuData.ViewType.In(DayZTediratorConstants.ViewTypes.Info, DayZTediratorConstants.ViewTypes.Admin));
+
+        public IEnumerable<IBaseView> GetVanillaToolViews() => ViewCollection.Where(v => v.ViewMenuData.ViewType == DayZTediratorConstants.ViewTypes.VanillaTool);
+
+        public IEnumerable<IBaseView> GetModToolViews() => ViewCollection.Where(v => v.ViewMenuData.ViewType == DayZTediratorConstants.ViewTypes.ModTool);
+        public void StartAtHome() => CurrentView = ViewCollection.FirstOrDefault();
     }
 
 }
