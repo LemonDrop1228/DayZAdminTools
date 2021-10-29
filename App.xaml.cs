@@ -5,12 +5,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Configuration;
 using System.IO;
+using System.Reflection;
 using System.Windows.Documents;
+using DayZTediratorToolz.Helpers;
 using DayZTediratorToolz.Services.ToolConfigService;
 using DayZTediratorToolz.Views;
-using DayZTediratorToolz.Views.AdminPanel;
-using DayZTediratorToolz.Views.EffectAreaEditor;
-using DayZTediratorToolz.Views.Types;
+using DayZTediratorToolz.Views.Dialogs;
+using MoreLinq;
+using Syncfusion.Data.Extensions;
 
 namespace DayZTediratorToolz
 {
@@ -45,6 +47,7 @@ namespace DayZTediratorToolz
                     {
                         return new AppSettingsManager(appConfigData);
                     });
+
                     services.AddSingleton<IServerInspectionService>(provider => new ServerInspectionService());
                     services.AddSingleton<IControllerService>(provider => new ControllerService());
                     services.AddSingleton<ITypesConvertorService>(provider => new TypesConvertorService());
@@ -52,24 +55,20 @@ namespace DayZTediratorToolz
                     services.AddSingleton<INotificationService>(provider => new NotificationService());
                     services.AddSingleton<IToolConfigService>(provider => new ToolConfigService());
 
-                    services.AddSingleton<HomeView>();
-                    services.AddSingleton<EffectAreaEditorView>();
-                    services.AddSingleton<AdminPanelView>();
-                    services.AddSingleton<TypesEditorView>();
-                    services.AddSingleton<MainWindow>();
+                    Assembly.GetEntryAssembly().GetTypesAssignableFrom<IBaseView, BaseView>().ForEach((t)=>
+                    {
+                        services.AddScoped(typeof(IBaseView), t);
+                    });
 
+                    services.AddSingleton<MainWindow>();
                 }).Build();
         }
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-
             var mainWindow = host.Services.GetService<MainWindow>();
             host.Services.GetService<IControllerService>().InitializeViews(
-                host.Services.GetService<HomeView>(),
-                host.Services.GetService<AdminPanelView>(),
-                host.Services.GetService<TypesEditorView>(),
-                host.Services.GetService<EffectAreaEditorView>()
+                host.Services.GetServices<IBaseView>()
             );
 
             mainWindow.Closed += (s,e) => {
@@ -88,5 +87,7 @@ namespace DayZTediratorToolz
 
             Current.Shutdown();
         }
+
+
     }
 }

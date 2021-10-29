@@ -8,6 +8,7 @@ namespace DayZTediratorToolz.Services
     public interface IGeneralHelperService
     {
         string GetPathFromUser(PathTypes pathType, DialogTypes dialogTypes);
+        bool VerifyFilePath(string tempFilePath);
     }
 
     public class GeneralHelperService : IGeneralHelperService
@@ -21,6 +22,11 @@ namespace DayZTediratorToolz.Services
             };
 
             return result;
+        }
+
+        public bool VerifyFilePath(string path)
+        {
+            return System.IO.File.Exists(path);
         }
 
         private string GetPath(string _filter, string _title, DialogTypes dialogTypes)
@@ -39,7 +45,7 @@ namespace DayZTediratorToolz.Services
                     if (ofd.ShowDialog() == true)
                         res = ofd.FileName;
                     break;
-                case DialogTypes.Save:
+                case DialogTypes.Export:
                     var sfd = new VistaSaveFileDialog()
                     {
                         Filter = _filter,
@@ -52,8 +58,8 @@ namespace DayZTediratorToolz.Services
                 default:
                     throw new ArgumentOutOfRangeException(nameof(dialogTypes), dialogTypes, null);
             }
-            
-            
+
+
             return res;
         }
 

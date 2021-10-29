@@ -27,7 +27,7 @@ namespace DayZTediratorToolz.Services
 
         public async Task InitializeTypes()
         {
-            TypeCollection = new TypeCollectionModel();
+            TypeCollection = new();
             await ConvertXMLtoJSON();
             if(!ContainsSyntaxErrors)
                 TypeCollection.Initialize(InitializingJsonData);
@@ -42,10 +42,10 @@ namespace DayZTediratorToolz.Services
         {
             TypesXMLData = _xml;
         }
-        
+
         private async Task ConvertXMLtoJSON()
         {
-            XmlDocument doc = new XmlDocument();
+            XmlDocument doc = new();
             try
             {
                 doc.LoadXml(TypesXMLData);
@@ -56,7 +56,7 @@ namespace DayZTediratorToolz.Services
                 ContainsSyntaxErrors = true;
                 return;
             }
-            
+
             var cleanXDoc = await Task.Run( () => AttachJsonArrayAttribute(doc, "usage", "value", "type"));
 
             InitializingJsonData = JsonConvert.SerializeXmlNode(cleanXDoc.DocumentElement, Newtonsoft.Json.Formatting.Indented);
@@ -86,7 +86,7 @@ namespace DayZTediratorToolz.Services
             doc = null;
             return xDoc;
         }
-        
+
         private XmlDocument DetachJsonArrayAttribute(XmlDocument doc, params string[] tags)
         {
             XmlDocument xDoc = null;

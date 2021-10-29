@@ -73,6 +73,10 @@
     <Compile Include="Converters\ValueIndexConverter.cs" />
     <Compile Include="Helpers\Commands.cs" />
     <Compile Include="Helpers\CustomClasses\CircularFIFO.cs" />
+    <Compile Include="Helpers\CustomClasses\ViewBucket.cs" />
+    <Compile Include="Helpers\CustomControls\FileInput.xaml.cs">
+      <DependentUpon>FileInput.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\CustomControls\ReadOnlyCheckBox.cs" />
     <Compile Include="Helpers\DayZTediratorConstants.cs" />
     <Compile Include="Helpers\DayZTediratorToolzHelperExtensions.cs" />
@@ -96,6 +100,8 @@
     <Compile Include="Views\base\BaseView.cs" />
     <Compile Include="Views\EffectAreaEditor\EffectAreaEditorView.xaml.cs">
       <DependentUpon>EffectAreaEditorView.xaml</DependentUpon>
+    <Compile Include="Views\Dialogs\MapDialogView.xaml.cs">
+      <DependentUpon>MapDialogView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
@@ -103,6 +109,7 @@
     <Compile Include="Views\Types\TypesEditorView.xaml.cs">
       <DependentUpon>TypesEditorView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Helpers\CustomControls\FileInput.xaml" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -122,6 +129,7 @@
     <Page Include="Styles\TedStyles.xaml" />
     <Page Include="Views\AdminPanel\AdminPanelView.xaml" />
     <Page Include="Views\EffectAreaEditor\EffectAreaEditorView.xaml" />
+    <Page Include="Views\Dialogs\MapDialogView.xaml" />
     <Page Include="Views\HomeView.xaml" />
     <Page Include="Views\Types\TypesEditorView.xaml" />
   </ItemGroup>
@@ -282,6 +290,9 @@
       <Version>19.2.0.62</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.SfGrid.WPF">
+      <Version>19.2.0.62</Version>
+    </PackageReference>
+    <PackageReference Include="Syncfusion.SfMaps.WPF">
       <Version>19.2.0.62</Version>
     </PackageReference>
     <PackageReference Include="System.Buffers">
