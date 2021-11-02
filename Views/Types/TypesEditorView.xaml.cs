@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Xml;
 using DayZTediratorToolz.Helpers;
+using DayZTediratorToolz.Helpers.CustomControls;
 using DayZTediratorToolz.Models;
 using DayZTediratorToolz.Services;
 using DayZTediratorToolz.Services.ToolConfigService;
@@ -37,6 +38,8 @@ namespace DayZTediratorToolz.Views
         private bool _isProcessingTypes;
         private bool _isExportingTypes;
         private string _searchText;
+
+        private const string _titleKey = "TypesEditorTitle";
 
         public TypesCfg TypesConfig { get; set; }
 
@@ -175,7 +178,7 @@ namespace DayZTediratorToolz.Views
             INotificationService notificationService,
             IToolConfigService toolConfigService)
         {
-            ViewMenuData = new(){ViewIndex = 2, ViewLabel = "Types Editor", ViewIcon = PackIconKind.FoodApple, ViewType = DayZTediratorConstants.ViewTypes.VanillaTool};
+            ViewMenuData = new(){ViewIndex = 2, ViewLabel = _titleKey.LoadFromRes<string>(), ViewIcon = PackIconKind.FoodApple, ViewType = DayZTediratorConstants.ViewTypes.VanillaTool};
 
             _typesConvertorService = typesConvertorService;
             _generalHelperService = generalHelperService;
@@ -356,7 +359,6 @@ namespace DayZTediratorToolz.Views
             DHost.IsOpen = true;
         }
 
-
         private void EditTiers(object sender, RoutedEventArgs e)
         {
             SubEditorTitle = "Tiers";
@@ -364,7 +366,7 @@ namespace DayZTediratorToolz.Views
             DHost.IsOpen = true;
         }
 
-        private async void SaveFileDialogButtonClicked(object sender, RoutedEventArgs e)
+        private async Task SaveFile()
         {
             if (IsExportingTypes || TypeCollection == null)
                 return;
@@ -431,6 +433,21 @@ namespace DayZTediratorToolz.Views
         public override void CloseView()
         {
             _toolConfigService.SaveConfigData();
+        }
+
+        private async void FileInputControl_OnFileOpened(object sender, FileEventArgs args)
+        {
+            await OpenTypesFile(args.FilePath);
+        }
+
+        private async void FileInputControl_OnFileSaved(object sender, FileEventArgs args)
+        {
+            await SaveFile();
+        }
+
+        private void FileInputControl_OnFileExported(object sender, FileEventArgs args)
+        {
+
         }
     }
 }

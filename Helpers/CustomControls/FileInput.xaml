@@ -7,12 +7,38 @@
              xmlns:tz="http://schemas.abtsoftware.co.uk/transitionz"  xmlns:st="http://schemas.spicytaco.io/"
              xmlns:local="clr-namespace:DayZTediratorToolz.Helpers.CustomControls"
              mc:Ignorable="d"
-             d:DesignHeight="100" d:DesignWidth="900">
-    <materialDesign:Card Background="#FF3A4755" UniformCornerRadius="6">
-        <st:StackPanel Orientation="Horizontal" Margin="8 0" MarginBetweenChildren="5">
+             d:DesignHeight="150" d:DesignWidth="900">
+    <materialDesign:Card Background="{DynamicResource PrimaryHueDarkBrush}" UniformCornerRadius="6" >
+	    <Grid>
+		    <Grid.RowDefinitions>
+			    <RowDefinition Height="0.65*"/>
+			    <RowDefinition />
+		    </Grid.RowDefinitions>
+
+		    <TextBlock x:Name="TBlock_TitleBorder"
+		               TextAlignment="Left" VerticalAlignment="Top" Margin="10 0"
+		               Foreground="{DynamicResource MaterialDesignDarkBackground}"
+		               Text="{Binding ElementName=TBlock_Title, Path=Text}"
+		               FontSize="32" FontWeight="DemiBold">
+			    <TextBlock.Effect>
+				    <BlurEffect
+					    Radius="4.0"
+					    KernelType="Box"/>
+			    </TextBlock.Effect>
+		    </TextBlock>
+
+		    <TextBlock x:Name="TBlock_Title"
+					TextAlignment="Left" VerticalAlignment="Top" Margin="10 0"
+					FontSize="32" FontWeight="DemiBold"/>
+
+		    <st:StackPanel Grid.Row="1"
+		                   VerticalAlignment="Center"
+		                   Orientation="Horizontal"
+		                   Margin="8 0"
+		                   MarginBetweenChildren="5">
 					<materialDesign:PopupBox
 						materialDesign:ThemeAssist.Theme="Dark"
-						Foreground="White"
+						Foreground="{DynamicResource PrimaryHueLightBrushForeground}"
 						Style="{DynamicResource	 MaterialDesignMultiFloatingActionPopupBox}"
 						PlacementMode="BottomAndAlignCentres"
 						ToolTipService.Placement="Right"
@@ -34,6 +60,7 @@
 						</StackPanel>
 					</materialDesign:PopupBox>
 					<TextBox IsReadOnly="True" Focusable="False" Margin="7" st:StackPanel.Fill="Fill"
+					         Cursor="Arrow"
 					         VerticalContentAlignment="Center"
 					         Text="{Binding Path=TypesPath}"
 					         materialDesign:HintAssist.Hint="Types XML File Path..." FontSize="16"
@@ -41,6 +68,7 @@
 					<Button x:Name="FolderBrowserButton"
 							materialDesign:ShadowAssist.ShadowDepth="Depth3"
 							VerticalAlignment="Stretch" Click="OpenFile"
+							ToolTip="Open file"
 							Style="{StaticResource MaterialDesignFloatingActionLightButton}"
 							materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding IsBusy}"
 							materialDesign:ButtonProgressAssist.Value="-1"
@@ -49,6 +77,7 @@
 					<Button x:Name="SaveTypesButton"
 					        materialDesign:ShadowAssist.ShadowDepth="Depth3"
 					        VerticalAlignment="Stretch" Click="SaveFile"
+					        ToolTip="Save Current file"
 					        Style="{StaticResource MaterialDesignFloatingActionLightButton}"
 					        materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding IsBusy}"
 					        materialDesign:ButtonProgressAssist.Value="-1"
@@ -57,11 +86,13 @@
 					<Button x:Name="ExportTypesButton"
 					        materialDesign:ShadowAssist.ShadowDepth="Depth3"
 					        VerticalAlignment="Stretch" Click="ExportFile"
+					        ToolTip="Export file"
 					        Style="{StaticResource MaterialDesignFloatingActionLightButton}"
 					        materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding IsBusy}"
 					        materialDesign:ButtonProgressAssist.Value="-1"
 					        materialDesign:ButtonProgressAssist.IsIndeterminate="True"
 					        Content="{materialDesign:PackIcon FileExport, Size=24}"/>
 				</st:StackPanel>
+	    </Grid>
     </materialDesign:Card>
 </UserControl>

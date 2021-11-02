@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Windows;
 using System.Xml;
 
 namespace DayZTediratorToolz.Helpers
@@ -35,12 +36,11 @@ namespace DayZTediratorToolz.Helpers
 
         #region String Extensions
 
-        public static bool In<T>(this object value, params T[] comparisonArray)
-        {
-            return comparisonArray.Contains((T)value);
-        }
+            public static T LoadFromRes<T>(this string value) => (T)Application.Current.Resources[value];
 
-        public static bool NullOrEmpty(this string value) => string.IsNullOrEmpty(value);
+            public static bool In<T>(this object value, params T[] comparisonArray) => comparisonArray.Contains((T)value);
+
+            public static bool NullOrEmpty(this string value) => string.IsNullOrEmpty(value);
 
         #endregion
 
@@ -80,21 +80,27 @@ namespace DayZTediratorToolz.Helpers
 
         #endregion
 
-        public static List<Type> GetTypesAssignableFrom<T1, T2>(this Assembly assembly)
-        {
-            return assembly.GetTypesAssignableFrom(typeof(T1), typeof(T2));
-        }
-        public static List<Type> GetTypesAssignableFrom(this Assembly assembly, Type compareType, Type excludeType)
-        {
-            List<Type> ret = new List<Type>();
-            foreach (var type in assembly.DefinedTypes)
+        #region Reflection Extensions
+
+            public static List<Type> GetTypesAssignableFrom<T1, T2>(this Assembly assembly)
             {
-                if (compareType.IsAssignableFrom(type) && compareType != type && excludeType != type)
-                {
-                    ret.Add(type);
-                }
+                return assembly.GetTypesAssignableFrom(typeof(T1), typeof(T2));
             }
-            return ret;
-        }
+
+            public static List<Type> GetTypesAssignableFrom(this Assembly assembly, Type compareType, Type excludeType)
+            {
+                List<Type> ret = new List<Type>();
+                foreach (var type in assembly.DefinedTypes)
+                {
+                    if (compareType.IsAssignableFrom(type) && compareType != type && excludeType != type)
+                    {
+                        ret.Add(type);
+                    }
+                }
+                return ret;
+            }
+
+
+        #endregion
     }
 }
