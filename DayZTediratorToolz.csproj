@@ -108,6 +108,9 @@
     <Compile Include="Views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SpawnPointsEditor\SpawnPointsEditorView.xaml.cs">
+      <DependentUpon>SpawnPointsEditorView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Types\TypesEditorView.xaml.cs">
       <DependentUpon>TypesEditorView.xaml</DependentUpon>
     </Compile>
@@ -133,6 +136,10 @@
     <Page Include="Views\EffectAreaEditor\EffectAreaEditorView.xaml" />
     <Page Include="Views\Dialogs\MapDialogView.xaml" />
     <Page Include="Views\HomeView.xaml" />
+    <Page Include="Views\SpawnPointsEditor\SpawnPointsEditorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Types\TypesEditorView.xaml" />
   </ItemGroup>
   <ItemGroup>
@@ -343,5 +350,6 @@
       <Version>4.5.0</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

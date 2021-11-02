@@ -45,7 +45,8 @@
                                     Cursor="Hand"
                                     x:Name="RButtonEffectedArea"
                                     Padding="16 3"
-                                    Style="{StaticResource MaterialDesignTabRadioButton}">
+                                    Style="{StaticResource MaterialDesignTabRadioButton}"
+                                    ToolTip="Switch to Toxic Area editing">
                                     <StackPanel
                                         Orientation="Horizontal">
                                         <materialDesign:PackIcon
@@ -65,7 +66,8 @@
                                     x:Name="RButtonSafeArea"
                                     Padding="16 3"
                                     IsChecked="True"
-                                    Style="{StaticResource MaterialDesignTabRadioButton}">
+                                    Style="{StaticResource MaterialDesignTabRadioButton}"
+                                    ToolTip="Switch to Safe Area editing">
                                     <StackPanel
                                         Orientation="Horizontal">
                                         <materialDesign:PackIcon
