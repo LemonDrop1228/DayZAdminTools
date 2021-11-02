@@ -32,7 +32,9 @@
 					Margin="16"
 					x:Name="FileInputControl"
 					IsBusy="{Binding IsProcessingTypes}"
-					Title="{Binding ViewMenuData.ViewLabel}"/>
+					Title="{Binding ViewMenuData.ViewLabel}"
+					FileOpened="FileInputControl_OnFileOpened" FileSaved="FileInputControl_OnFileSaved" FileExported="FileInputControl_OnFileExported"/>
+
 
 			<Grid Grid.Row="1">
 				<Grid >

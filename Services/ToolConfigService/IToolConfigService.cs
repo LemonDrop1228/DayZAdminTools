@@ -13,7 +13,7 @@ namespace DayZTediratorToolz.Services.ToolConfigService
         IConfigObj GetConfigObj(Tools tool);
         void SaveConfigData();
     }
-    
+
     public class ToolConfigService : IToolConfigService
     {
         private List<ConfigInfo> ConfigDictionary { get; set;}
@@ -63,7 +63,7 @@ namespace DayZTediratorToolz.Services.ToolConfigService
 
         private void LoadingConfig(ConfigInfo configInfo)
         {
-            
+
             try
             {
                 var configStrData = System.IO.File.Exists(GetMergedPath(configInfo.FileName))
@@ -79,6 +79,7 @@ namespace DayZTediratorToolz.Services.ToolConfigService
                         {
                             RecentTypesHistory = new RecentTypesHistoryModel().InitializeEmpty()
                         };
+                        (configInfo.ConfigObj as TypesCfg).RecentTypesHistory?.InitializeEmpty();
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
