@@ -47,8 +47,7 @@
                                     Padding="16 3"
                                     Style="{StaticResource MaterialDesignTabRadioButton}"
                                     ToolTip="Switch to Toxic Area editing">
-                                    <StackPanel
-                                        Orientation="Horizontal">
+                                    <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon
                                             Kind="Biohazard"
                                             VerticalAlignment="Center"

@@ -10,8 +10,52 @@
              xmlns:local="clr-namespace:DayZTediratorToolz.Views"
              mc:Ignorable="d"
              d:DesignHeight="750" d:DesignWidth="1200" >
-    <materialDesign:Card Background="FF3A4755" Padding="3">
+    <materialDesign:Card Background="#FF3A4755" Padding="3">
         <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.4*"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <GroupBox Margin="7"
+                      Background="{DynamicResource MaterialDesignDarkBackground}"
+                      materialDesign:ThemeAssist.Theme="Dark"
+                      Header="Card Group Box"
+                      Style="{DynamicResource MaterialDesignCardGroupBox}">
+                <GroupBox.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Left"
+                            Margin="0 12">
+
+                            <RadioButton
+                                FontWeight="Medium" FontSize="18"
+                                Cursor="Hand"
+                                x:Name="RButtonFresh"
+                                Padding="16 3"
+                                Style="{StaticResource MaterialDesignTabRadioButton}"
+                                ToolTip="New Spawn Coordinates"
+                                <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon
+                                        Kind="Download"
+                                        VerticalAlignment="Center"
+                                        Margin="0 0 3 0"
+                                        Height="21" Width="21"/>
+                                <TextBlock
+                                        VerticalAlignment="Center"
+                                        Margin="3 0 0 0"
+                                        Text="Fresh"/>
+                                </StackPanel>
+                            </RadioButton>
+                            <RadioButton
+                                FontWeight="Medium" FontSize="18"
+                                Cursor="Hand"
+                                x:
+                        </StackPanel>
+                    </DataTemplate>
+                </GroupBox.HeaderTemplate>
+            </GroupBox>
 
         </Grid>
     </materialDesign:Card>

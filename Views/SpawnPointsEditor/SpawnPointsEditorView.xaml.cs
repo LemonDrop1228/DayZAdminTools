@@ -7,7 +7,7 @@ namespace DayZTediratorToolz.Views
         public override ViewMenuData ViewMenuData { get; set; }
         public SpawnPointsEditorView()
         {
-            ViewMenuData = new ViewMenuData() { ViewIcon = MaterialDesignThemes.Wpf.PackIconKind.Download, ViewIndex=4   };
+            ViewMenuData = new ViewMenuData() { ViewIcon = MaterialDesignThemes.Wpf.PackIconKind.Download, ViewIndex=4,    };
             InitializeComponent();
         }
     }
