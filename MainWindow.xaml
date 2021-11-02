@@ -10,6 +10,7 @@
         Title="Tedirator v2" Height="1060" Width="1900" MinHeight="740" MinWidth="1350"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None" AllowsTransparency="True"
+        TextOptions.TextFormattingMode="Display" SnapsToDevicePixels="True"
         Icon="Images/ted_logo.png" Background="#FF424242" Foreground="Gainsboro" Loaded="MainWindow_OnLoaded">
 
     <WindowChrome.WindowChrome>

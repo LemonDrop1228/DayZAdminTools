@@ -1,9 +1,11 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using DayZTediratorToolz.Services;
+using PropertyChanged;
 
 namespace DayZTediratorToolz.Helpers.CustomControls
 {
+    [AddINotifyPropertyChangedInterface]
     public partial class FileInput : UserControl
     {
         private static bool isBusy;
@@ -13,20 +15,43 @@ namespace DayZTediratorToolz.Helpers.CustomControls
         public DayZTediratorConstants.PathTypes LocalPathType { get; set; }
 
 
-        public static readonly DependencyProperty dependencyProperty_IsBusy =
-            DependencyProperty.Register("IsBusy", typeof(bool), typeof(FileInput),
-                new PropertyMetadata(false,new PropertyChangedCallback(ToggleBusy)));
 
-        public bool IsBusy
-        {
-            get=> (bool)GetValue(dependencyProperty_IsBusy);
-            set=> SetValue(dependencyProperty_IsBusy, value);
-        }
 
-        private static void ToggleBusy(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            isBusy = (bool)e.NewValue;
-        }
+        #region Dependancy Props
+
+            public static readonly DependencyProperty dependencyProperty_IsBusy =
+                DependencyProperty.Register("IsBusy", typeof(bool), typeof(FileInput),
+                    new PropertyMetadata(false,new PropertyChangedCallback(ToggleBusy)));
+
+            public bool IsBusy
+            {
+                get=> (bool)GetValue(dependencyProperty_IsBusy);
+                set=> SetValue(dependencyProperty_IsBusy, value);
+            }
+
+            private static void ToggleBusy(DependencyObject d, DependencyPropertyChangedEventArgs e)
+            {
+                isBusy = (bool)e.NewValue;
+            }
+
+            public static readonly DependencyProperty dependencyProperty_TitleString =
+                DependencyProperty.Register("Title", typeof(string), typeof(FileInput),
+                    new PropertyMetadata("Placeholder Title",new PropertyChangedCallback(SetTitle)));
+
+            public string Title
+            {
+                get=> (string)GetValue(dependencyProperty_TitleString);
+                set=> SetValue(dependencyProperty_TitleString, value);
+            }
+
+            public string TitleString { get; set; }
+
+            private static void SetTitle(DependencyObject d, DependencyPropertyChangedEventArgs e)
+            {
+                (d as FileInput).TBlock_Title.Text = (string)e.NewValue;
+            }
+
+        #endregion
 
 
 

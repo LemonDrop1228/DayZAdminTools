@@ -24,25 +24,18 @@
 	<materialDesign:Card Background="#FF3A4755" Padding="3">
 		<Grid>
 			<Grid.RowDefinitions>
-				<RowDefinition Height="0.075*" MinHeight="50"/>
+				<RowDefinition Height="0.15*" MinHeight="150"/>
 				<RowDefinition />
 			</Grid.RowDefinitions>
 
-			<TextBlock TextAlignment="Left" VerticalAlignment="Top" Margin="10 0"
-					   Text="{DynamicResource TypesEditorTitle}"
-					   FontSize="32" FontWeight="DemiBold"/>
+				<customControls:FileInput
+					Margin="16"
+					x:Name="FileInputControl"
+					IsBusy="{Binding IsProcessingTypes}"
+					Title="{Binding ViewMenuData.ViewLabel}"/>
 
 			<Grid Grid.Row="1">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="0.075*" MinHeight="60"/>
-					<RowDefinition />
-				</Grid.RowDefinitions>
-
-				<customControls:FileInput
-					x:Name="FileInputControl"
-					IsBusy="{Binding IsProcessingTypes}"/>
-
-				<Grid Grid.Row="1">
+				<Grid >
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="1.45*"/>
 						<ColumnDefinition />

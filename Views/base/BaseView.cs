@@ -12,14 +12,14 @@ namespace DayZTediratorToolz.Views
     }
 
     [AddINotifyPropertyChangedInterface]
-    public class BaseView : UserControl, IBaseView
+    public abstract class BaseView : UserControl, IBaseView
     {
         public virtual void CloseView()
         {
 
         }
 
-        public virtual ViewMenuData ViewMenuData { get; set; }
+        public abstract ViewMenuData ViewMenuData { get; set; }
     }
 
     public record ViewMenuData

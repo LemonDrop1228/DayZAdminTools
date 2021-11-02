@@ -38,6 +38,8 @@ namespace DayZTediratorToolz.Views
         private bool _isExportingTypes;
         private string _searchText;
 
+        private const string _titleKey = "TypesEditorTitle";
+
         public TypesCfg TypesConfig { get; set; }
 
         public override ViewMenuData ViewMenuData { get; set; }
@@ -175,7 +177,7 @@ namespace DayZTediratorToolz.Views
             INotificationService notificationService,
             IToolConfigService toolConfigService)
         {
-            ViewMenuData = new(){ViewIndex = 2, ViewLabel = "Types Editor", ViewIcon = PackIconKind.FoodApple, ViewType = DayZTediratorConstants.ViewTypes.VanillaTool};
+            ViewMenuData = new(){ViewIndex = 2, ViewLabel = _titleKey.LoadFromRes<string>(), ViewIcon = PackIconKind.FoodApple, ViewType = DayZTediratorConstants.ViewTypes.VanillaTool};
 
             _typesConvertorService = typesConvertorService;
             _generalHelperService = generalHelperService;

@@ -57,7 +57,7 @@ namespace DayZTediratorToolz
 
                     Assembly.GetEntryAssembly().GetTypesAssignableFrom<IBaseView, BaseView>().ForEach((t)=>
                     {
-                        services.AddScoped(typeof(IBaseView), t);
+                        services.AddSingleton(typeof(IBaseView), t);
                     });
 
                     services.AddSingleton<MainWindow>();
