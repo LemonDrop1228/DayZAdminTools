@@ -44,4 +44,6 @@
     <!-- ToxicAreaEditor Strings -->
     <system:String x:Key="ToxicZoneView">Toxic Zone Editor</system:String>
 
+    <!-- SpawnPositionEditor Strings -->
+    <system:String x:Key="SpawnPositionTitle">Spawn Position Editor</system:String>
 </ResourceDictionary>

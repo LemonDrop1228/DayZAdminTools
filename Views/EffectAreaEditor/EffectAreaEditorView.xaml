@@ -8,58 +8,71 @@
 			 xmlns:tz="http://schemas.abtsoftware.co.uk/transitionz"  xmlns:st="http://schemas.spicytaco.io/"
 			 xmlns:fg="http://filterdatagrid.control.com/2021"
 			 xmlns:Syncfusion="http://schemas.syncfusion.com/wpf"
-			 xmlns:converters="clr-namespace:DayZTediratorToolz.Converters"
-             mc:Ignorable="d"
+			 xmlns:converters="clr-namespace:DayZTediratorToolz.Converters" xmlns:customcontrols="clr-namespace:DayZTediratorToolz.Helpers.CustomControls"
+                mc:Ignorable="d"
              d:DesignHeight="750" d:DesignWidth="1200" >
     <materialDesign:Card Background="#FF3A4755" Padding="3">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.075*" />
-                <RowDefinition Height="0.125*" />
-                <RowDefinition />
+                <RowDefinition Height="0.15*" MinHeight="150"/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <TextBlock TextAlignment="Left" VerticalAlignment="Top" Margin="10 0"
-                       Text="{DynamicResource ToxicZoneView}"
-                       FontSize="32" FontWeight="DemiBold" />
-            <Grid Grid.Row="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.4*"/>
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
+            <customcontrols:FileInput
+            Title="{Binding ViewMenuData.ViewLabel}"
+            Margin="16"/>
 
-                <GroupBox Margin="7"
+            <Grid Grid.Row="1">
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.4*"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <GroupBox Margin="7"
                           Background="{DynamicResource MaterialDesignDarkBackground}"
 						  materialDesign:ThemeAssist.Theme="Dark"
-						  Header="Card Group Box"
+						  Header="Card Group Box" 
 						  Style="{DynamicResource MaterialDesignCardGroupBox}">
-                    <GroupBox.HeaderTemplate>
-                        <DataTemplate>
-                            <StackPanel
+                        <GroupBox.HeaderTemplate>
+                            <DataTemplate>
+                                <StackPanel
                                 Orientation="Horizontal"
-                                HorizontalAlignment="Left"
+                                HorizontalAlignment="Stretch"  
                                 Margin="0 12">
-
-                                <RadioButton
+                                </StackPanel>
+                            </DataTemplate>
+                        </GroupBox.HeaderTemplate>
+                        <materialDesign:Card Background="#2F3846" Padding="3">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <StackPanel
+                                    Orientation="Horizontal">
+                                    <StackPanel HorizontalAlignment="Left"
+                                                Orientation="Horizontal">
+                                        <RadioButton
                                     FontWeight="Medium" FontSize="18"
                                     Cursor="Hand"
                                     x:Name="RButtonEffectedArea"
                                     Padding="16 3"
                                     Style="{StaticResource MaterialDesignTabRadioButton}"
                                     ToolTip="Switch to Toxic Area editing">
-                                    <StackPanel Orientation="Horizontal">
-                                        <materialDesign:PackIcon
+                                            <StackPanel Orientation="Horizontal">
+                                                <materialDesign:PackIcon
                                             Kind="Biohazard"
                                             VerticalAlignment="Center"
                                             Margin="0 0 3 0"
                                             Height="21" Width="21"/>
-                                        <TextBlock
+                                                <TextBlock
                                             VerticalAlignment="Center"
                                             Margin="3 0 0 0"
                                             Text="Toxic Areas"/>
-                                    </StackPanel>
-                                </RadioButton>
-                                <RadioButton
+                                            </StackPanel>
+                                        </RadioButton>
+                                        <RadioButton
                                     FontWeight="Medium" FontSize="18"
                                     Cursor="Hand"
                                     x:Name="RButtonSafeArea"
@@ -67,70 +80,72 @@
                                     IsChecked="True"
                                     Style="{StaticResource MaterialDesignTabRadioButton}"
                                     ToolTip="Switch to Safe Area editing">
-                                    <StackPanel
+                                            <StackPanel
                                         Orientation="Horizontal">
-                                        <materialDesign:PackIcon
+                                                <materialDesign:PackIcon
                                             Kind="HospitalBox"
                                             VerticalAlignment="Center"
                                             Margin="0 0 3 0"
                                             Height="21" Width="21"/>
-                                        <TextBlock
+                                                <TextBlock
                                             VerticalAlignment="Center"
                                             Margin="3 0 0 0"
                                             Text="Safe Areas"/>
+                                            </StackPanel>
+                                        </RadioButton>
                                     </StackPanel>
-                                </RadioButton>
-                            </StackPanel>
-                        </DataTemplate>
-                    </GroupBox.HeaderTemplate>
-                    <materialDesign:Card Background="#2F3846" Padding="3"> <!-- Card for Effected Area-->
-                        <Grid>
-                                <ListBox ItemsSource="{Binding AreasCollection}"
+                                </StackPanel>
+                                </Grid>
+                                <materialDesign:Card Background="#2F3846" Padding="3">
+                                    <!-- Card for Effected Area-->
+                                    <Grid>
+                                        <ListBox ItemsSource="{Binding AreasCollection}"
                                          HorizontalAlignment="Stretch"
                                          VerticalAlignment="Stretch"
                                          Cursor="Hand"
                                          Visibility="Hidden">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <st:StackPanel Orientation="Vertical">
-                                            <materialDesign:Card Background="{DynamicResource MaterialDesignDarkBackground}" Margin="12" Padding="12">
-                                                    <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="7">
-                                                        <TextBlock Text="{Binding AreaName}" FontSize="12" />
-                                                        <TextBlock Text="{Binding Type}" FontSize="12" />
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <st:StackPanel Orientation="Vertical">
+                                                        <materialDesign:Card Background="{DynamicResource MaterialDesignDarkBackground}" Margin="12" Padding="12">
+                                                            <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="7">
+                                                                <TextBlock Text="{Binding AreaName}" FontSize="12" />
+                                                                <TextBlock Text="{Binding Type}" FontSize="12" />
+                                                            </st:StackPanel>
+                                                        </materialDesign:Card>
                                                     </st:StackPanel>
-                                                </materialDesign:Card>
-                                            </st:StackPanel>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ListBox>
-                                <ListBox ItemsSource="{Binding SafePosCollection}"
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ListBox>
+                                        <ListBox ItemsSource="{Binding SafePosCollection}"
                                                  HorizontalAlignment="Stretch"
                                                  VerticalAlignment="Stretch"
                                                  Cursor="Hand">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <st:StackPanel Orientation="Vertical">
-                                            <materialDesign:Card Background="{DynamicResource MaterialDesignDarkBackground}" Margin="12" Padding="12">
-                                                <TextBlock FontSize="20" >
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <st:StackPanel Orientation="Vertical">
+                                                        <materialDesign:Card Background="{DynamicResource MaterialDesignDarkBackground}" Margin="12" Padding="12">
+                                                            <TextBlock FontSize="20" >
                                                         <Run Text="X / Y :                     "/>
                                                         <Run Text="{Binding Xcoord}"/>
                                                         <Run Text="/"/>
                                                         <Run Text="{Binding Ycoord}"/>
-                                                    </TextBlock>
-                                            </materialDesign:Card>
-                                            </st:StackPanel>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ListBox>
-                        </Grid>
+                                                            </TextBlock>
+                                                        </materialDesign:Card>
+                                                    </st:StackPanel>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ListBox>
+                                    </Grid>
+                                </materialDesign:Card>
+                            </Grid>
+                        </materialDesign:Card>
+                    </GroupBox>
+                    <materialDesign:Card Background="#2f3846" Padding="3" Grid.Column="1">
+                        <!-- Card for Safe Area Map-->
+
                     </materialDesign:Card>
-                </GroupBox>
-
-                <GroupBox Grid.Column="1" Visibility="Hidden">
-
-                    <materialDesign:Card Background="#2f3846" Padding="3"> <!-- Card for Safe Area Map-->
-
-                    </materialDesign:Card>
+                </Grid>
                 </GroupBox>
                 <Border Grid.Column="1">
                     <Grid>
@@ -323,6 +338,7 @@
                         </Grid>
                     </Grid>
                 </Border>
+            </Grid>
             </Grid>
         </Grid>
     </materialDesign:Card>
