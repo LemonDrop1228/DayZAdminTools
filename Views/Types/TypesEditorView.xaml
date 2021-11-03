@@ -33,7 +33,11 @@
 					x:Name="FileInputControl"
 					IsBusy="{Binding IsProcessingTypes}"
 					Title="{Binding ViewMenuData.ViewLabel}"
-					FileOpened="FileInputControl_OnFileOpened" FileSaved="FileInputControl_OnFileSaved" FileExported="FileInputControl_OnFileExported"/>
+					DialogTitle="{DynamicResource TypesEditorView_DialogTitle}"
+					FileOpened="FileInputControl_OnFileOpened"
+					FileSaved="FileInputControl_OnFileSaved"
+					FileExported="FileInputControl_OnFileExported">
+				</customControls:FileInput>
 
 
 			<Grid Grid.Row="1">
@@ -160,11 +164,9 @@
 								                          materialDesign:ShadowAssist.ShadowEdges="All"
 								                          materialDesign:ShadowAssist.Darken="True"
 								                          materialDesign:ShadowAssist.ShadowDepth="Depth2"
-								                          Mode="PrimaryMid"
+								                          Background="#FF2E5A85"
 								                          Padding="16">
-									<StackPanel
-										Orientation="Horizontal">
-										<StackPanel HorizontalAlignment="Left"
+										<StackPanel HorizontalAlignment="Center"
 										            Orientation="Horizontal">
 											<RadioButton
 												FontWeight="Medium" FontSize="18" FontFamily="Roboto"
@@ -190,7 +192,6 @@
 												Content="IMPORT TYPES"
 											/>
 										</StackPanel>
-									</StackPanel>
 								</materialDesign:ColorZone>
 
 								<materialDesign:Card Grid.Row="1"

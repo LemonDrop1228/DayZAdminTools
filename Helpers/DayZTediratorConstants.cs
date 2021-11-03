@@ -27,7 +27,8 @@
 
         public enum PathTypes
         {
-            TypesXml
+            Xml,
+            Json
         }
 
         public enum DialogTypes

@@ -157,6 +157,7 @@
     <Content Include="Images\app_bg.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\ChernoMap_7200x7200.png" />
     <Content Include="Images\ted_logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
