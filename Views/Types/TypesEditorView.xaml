@@ -33,6 +33,7 @@
 					x:Name="FileInputControl"
 					IsBusy="{Binding IsProcessingTypes}"
 					Title="{Binding ViewMenuData.ViewLabel}"
+					LocalPathType="Xml"
 					DialogTitle="{DynamicResource TypesEditorView_DialogTitle}"
 					FileOpened="FileInputControl_OnFileOpened"
 					FileSaved="FileInputControl_OnFileSaved"
