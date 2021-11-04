@@ -75,6 +75,9 @@
     <Compile Include="Helpers\CustomClasses\CircularFIFO.cs" />
     <Compile Include="Helpers\CustomClasses\ViewBucket.cs" />
     <Compile Include="Helpers\CustomControls\AdvancedButtonContent.cs" />
+    <Compile Include="Helpers\CustomControls\AdvancedGroupBox.xaml.cs">
+      <DependentUpon>AdvancedGroupBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\CustomControls\FileInput.xaml.cs">
       <DependentUpon>FileInput.xaml</DependentUpon>
     </Compile>
@@ -107,6 +110,8 @@
     <Compile Include="Views\Types\TypesEditorView.xaml.cs">
       <DependentUpon>TypesEditorView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Colors\CustomColors.xaml" />
+    <Page Include="Helpers\CustomControls\AdvancedGroupBox.xaml" />
     <Page Include="Helpers\CustomControls\FileInput.xaml" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -155,7 +155,7 @@
 								                          materialDesign:ShadowAssist.ShadowEdges="All"
 								                          materialDesign:ShadowAssist.Darken="True"
 								                          materialDesign:ShadowAssist.ShadowDepth="Depth2"
-								                          Background="#FF2E5A85"
+								                          Background="{DynamicResource DZHeaderBackGround}"
 								                          Padding="16">
 										<StackPanel HorizontalAlignment="Center"
 										            Orientation="Horizontal">
