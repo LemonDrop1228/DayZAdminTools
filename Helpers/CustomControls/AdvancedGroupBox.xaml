@@ -19,7 +19,7 @@
                 </Grid.RowDefinitions>
 
 
-             <materialDesign:ColorZone Margin="0"
+             <materialDesign:ColorZone Margin="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                                        materialDesign:ShadowAssist.ShadowEdges="All"
                                        materialDesign:ShadowAssist.Darken="True"
                                        materialDesign:ShadowAssist.ShadowDepth="Depth2"
@@ -28,7 +28,7 @@
                  <ContentControl x:Name="HeaderControlHost" Content="{Binding HostedHeaderContent}"/>
              </materialDesign:ColorZone>
 
-            <ContentControl Grid.Row="1" x:Name="BodyControlHost" Content="{Binding HostedBodyContent}" Padding="5"/>
+            <ContentControl Grid.Row="1" x:Name="BodyControlHost" Content="{Binding HostedBodyContent}"/>
         </Grid>
     </materialDesign:Card>
 </UserControl>
