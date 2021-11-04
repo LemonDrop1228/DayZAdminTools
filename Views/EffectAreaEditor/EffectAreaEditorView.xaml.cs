@@ -107,5 +107,20 @@ namespace DayZTediratorToolz.Views.EffectAreaEditor
         {
             return Lorem.Words(2,7).Replace(" ", String.Empty);
         }
+
+        private void FileInput_FileExported(object sender, Helpers.CustomControls.FileEventArgs args)
+        {
+
+        }
+
+        private void FileInput_FileSaved(object sender, Helpers.CustomControls.FileEventArgs args)
+        {
+
+        }
+
+        private void FileInput_FileOpened(object sender, Helpers.CustomControls.FileEventArgs args)
+        {
+
+        }
     }
 }

@@ -22,7 +22,13 @@
 
             <customcontrols:FileInput
             Title="{Binding ViewMenuData.ViewLabel}"
-            Margin="16"/>
+            Margin="16"
+            LocalPathType="json"
+            PathBoxHint="Effect Area JSON file path"
+            DialogTitle="{DynamicResource ToxicZoneView_DialogTitle}"
+            FileOpened="FileInput_FileOpened"
+            FileSaved="FileInput_FileSaved"
+            FileExported="FileInput_FileExported"/>
 
             <Grid Grid.Row="1">
             <Grid.RowDefinitions>
