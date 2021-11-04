@@ -43,8 +43,28 @@
                         <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 3">
                             <Button x:Name="SettingsButton"
                                     Margin="6 0"
-                                    Click="SettingsButton_OnClick"
-                                    Content="{materialDesign:PackIcon SettingsOutline}"/>
+                                    Click="SettingsButton_OnClick">
+                                <materialDesign:PackIcon Kind="Settings">
+                                    <materialDesign:PackIcon.RenderTransform>
+                                        <RotateTransform x:Name="SettingsIconRotationTransform" Angle="0"/>
+                                    </materialDesign:PackIcon.RenderTransform>
+                                    <materialDesign:PackIcon.RenderTransformOrigin>
+                                        <Point X="0.5" Y="0.5"/>
+                                    </materialDesign:PackIcon.RenderTransformOrigin>
+                                    <materialDesign:PackIcon.Triggers>
+                                        <EventTrigger RoutedEvent="Button.MouseEnter">
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation
+                                                        Storyboard.TargetName="SettingsIconRotationTransform"
+                                                        Storyboard.TargetProperty="(RotateTransform.Angle)"
+                                                        From="0.0" To="90" Duration="0:0:0.5"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                    </materialDesign:PackIcon.Triggers>
+                                </materialDesign:PackIcon>
+                            </Button>
                             <Button x:Name="MinimizeButton"
                                     Margin="6 0"
                                     Click="MinimizeButton_OnClick"

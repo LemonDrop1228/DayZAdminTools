@@ -2,6 +2,13 @@
 {
     public static class DayZTediratorConstants
     {
+        public enum AdvBttnContentType
+        {
+            Both,
+            Image,
+            Txt
+        }
+
         public enum Views
         {
             Home,
@@ -28,7 +35,8 @@
 
         public enum PathTypes
         {
-            TypesXml
+            Xml,
+            Json
         }
 
         public enum DialogTypes

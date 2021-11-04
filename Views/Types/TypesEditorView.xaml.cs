@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Xml;
 using DayZTediratorToolz.Helpers;
@@ -137,6 +138,11 @@ namespace DayZTediratorToolz.Views
                 (SubCollection as ObservableCollection<TypeCollectionModel.Value>).Remove(o as TypeCollectionModel.Value);
         }, o => true);
 
+        public ICommand ShowTestMsg => new RelayCommand(o =>
+        {
+            MessageBox.Show("test");
+        }, o => true);
+
         public ICommand SelectSlice => new RelayCommand(o =>
         {
             ClearGroups();
@@ -188,6 +194,7 @@ namespace DayZTediratorToolz.Views
 
             TypesConfig = _toolConfigService.GetConfigObj(DayZTediratorConstants.Tools.Types) as TypesCfg;
             InitializeComponent();
+            SetCustomToolBarButtons();
             DataContext = this;
             FileInputControl.ConfigureHelperService(_generalHelperService);
 
@@ -195,18 +202,14 @@ namespace DayZTediratorToolz.Views
 
         }
 
-        private async void OpenFileDialogButtonClicked(object sender, RoutedEventArgs e)
+        private void SetCustomToolBarButtons()
         {
-            if (IsProcessingTypes)
-                return;
-
-            var localTypesPath = _generalHelperService.GetPathFromUser(DayZTediratorConstants.PathTypes.TypesXml,
-                DayZTediratorConstants.DialogTypes.Open);
-
-            await OpenTypesFile(localTypesPath);
-
-
-            IsProcessingTypes = false;
+            /*FileInputControl.SetupToolBarControls(new Button()
+            {
+                Content = new AdvancedButtonContent(PackIconKind.Bomb, "BOOM",DayZTediratorConstants.AdvBttnContentType.Both),
+                Cursor = Cursors.Hand,
+                Command = ShowTestMsg
+            });*/
         }
 
         private async Task OpenTypesFile(string localTypesPath)
@@ -273,6 +276,8 @@ namespace DayZTediratorToolz.Views
                     CurrentTypeSlice = _typeCollection[0];
                 }
             }
+
+            IsProcessingTypes = false;
         }
 
         private void ClearGroups()
@@ -366,39 +371,64 @@ namespace DayZTediratorToolz.Views
             DHost.IsOpen = true;
         }
 
-        private async Task SaveFile()
+        private async Task SaveFile(string localTypesPath)
         {
             if (IsExportingTypes || TypeCollection == null)
                 return;
 
+            IsExportingTypes = true;
+            var jsonState = await _typesConvertorService
+                .GetSerializedTypesXml();
+            var xmlDoc = JsonConvert.DeserializeXmlNode(jsonState);
 
-            TypesPath = _generalHelperService.GetPathFromUser(DayZTediratorConstants.PathTypes.TypesXml,
-                DayZTediratorConstants.DialogTypes.Save);
+            XmlDeclaration xmldecl;
+            xmldecl = xmlDoc.CreateXmlDeclaration("1.0", "UTF-8", null);
 
-            if (System.IO.File.Exists(TypesPath))
-            {
-                IsExportingTypes = true;
-                var jsonState = await _typesConvertorService
-                    .GetSerializedTypesXml();
-                var xmlDoc = JsonConvert.DeserializeXmlNode(jsonState);
+            XmlElement root = xmlDoc.DocumentElement;
+            xmlDoc.InsertBefore(xmldecl, root);
 
-                XmlDeclaration xmldecl;
-                xmldecl = xmlDoc.CreateXmlDeclaration("1.0", "UTF-8", null);
+            var formattedXML = xmlDoc.OuterXml.FormatXml();
 
-                XmlElement root = xmlDoc.DocumentElement;
-                xmlDoc.InsertBefore(xmldecl, root);
+            System.IO.File.WriteAllText(localTypesPath, formattedXML);
 
-                var formattedXML = xmlDoc.OuterXml.FormatXml();
+            _notificationService.SetNotificationContent($"Types Exported",
+                        $"Successfully saved types file to: {TypesPath}")
+                    .NotifySuccess();
+            _notificationService.SetNotificationContent($"Types Exported",
+                        $"Saved a total of {TypeCollection.DeepCount()} types.")
+                    .NotifyInfo();
 
-                System.IO.File.WriteAllText(TypesPath, formattedXML);
 
-                _notificationService.SetNotificationContent($"Types Exported",
-                            $"Successfully exported types file to: {TypesPath}")
-                        .NotifySuccess();
-                _notificationService.SetNotificationContent($"Types Exported",
-                            $"Exported a total of {TypeCollection.DeepCount()} types.")
-                        .NotifyInfo();
-            }
+            IsExportingTypes = false;
+        }
+
+
+        private async Task ExportFile(string localTypesPath)
+        {
+            if (IsExportingTypes || TypeCollection == null)
+                return;
+
+            IsExportingTypes = true;
+            var jsonState = await _typesConvertorService
+                .GetSerializedTypesXml();
+            var xmlDoc = JsonConvert.DeserializeXmlNode(jsonState);
+
+            XmlDeclaration xmldecl;
+            xmldecl = xmlDoc.CreateXmlDeclaration("1.0", "UTF-8", null);
+
+            XmlElement root = xmlDoc.DocumentElement;
+            xmlDoc.InsertBefore(xmldecl, root);
+
+            var formattedXML = xmlDoc.OuterXml.FormatXml();
+
+            System.IO.File.WriteAllText(localTypesPath, formattedXML);
+
+            _notificationService.SetNotificationContent($"Types Exported",
+                    $"Successfully exported types file to: {TypesPath}")
+                .NotifySuccess();
+            _notificationService.SetNotificationContent($"Types Exported",
+                    $"Exported a total of {TypeCollection.DeepCount()} types.")
+                .NotifyInfo();
 
 
             IsExportingTypes = false;
@@ -442,12 +472,12 @@ namespace DayZTediratorToolz.Views
 
         private async void FileInputControl_OnFileSaved(object sender, FileEventArgs args)
         {
-            await SaveFile();
+            await SaveFile(args.FilePath);
         }
 
-        private void FileInputControl_OnFileExported(object sender, FileEventArgs args)
+        private async void FileInputControl_OnFileExported(object sender, FileEventArgs args)
         {
-
+            await ExportFile(args.FilePath);
         }
     }
 }

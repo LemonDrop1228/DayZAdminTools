@@ -40,6 +40,7 @@
 
     <!-- TypesEditorView Strings -->
     <system:String x:Key="TypesEditorTitle">Types Editor</system:String>
+    <system:String x:Key="TypesEditorView_DialogTitle">Types File</system:String>
 
     <!-- ToxicAreaEditor Strings -->
     <system:String x:Key="ToxicZoneView">Toxic Zone Editor</system:String>

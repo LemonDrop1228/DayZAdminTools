@@ -75,6 +75,7 @@
     <Compile Include="Helpers\CustomClasses\CircularFIFO.cs" />
     <Compile Include="Helpers\CustomClasses\SafePosMapCoordinate.cs" />
     <Compile Include="Helpers\CustomClasses\ViewBucket.cs" />
+    <Compile Include="Helpers\CustomControls\AdvancedButtonContent.cs" />
     <Compile Include="Helpers\CustomControls\FileInput.xaml.cs">
       <DependentUpon>FileInput.xaml</DependentUpon>
     </Compile>
@@ -170,6 +171,7 @@
     <Content Include="Images\app_bg.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\ChernoMap_7200x7200.png" />
     <Content Include="Images\ted_logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

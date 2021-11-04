@@ -7,17 +7,18 @@ namespace DayZTediratorToolz.Services
 {
     public interface IGeneralHelperService
     {
-        string GetPathFromUser(PathTypes pathType, DialogTypes dialogTypes);
+        string GetPathFromUser(PathTypes pathType, DialogTypes dialogTypes, string dialogTitle);
         bool VerifyFilePath(string tempFilePath);
     }
 
     public class GeneralHelperService : IGeneralHelperService
     {
-        public string GetPathFromUser(PathTypes pathType, DialogTypes dialogTypes)
+        public string GetPathFromUser(PathTypes pathType, DialogTypes dialogTypes, string dialogTitle)
         {
             string result = pathType switch
             {
-                PathTypes.TypesXml => GetPath("XML Files | *.xml", "{0} Types Config File", dialogTypes),
+                PathTypes.Xml => GetPath("XML Files | *.xml", $"{{{0}}} {dialogTitle}", dialogTypes),
+                PathTypes.Json => GetPath("JSON Files | *.json", $"{{{0}}} {dialogTitle}", dialogTypes),
                 _ => string.Empty
             };
 

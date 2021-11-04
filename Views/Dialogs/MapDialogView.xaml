@@ -11,10 +11,12 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Border Padding="15">
         <materialDesign:Card>
-            <syncfusion:SfMap
+            <!--<syncfusion:SfMap
                 >
+                <syncfusion:SfMap.Layers>
 
-            </syncfusion:SfMap>
+                </syncfusion:SfMap.Layers>
+            </syncfusion:SfMap>-->
         </materialDesign:Card>
     </Border>
 </views:BaseView>
