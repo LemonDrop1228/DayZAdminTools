@@ -8,6 +8,7 @@ using LoremNET;
 using PropertyChanged;
 using static DayZTediratorToolz.Models.ToxicEffectAreaModel;
 using DayZTediratorToolz.Helpers;
+using DayZTediratorToolz.Services;
 
 namespace DayZTediratorToolz.Views.EffectAreaEditor
 {
@@ -16,6 +17,8 @@ namespace DayZTediratorToolz.Views.EffectAreaEditor
     {
         public ToxicEffectAreaModel ToxicEffectAreaObj { get; set; }
         public override ViewMenuData ViewMenuData { get; set; }
+
+        private readonly IGeneralHelperService _generalHelperService;
 
         public ObservableCollection<Area> AreasCollection
         {
@@ -26,7 +29,7 @@ namespace DayZTediratorToolz.Views.EffectAreaEditor
             get => ToxicEffectAreaObj?.RootObject?.ToxicEffectConfig?.SafePositionCollection ?? null;
         }
 
-        public EffectAreaEditorView()
+        public EffectAreaEditorView(IGeneralHelperService generalHelperService)
         {
             ViewMenuData = new()
             {
@@ -35,9 +38,13 @@ namespace DayZTediratorToolz.Views.EffectAreaEditor
                 ViewLabel = "Toxic Zone Editor",
                 ViewType = Helpers.DayZTediratorConstants.ViewTypes.VanillaTool
             };
+
+            _generalHelperService = generalHelperService;
+
             SetupTestData();
             InitializeComponent();
             this.DataContext = this;
+            TxFileInput.ConfigureHelperService(generalHelperService);
         }
 
         private void SetupTestData()

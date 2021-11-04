@@ -48,4 +48,9 @@
 
     <!-- SpawnPositionEditor Strings -->
     <system:String x:Key="SpawnPositionTitle">Spawn Position Editor</system:String>
+    <system:String x:Key="SpawnPosition_DialogTitle">Player Spawn File</system:String>
+
+    <!-- BlankView Strings -->
+    <system:String x:Key="BlankTitle">Blank View</system:String>
+    <system:String x:Key="BlankTitle_DialogTitle">Blank File</system:String>
 </ResourceDictionary>

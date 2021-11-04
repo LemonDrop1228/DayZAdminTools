@@ -21,6 +21,13 @@
 
             <customcontrols:FileInput 
             Title="{Binding ViewMenuData.ViewLabel}"
+            x:Name="SpawnFileIput"
+            LocalPathType="Xml"
+            PathBoxHint="Player Spawn XML file path"
+            DialogTitle="{DynamicResource  SpawnPosition_DialogTitle}"
+            FileOpened="SpawnFileIput_FileOpened"
+            FileExported="SpawnFileIput_FileExported"
+            FileSaved="SpawnFileIput_FileSaved"
             Margin="16"/>
 
             <Grid Grid.Row="1">
