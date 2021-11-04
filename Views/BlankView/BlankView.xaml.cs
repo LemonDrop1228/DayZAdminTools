@@ -10,7 +10,7 @@ namespace DayZTediratorToolz.Views
 
         public BlankView()
         {
-            ViewMenuData = new ViewMenuData
+            ViewMenuData = new ViewMenuData 
             {
                 ViewIndex = 0,
                 ViewLabel = "Test",
@@ -19,6 +19,22 @@ namespace DayZTediratorToolz.Views
             };
 
             InitializeComponent();
+            DataContext = this;
+        }
+
+        private void BlankTitle_FileOpened(object sender, Helpers.CustomControls.FileEventArgs args)
+        {
+
+        }
+
+        private void BlankTitle_FileExported(object sender, Helpers.CustomControls.FileEventArgs args)
+        {
+
+        }
+
+        private void BlankTitle_FileSaved(object sender, Helpers.CustomControls.FileEventArgs args)
+        {
+
         }
     }
 }

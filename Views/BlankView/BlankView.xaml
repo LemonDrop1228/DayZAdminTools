@@ -12,6 +12,208 @@
              tz:Transitionz.Opacity="{tz:OpacityParams From=0, To=1, Duration=200, TransitionOn=Loaded}"
 			 tz:Transitionz.Translate="{tz:TranslateParams From='10,0', To='0,0', Duration=200, TransitionOn=Loaded}"
              mc:Ignorable="d"
-             d:DesignHeight="750" d:DesignWidth="1200" >
-    
+             d:DesignHeight="750" d:DesignWidth="1200">
+    <materialDesign:Card Background="#FF3A4755" Padding="3" Grid.Row="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.15*" MinHeight="150"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <customcontrols:FileInput
+                Title="{Binding ViewMenuData.ViewLabel}"
+                DialogTitle="{DynamicResource  BlankTitle_DialogTitle}"
+                x:Name="BlankTitle"
+                PathBoxHint="Blank Title"
+                Margin="16 16 16 6"
+                FileOpened="BlankTitle_FileOpened"
+                FileExported="BlankTitle_FileExported"
+                FileSaved="BlankTitle_FileSaved"/>
+
+            <Grid Grid.Row="1">
+                <customcontrols:AdvancedGroupBox Padding="16">
+                    <customcontrols:AdvancedGroupBox.HostedHeaderContent>
+                        <StackPanel
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Left"
+                                Margin="0 5 5 5">
+
+
+                            <RadioButton
+                                    FontWeight="Medium" FontSize="18"
+                                    Cursor="Hand"
+                                    x:Name="RButtonFresh"
+                                    Padding="9 3"
+                                    Style="{StaticResource MaterialDesignTabRadioButton}"
+                                    ToolTip="New spawn coordinates">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                            Kind="Download"
+                                            VerticalAlignment="Center"
+                                            Margin="0 0 3 0"
+                                            Height="21" Width="21"/>
+                                    <TextBlock
+                                            VerticalAlignment="Center"
+                                            Margin="3 0 0 0"
+                                            Text="Fresh"/>
+                                </StackPanel>
+                            </RadioButton>
+                            <RadioButton
+                                    FontWeight="Medium" FontSize="18"
+                                    Cursor="Hand"
+                                    x:Name="RButtonHopper"
+                                    Padding="9 3"
+                                    Style="{StaticResource MaterialDesignTabRadioButton}"
+                                    ToolTip="Server-hopper spawn coordinates">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                            Kind="DebugStepOver"
+                                            VerticalAlignment="Center"
+                                            Margin="0 0 3 0"
+                                            Height="21" Width="21"/>
+                                    <TextBlock
+                                            VerticalAlignment="Center"
+                                            Margin="3 0 0 0"
+                                            Text="Hopper"/>
+                                </StackPanel>
+                            </RadioButton>
+                            <RadioButton
+                                    FontWeight="Medium" FontSize="18"
+                                    Cursor="Hand"
+                                    x:Name="RButtonTraveller"
+                                    Padding="9 3"
+                                    Style="{StaticResource MaterialDesignTabRadioButton}"
+                                    ToolTip="Traveller spawn coordinates">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                            Kind="AxisArrow"
+                                            VerticalAlignment="Center"
+                                            Margin="0 0 3 0"
+                                            Height="21" Width="21"/>
+                                    <TextBlock
+                                            VerticalAlignment="Center"
+                                            Margin="3 0 0 0"
+                                            Text="Traveller"/>
+                                </StackPanel>
+                            </RadioButton>
+                            <RadioButton
+                                    FontWeight="Medium" FontSize="18"
+                                    Cursor="Hand"
+                                    x:Name="RButtonParams"
+                                    Padding="9 3"
+                                    Style="{StaticResource MaterialDesignTabRadioButton}"
+                                    ToolTip="Parameters">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                            Kind="Wrench"
+                                            VerticalAlignment="Center"
+                                            Margin="0 0 3 0"
+                                            Height="21" Width="21"/>
+                                    <TextBlock
+                                            VerticalAlignment="Center"
+                                            Margin="3 0 0 0"
+                                            Text="Params"/>
+                                </StackPanel>
+                            </RadioButton>
+                        </StackPanel>
+                    </customcontrols:AdvancedGroupBox.HostedHeaderContent>
+                    <customcontrols:AdvancedGroupBox.HostedBodyContent >
+                        <materialDesign:Card Background="#2F3846" Padding="3" Margin="14 0 1 0">
+                            <!-- Card for Config -->
+                            <ScrollViewer>
+                                <st:StackPanel Orientation="Vertical"
+                                                       MarginBetweenChildren="10">
+                                    <TextBox
+                                                  materialDesign:HintAssist.Hint="Area Name"
+                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                  VerticalAlignment="Center"
+                                                  Margin="15 0 15 0"
+                                                  FontSize="18"/>
+                                    <TextBox
+                                                  materialDesign:HintAssist.Hint="Type"
+                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                  VerticalAlignment="Center"
+                                                  Margin="15 0 15 0"
+                                                  FontSize="18"/>
+                                    <TextBox
+                                                  materialDesign:HintAssist.Hint="Trigger Type"
+                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                  VerticalAlignment="Center"
+                                                  Margin="15 0 15 0"
+                                                  FontSize="18"/>
+                                    <TextBox
+                                                  materialDesign:HintAssist.Hint="Position"
+                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                  VerticalAlignment="Center"
+                                                  Margin="15 0 15 0"
+                                                  FontSize="18"/>
+                                    <TextBox
+                                                  materialDesign:HintAssist.Hint="Radius"
+                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                  VerticalAlignment="Center"
+                                                  Margin="15 0 15 0"
+                                                  FontSize="18"/>
+                                    <TextBox
+                                                  materialDesign:HintAssist.Hint="Positive Height"
+                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                  VerticalAlignment="Center"
+                                                  Margin="15 0 15 0"
+                                                  FontSize="18"/>
+                                    <TextBox
+                                                  materialDesign:HintAssist.Hint="Negative Height"
+                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                  VerticalAlignment="Center"
+                                                  Margin="15 0 15 0"
+                                                  FontSize="18"/>
+                                    <TextBox
+                                                  materialDesign:HintAssist.Hint="Inner Ring Count"
+                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                  VerticalAlignment="Center"
+                                                  Margin="15 0 15 0"
+                                                  FontSize="18"/>
+                                    <TextBox
+                                                  materialDesign:HintAssist.Hint="Inner Ring Distance"
+                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                  VerticalAlignment="Center"
+                                                  Margin="15 0 15 0"
+                                                  FontSize="18"/>
+                                    <TextBox
+                                                  materialDesign:HintAssist.Hint="Outer Ring Toggle"
+                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                  VerticalAlignment="Center"
+                                                  Margin="15 0 15 0"
+                                                  FontSize="18"/>
+                                    <TextBox
+                                                  materialDesign:HintAssist.Hint="Outer Partical Distance"
+                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                  VerticalAlignment="Center"
+                                                  Margin="15 0 15 0"
+                                                  FontSize="18"/>
+                                    <TextBox
+                                                  materialDesign:HintAssist.Hint="Outer Offset"
+                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                  VerticalAlignment="Center"
+                                                  Margin="15 0 15 0"
+                                                  FontSize="18"/>
+                                    <TextBox
+                                                  materialDesign:HintAssist.Hint="Vertical Layers"
+                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                  VerticalAlignment="Center"
+                                                  Margin="15 0 15 0"
+                                                  FontSize="18"/>
+                                    <TextBox
+                                                  materialDesign:HintAssist.Hint="Vertical Offset"
+                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                  VerticalAlignment="Center"
+                                                  Margin="15 0 15 0"
+                                                  FontSize="18"/>
+                                </st:StackPanel>
+                            </ScrollViewer>
+                        </materialDesign:Card>
+
+                    </customcontrols:AdvancedGroupBox.HostedBodyContent>
+                </customcontrols:AdvancedGroupBox>
+            </Grid>
+        </Grid>
+    </materialDesign:Card>
 </views:BaseView>
