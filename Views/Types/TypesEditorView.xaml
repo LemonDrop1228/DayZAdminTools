@@ -34,6 +34,7 @@
 					IsBusy="{Binding IsProcessingTypes}"
 					Title="{Binding ViewMenuData.ViewLabel}"
 					LocalPathType="Xml"
+					PathBoxHint="Types XML File Path"
 					DialogTitle="{DynamicResource TypesEditorView_DialogTitle}"
 					FileOpened="FileInputControl_OnFileOpened"
 					FileSaved="FileInputControl_OnFileSaved"
@@ -76,19 +77,8 @@
 						</GroupBox.HeaderTemplate>
 						<materialDesign:Card Background="#2F3846" Padding="3">
 							<Grid>
-								<!-- Grid Zone -->
-								<Grid.RowDefinitions>
-									<RowDefinition Height="0.125*" MinHeight="55"/>
-									<RowDefinition />
-									<RowDefinition Height="0.075*" MinHeight="45"/>
-								</Grid.RowDefinitions>
-
-								<st:StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
-
-								</st:StackPanel>
-
 								<syncfusion:SfDataGrid
-									Grid.Row="1" Grid.RowSpan="{Binding IsDataPagedGridRowSpan}"
+									Grid.RowSpan="{Binding IsDataPagedGridRowSpan}"
 									SelectionChanged="TypesGrid_OnSelectionChanged"
 									BorderThickness="0"
 									x:Name="TypesGrid"

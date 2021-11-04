@@ -6,6 +6,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:tz="http://schemas.abtsoftware.co.uk/transitionz"  xmlns:st="http://schemas.spicytaco.io/"
              xmlns:local="clr-namespace:DayZTediratorToolz.Helpers.CustomControls"
+             Name="FileInputControl"
              mc:Ignorable="d"
              d:DesignHeight="150" d:DesignWidth="900">
 	<materialDesign:Card Background="#FF2E5A85" UniformCornerRadius="6" >
@@ -36,7 +37,7 @@
 		                 Background="{DynamicResource MaterialDesignDarkBackground}"
 		                 HorizontalAlignment="Stretch" VerticalAlignment="Center"
 		                 materialDesign:ThemeAssist.Theme="Dark" IsLocked="True">
-			    <ToolBar
+			    <ToolBar Name="sysTB"
 				    Background="{DynamicResource MaterialDesignDarkBackground}"
 				    VerticalContentAlignment="Center"
 				    materialDesign:ThemeAssist.Theme="Dark"
@@ -64,10 +65,11 @@
 				    <Separator/>
 				    <TextBox Name="PathBox"
 				             Style="{StaticResource MaterialDesignFilledTextBox}"
+				             Margin="7 0"
 						    TextWrapping="NoWrap"
 						    Width="300"
 						    Text="{Binding FilePath}"
-						    materialDesign:HintAssist.Hint="Types XML File Path"
+						    materialDesign:HintAssist.Hint="{Binding PathBoxHint}"
 						    IsReadOnly="True" Focusable="False"
 						    Cursor="Arrow">
 					    <TextBox.Triggers>
@@ -96,6 +98,7 @@
 				    <Separator/>
 				    <Button x:Name="SaveTypesButton"
 				            Cursor="Hand"
+				            IsEnabled="{Binding HasPath}"
 				            materialDesign:ShadowAssist.ShadowDepth="Depth3"
 				            VerticalAlignment="Stretch" Click="SaveFile"
 				            ToolTip="Save Current file" Margin="0">
@@ -106,6 +109,7 @@
 				    </Button>
 				    <Button x:Name="ExportTypesButton"
 				            Cursor="Hand"
+				            IsEnabled="{Binding HasPath}"
 				            materialDesign:ShadowAssist.ShadowDepth="Depth3"
 				            VerticalAlignment="Stretch" Click="ExportFile"
 				            ToolTip="Export to file" Margin="0">
@@ -114,6 +118,8 @@
 						    <TextBlock Text="Export" VerticalAlignment="Center"/>
 					    </st:StackPanel>
 				    </Button>
+				    <Separator Name="CustomSep" Visibility="{Binding UsesSecondaryControls,
+				    Converter={StaticResource BooleanToVisibilityConverter}}"/>
 			    </ToolBar>
 		    </ToolBarTray>
 	    </Grid>

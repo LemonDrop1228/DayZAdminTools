@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,12 +21,16 @@ namespace DayZTediratorToolz.Helpers.CustomControls
         private static bool isBusy;
         private static string _dialogTitle;
         private object _toolBarContent;
+        private bool isAnimatingClosed;
+        private bool isAnimatingOpen;
 
         private IGeneralHelperService _generalHelperService { get; set; }
         public string FilePath { get; set; }
+        public bool HasPath { get => !FilePath.NullOrEmpty();}
         public DayZTediratorConstants.PathTypes LocalPathType { get; set; }
         public bool ShowIndicator { get => isBusy; }
-
+        public bool UsesSecondaryControls { get; private set; }
+        public string PathBoxHint { get; set; }
 
         #region Dependancy Props
 
@@ -63,8 +68,6 @@ namespace DayZTediratorToolz.Helpers.CustomControls
                 DependencyProperty.Register("DialogTitle", typeof(string), typeof(FileInput),
                     new PropertyMetadata("Placeholder Title",new PropertyChangedCallback(SetDialogTitle)));
 
-            private bool isAnimatingClosed;
-            private bool isAnimatingOpen;
 
 
             public string DialogTitle
@@ -78,13 +81,14 @@ namespace DayZTediratorToolz.Helpers.CustomControls
                 _dialogTitle = (string) e.NewValue;
             }
 
-            #endregion
+        #endregion
 
+        private ObservableCollection<Control> ViewProvidedControls { get; set; }
 
         public FileInput()
         {
             InitializeComponent();
-            PathBox.DataContext = this;
+            PathBox.DataContext = CustomSep.DataContext = SaveTypesButton.DataContext = ExportTypesButton.DataContext = this;
         }
 
         public void ConfigureHelperService(IGeneralHelperService service) => _generalHelperService = service;
@@ -107,13 +111,16 @@ namespace DayZTediratorToolz.Helpers.CustomControls
 
         private void SaveFile(object sender, RoutedEventArgs e)
         {
+            if (FilePath.NullOrEmpty())
+                return;
+
             if (FileSaved is not null)
                 FileSaved(this, new() {FilePath = this.FilePath});
         }
 
         private void ExportFile(object sender, RoutedEventArgs e)
         {
-            if (IsBusy)
+            if (IsBusy || FilePath.NullOrEmpty())
                 return;
 
             var tempFilePath = _generalHelperService.GetPathFromUser(LocalPathType,
@@ -137,6 +144,14 @@ namespace DayZTediratorToolz.Helpers.CustomControls
         public delegate void ExportFileEventHandler(object sender, FileEventArgs args);
         public event ExportFileEventHandler FileExported;
 
+        public void SetupToolBarControls(params Control[] controls)
+        {
+            UsesSecondaryControls = true;
+            foreach (var c in controls)
+            {
+                sysTB.Items.Add(c);
+            }
+        }
 
         private void PathBox_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {

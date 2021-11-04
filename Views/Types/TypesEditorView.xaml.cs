@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Xml;
 using DayZTediratorToolz.Helpers;
@@ -137,6 +138,11 @@ namespace DayZTediratorToolz.Views
                 (SubCollection as ObservableCollection<TypeCollectionModel.Value>).Remove(o as TypeCollectionModel.Value);
         }, o => true);
 
+        public ICommand ShowTestMsg => new RelayCommand(o =>
+        {
+            MessageBox.Show("test");
+        }, o => true);
+
         public ICommand SelectSlice => new RelayCommand(o =>
         {
             ClearGroups();
@@ -188,11 +194,22 @@ namespace DayZTediratorToolz.Views
 
             TypesConfig = _toolConfigService.GetConfigObj(DayZTediratorConstants.Tools.Types) as TypesCfg;
             InitializeComponent();
+            SetCustomToolBarButtons();
             DataContext = this;
             FileInputControl.ConfigureHelperService(_generalHelperService);
 
             TypesGrid.GroupColumnDescriptions = new GroupColumnDescriptions();
 
+        }
+
+        private void SetCustomToolBarButtons()
+        {
+            /*FileInputControl.SetupToolBarControls(new Button()
+            {
+                Content = new AdvancedButtonContent(PackIconKind.Bomb, "BOOM",DayZTediratorConstants.AdvBttnContentType.Both),
+                Cursor = Cursors.Hand,
+                Command = ShowTestMsg
+            });*/
         }
 
         private async Task OpenTypesFile(string localTypesPath)

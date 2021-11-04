@@ -2,6 +2,13 @@
 {
     public static class DayZTediratorConstants
     {
+        public enum AdvBttnContentType
+        {
+            Both,
+            Image,
+            Txt
+        }
+
         public enum Views
         {
             Home,
