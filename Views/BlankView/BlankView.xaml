@@ -38,11 +38,9 @@
                                 HorizontalAlignment="Left"
                                 Margin="0 5 5 5">
 
-
                             <RadioButton
                                     FontWeight="Medium" FontSize="18"
                                     Cursor="Hand"
-                                    x:Name="RButtonFresh"
                                     Padding="9 3"
                                     Style="{StaticResource MaterialDesignTabRadioButton}"
                                     ToolTip="New spawn coordinates">
@@ -61,7 +59,6 @@
                             <RadioButton
                                     FontWeight="Medium" FontSize="18"
                                     Cursor="Hand"
-                                    x:Name="RButtonHopper"
                                     Padding="9 3"
                                     Style="{StaticResource MaterialDesignTabRadioButton}"
                                     ToolTip="Server-hopper spawn coordinates">
@@ -80,7 +77,6 @@
                             <RadioButton
                                     FontWeight="Medium" FontSize="18"
                                     Cursor="Hand"
-                                    x:Name="RButtonTraveller"
                                     Padding="9 3"
                                     Style="{StaticResource MaterialDesignTabRadioButton}"
                                     ToolTip="Traveller spawn coordinates">
@@ -99,7 +95,6 @@
                             <RadioButton
                                     FontWeight="Medium" FontSize="18"
                                     Cursor="Hand"
-                                    x:Name="RButtonParams"
                                     Padding="9 3"
                                     Style="{StaticResource MaterialDesignTabRadioButton}"
                                     ToolTip="Parameters">

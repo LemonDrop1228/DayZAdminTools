@@ -36,132 +36,117 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
-                <GroupBox Margin="10"
-                          Background="{DynamicResource MaterialDesignDarkBackground}"
-                          materialDesign:ThemeAssist.Theme="Dark"
-                          Header="Card Group Box"
-                          Style="{DynamicResource MaterialDesignCardGroupBox}">
-                    <GroupBox.HeaderTemplate>
-                        <DataTemplate>
-                            <StackPanel
+                <customcontrols:AdvancedGroupBox Margin="10">
+                    <customcontrols:AdvancedGroupBox.HostedHeaderContent>
+                        <StackPanel
                                 Orientation="Horizontal"
                                 HorizontalAlignment="Left"
                                 Margin="0 12">
-                                
 
-                                <RadioButton
+                            <RadioButton
                                     FontWeight="Medium" FontSize="18"
                                     Cursor="Hand"
-                                    x:Name="RButtonFresh"
                                     Padding="9 3"
                                     Style="{StaticResource MaterialDesignTabRadioButton}"
                                     ToolTip="New spawn coordinates">
-                                    <StackPanel Orientation="Horizontal">
-                                        <materialDesign:PackIcon
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
                                             Kind="Download"
                                             VerticalAlignment="Center"
                                             Margin="0 0 3 0"
                                             Height="21" Width="21"/>
-                                        <TextBlock
+                                    <TextBlock
                                             VerticalAlignment="Center"
                                             Margin="3 0 0 0"
                                             Text="Fresh"/>
-                                    </StackPanel>
-                                </RadioButton>
-                                <RadioButton
+                                </StackPanel>
+                            </RadioButton>
+                            <RadioButton
                                     FontWeight="Medium" FontSize="18"
                                     Cursor="Hand"
-                                    x:Name="RButtonHopper"
                                     Padding="9 3"
                                     Style="{StaticResource MaterialDesignTabRadioButton}"
                                     ToolTip="Server-hopper spawn coordinates">
-                                    <StackPanel Orientation="Horizontal">
-                                        <materialDesign:PackIcon
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
                                             Kind="DebugStepOver"
                                             VerticalAlignment="Center"
                                             Margin="0 0 3 0"
                                             Height="21" Width="21"/>
-                                        <TextBlock
+                                    <TextBlock
                                             VerticalAlignment="Center"
                                             Margin="3 0 0 0"
                                             Text="Hopper"/>
-                                    </StackPanel>
-                                </RadioButton>
-                                <RadioButton
+                                </StackPanel>
+                            </RadioButton>
+                            <RadioButton
                                     FontWeight="Medium" FontSize="18"
                                     Cursor="Hand"
-                                    x:Name="RButtonTraveller"
                                     Padding="9 3"
                                     Style="{StaticResource MaterialDesignTabRadioButton}"
                                     ToolTip="Traveller spawn coordinates">
-                                    <StackPanel Orientation="Horizontal">
-                                        <materialDesign:PackIcon
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
                                             Kind="AxisArrow"
                                             VerticalAlignment="Center"
                                             Margin="0 0 3 0"
                                             Height="21" Width="21"/>
-                                        <TextBlock
+                                    <TextBlock
                                             VerticalAlignment="Center"
                                             Margin="3 0 0 0"
                                             Text="Traveller"/>
-                                    </StackPanel>
-                                </RadioButton>
-                                <RadioButton
+                                </StackPanel>
+                            </RadioButton>
+                            <RadioButton
                                     FontWeight="Medium" FontSize="18"
                                     Cursor="Hand"
-                                    x:Name="RButtonParams"
                                     Padding="9 3"
                                     Style="{StaticResource MaterialDesignTabRadioButton}"
                                     ToolTip="Parameters">
-                                    <StackPanel Orientation="Horizontal">
-                                        <materialDesign:PackIcon
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
                                             Kind="Wrench"
                                             VerticalAlignment="Center"
                                             Margin="0 0 3 0"
                                             Height="21" Width="21"/>
-                                        <TextBlock
+                                    <TextBlock
                                             VerticalAlignment="Center"
                                             Margin="3 0 0 0"
                                             Text="Params"/>
-                                    </StackPanel>
-                                </RadioButton>
-                            </StackPanel>
-                        </DataTemplate>
-                    </GroupBox.HeaderTemplate>
-                    <materialDesign:Card Background="#2F3846" Padding="3">
-                        
-                    </materialDesign:Card>
-                </GroupBox>
-                <GroupBox Grid.Column="1"
-                          Margin="10"
-                          Background="{DynamicResource MaterialDesignDarkBackground}"
-                          materialDesign:ThemeAssist.Theme="Dark"
-                          Header="Card Group Box"
-                          Style="{DynamicResource MaterialDesignCardGroupBox}">
-                    <GroupBox.HeaderTemplate>
-                        <DataTemplate>
-                            <StackPanel
+                                </StackPanel>
+                            </RadioButton>
+                        </StackPanel>
+                    </customcontrols:AdvancedGroupBox.HostedHeaderContent>
+                    <customcontrols:AdvancedGroupBox.HostedBodyContent >
+                        <materialDesign:Card Background="#2F3846" Padding="3">
+                        </materialDesign:Card>
+                    </customcontrols:AdvancedGroupBox.HostedBodyContent>
+    </customcontrols:AdvancedGroupBox>
+                <customcontrols:AdvancedGroupBox Grid.Column="1" Margin="10">
+                    <customcontrols:AdvancedGroupBox.HostedHeaderContent>
+                        <StackPanel
                                 Orientation="Horizontal"
                                 HorizontalAlignment="Left"
                                 Margin="0 12">
-                                <materialDesign:PackIcon
+                            <materialDesign:PackIcon
                                             Kind="MapLegend"
                                             VerticalAlignment="Center"
                                             Margin="5 0 3 0"
                                             Height="21" Width="21"/>
-                                <TextBlock
+                            <TextBlock
                                             VerticalAlignment="Center"
                                             FontWeight="Medium" 
                                             FontSize="18"
                                             Margin="10 0 0 0"
                                             Text="Chernarus Map"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </GroupBox.HeaderTemplate>
+                        </StackPanel>
+                    </customcontrols:AdvancedGroupBox.HostedHeaderContent>
+                    <customcontrols:AdvancedGroupBox.HostedBodyContent >
                     <materialDesign:Card Background="#2F3846" Padding="3">
-                        
-                    </materialDesign:Card>
-                </GroupBox>
+                    
+    </materialDesign:Card>
+        </customcontrols:AdvancedGroupBox.HostedBodyContent>
+    </customcontrols:AdvancedGroupBox>
             </Grid>
         </Grid>
     </materialDesign:Card>
